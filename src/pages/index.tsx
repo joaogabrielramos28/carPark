@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import AppInfo from "../components/AppInfo";
 import Header from "../components/Header";
 import Hero from "../components/Hero";
 import InfoGroup from "../components/InfoGroup";
@@ -11,6 +12,8 @@ const Home: NextPage = () => {
       <InfoGroupContainer>
         <InfoGroup />
       </InfoGroupContainer>
+
+      <AppInfo />
     </Container>
   );
 };
