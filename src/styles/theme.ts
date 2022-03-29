@@ -12,5 +12,6 @@ export default {
     alert: "",
     alert_light: "#FFECED",
     dark: "#000",
+    light_gray: "#F8F9FE",
   },
 };
