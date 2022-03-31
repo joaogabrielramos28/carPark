@@ -53,14 +53,21 @@ export const Button = styled.button`
   }
 `;
 
+export const OauthSection = styled.div`
+  width: 100%;
+  display: flex;
+`;
+
 export const ButtonOAuth = styled.button`
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
   border: none;
   outline: none;
   background-color: ${({ theme }) => theme.colors.title};
   cursor: pointer;
+
+  margin: 0 5px;
   &:hover {
     opacity: 0.7;
     transition: opacity 0.7s;
