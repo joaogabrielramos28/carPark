@@ -1,3 +1,4 @@
+import React, { FormEvent, useRef } from "react";
 import Image from "next/image";
 import InputForm from "../../../components/Input";
 import {
@@ -16,14 +17,16 @@ import {
   GithubAuthProvider,
   getAuth,
   GoogleAuthProvider,
+  signInWithEmailAndPassword,
+  EmailAuthProvider,
 } from "firebase/auth";
 
 import { BsGithub, BsGoogle } from "react-icons/bs";
 import { app } from "../../../services/firebase";
-import { FormEvent } from "react";
 const Login = () => {
   const auth = getAuth(app);
-
+  const email = useRef<HTMLInputElement>(null);
+  const password = useRef<HTMLInputElement>(null);
   function loginWithGithub(e: FormEvent) {
     const provider = new GithubAuthProvider();
     e.preventDefault();
@@ -61,16 +64,38 @@ const Login = () => {
     });
   }
 
+  async function loginWithCredentials(e: FormEvent) {
+    e.preventDefault();
+    try {
+      const result = await signInWithEmailAndPassword(
+        auth,
+        email.current?.value!,
+        password.current?.value!
+      );
+
+      const user = result.user;
+
+      console.log(user);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   return (
     <Container>
       <FormContainer>
-        <Form onSubmit={() => {}}>
+        <Form onSubmit={loginWithCredentials}>
           <Title>Entre na sua conta</Title>
-          <InputForm label="E-mail" placeholder="Digite seu email" />
+          <InputForm
+            label="E-mail"
+            placeholder="Digite seu email"
+            inputRef={email}
+          />
           <InputForm
             label="Senha"
             type={"password"}
             placeholder="Digite sua senha"
+            inputRef={password}
           />
           <OauthSection>
             <ButtonOAuth onClick={loginWithGithub}>
