@@ -1,3 +1,4 @@
+import { User } from "firebase/auth";
 import { FormEvent } from "react";
 
 export interface ILoginContext {
@@ -6,6 +7,12 @@ export interface ILoginContext {
   loginWithGithub: (e: FormEvent) => Promise<void>;
   loginWithGoogle: (e: FormEvent) => Promise<void>;
   loginWithCredentials: (e: FormEvent) => Promise<void>;
-  setUser: React.Dispatch<any>;
-  user: any;
+  setUser: React.Dispatch<IUser | null>;
+  user: IUser | null;
+}
+
+export interface IUser {
+  token: string | Promise<string>;
+  user: User;
+  type: string;
 }

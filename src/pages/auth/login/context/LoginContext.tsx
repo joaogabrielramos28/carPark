@@ -13,24 +13,22 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { app } from "../../../../services/firebase";
-import { ILoginContext } from "./types";
+import { ILoginContext, IUser } from "./types";
 import { setCookie, parseCookies } from "nookies";
 
 const LoginContext = createContext({} as ILoginContext);
 
 const LoginProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<any>(() => {
+  const [user, setUser] = useState<IUser | null>(() => {
     const { "carPark.token": tokenCookies, "carPark.user": userCookies } =
       parseCookies();
 
     if (tokenCookies && userCookies) {
-      return { token: tokenCookies, user: JSON.parse(userCookies) };
+      return { token: tokenCookies, user: JSON.parse(userCookies), type: "" };
     }
 
     return null;
   });
-
-  console.log(user);
 
   const auth = getAuth(app);
   const email = useRef<HTMLInputElement>(null);
@@ -45,9 +43,8 @@ const LoginProvider = ({ children }: { children: React.ReactNode }) => {
       const token = credential?.accessToken;
 
       const user = result.user;
-
       setUser({
-        token,
+        token: token!,
         user,
         type: "github",
       });
@@ -83,7 +80,7 @@ const LoginProvider = ({ children }: { children: React.ReactNode }) => {
         const user = result.user;
 
         setUser({
-          token,
+          token: token!,
           user,
           type: "google",
         });
@@ -112,14 +109,15 @@ const LoginProvider = ({ children }: { children: React.ReactNode }) => {
       );
 
       const user = result.user;
+      const token = await user.getIdToken();
 
       setUser({
-        result,
+        token,
         user,
         type: "default",
       });
 
-      setCookie(undefined, "carPark.token", result.providerId!, {
+      setCookie(undefined, "carPark.token", token!, {
         maxAge: 60 * 60 * 24, // 1 day
         path: "/",
       });
