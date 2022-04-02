@@ -139,6 +139,8 @@ const LoginProvider = ({ children }: { children: React.ReactNode }) => {
         loginWithGithub,
         loginWithGoogle,
         loginWithCredentials,
+        user,
+        setUser,
       }}
     >
       {children}

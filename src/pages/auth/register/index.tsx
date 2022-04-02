@@ -1,5 +1,4 @@
-import React, { FormEvent, useRef } from "react";
-import { getAuth, createUserWithEmailAndPassword, Auth } from "firebase/auth";
+import React from "react";
 import {
   Container,
   FormContainer,
@@ -10,38 +9,10 @@ import {
 } from "./styles";
 import InputForm from "../../../components/Input";
 import Image from "next/image";
-import { app } from "../../../services/firebase/index";
-
-interface ISubmit {
-  auth: Auth;
-  email: string;
-  password: string;
-}
+import { useRegisterContext } from "./context";
 
 const Register = () => {
-  const auth = getAuth(app);
-  const email = useRef<HTMLInputElement>(null);
-  const password = useRef<HTMLInputElement>(null);
-
-  const handleSubmit = (e: FormEvent): void => {
-    e.preventDefault();
-    console.log(email.current?.value);
-    console.log(password.current?.value);
-
-    createUserWithEmailAndPassword(
-      auth,
-      email?.current!.value,
-      password?.current!.value
-    )
-      .then((userCredential) => {
-        const user = userCredential.user;
-        console.log(user);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
+  const { email, password, handleSubmit } = useRegisterContext();
   return (
     <Container>
       <FormContainer>

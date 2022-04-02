@@ -6,4 +6,6 @@ export interface ILoginContext {
   loginWithGithub: (e: FormEvent) => Promise<void>;
   loginWithGoogle: (e: FormEvent) => Promise<void>;
   loginWithCredentials: (e: FormEvent) => Promise<void>;
+  setUser: React.Dispatch<any>;
+  user: any;
 }
