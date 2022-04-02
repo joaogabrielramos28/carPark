@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Image from "next/image";
+import Link from "next/link";
 export const Container = styled.div`
   width: 100%;
   background-color: transparent;
@@ -20,5 +21,57 @@ export const ActionsWrapper = styled.div`
   a {
     margin: 0 10px;
     color: ${({ theme }) => theme.colors.shape};
+  }
+`;
+
+export const AvatarLogo = styled(Image)`
+  border-radius: 50%;
+`;
+
+export const UserLoggedInWrapper = styled.div`
+  width: 150px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  cursor: pointer;
+  svg {
+    margin-left: 5px;
+  }
+`;
+
+export const ImageWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+export const DropDown = styled.div`
+  position: absolute;
+  margin-top: 35px;
+  background-color: ${({ theme }) => theme.colors.light_gray};
+  padding: 12px 4px;
+  width: 80px;
+  border-radius: 4px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1;
+`;
+
+export const DropDownOption = styled.button`
+  border: none;
+  background-color: transparent;
+  outline: none;
+  cursor: pointer;
+  margin: 4px 0;
+
+  font-size: 14px;
+
+  color: ${({ theme }) => theme.colors.title};
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.primary};
+    transition: 0.3s ease;
   }
 `;

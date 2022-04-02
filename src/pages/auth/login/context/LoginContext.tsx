@@ -11,10 +11,11 @@ import {
   getAuth,
   GoogleAuthProvider,
   signInWithEmailAndPassword,
+  signOut,
 } from "firebase/auth";
 import { app } from "../../../../services/firebase";
 import { ILoginContext, IUser } from "./types";
-import { setCookie, parseCookies } from "nookies";
+import { setCookie, parseCookies, destroyCookie } from "nookies";
 
 const LoginContext = createContext({} as ILoginContext);
 
@@ -129,6 +130,14 @@ const LoginProvider = ({ children }: { children: React.ReactNode }) => {
       console.log(e);
     }
   }
+
+  async function logout() {
+    await signOut(auth);
+
+    destroyCookie(undefined, "carPark.token");
+    destroyCookie(undefined, "carPark.user");
+    setUser(null);
+  }
   return (
     <LoginContext.Provider
       value={{
@@ -139,6 +148,7 @@ const LoginProvider = ({ children }: { children: React.ReactNode }) => {
         loginWithCredentials,
         user,
         setUser,
+        logout,
       }}
     >
       {children}

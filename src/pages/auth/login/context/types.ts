@@ -9,6 +9,7 @@ export interface ILoginContext {
   loginWithCredentials: (e: FormEvent) => Promise<void>;
   setUser: React.Dispatch<IUser | null>;
   user: IUser | null;
+  logout: () => Promise<void>;
 }
 
 export interface IUser {
