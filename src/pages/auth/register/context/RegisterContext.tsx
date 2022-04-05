@@ -13,36 +13,32 @@ const RegisterProvider = ({ children }: { children: React.ReactNode }) => {
 
   const { setUser } = useLoginContext();
 
-  const handleSubmit = (e: FormEvent): void => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    createUserWithEmailAndPassword(
+    const result = await createUserWithEmailAndPassword(
       auth,
       email?.current!.value,
       password?.current!.value
-    )
-      .then((userCredential) => {
-        const user = userCredential.user;
-        const token = user.accessToken;
+    );
 
-        setUser({
-          token,
-          user,
-          type: "default",
-        });
+    const user = result.user;
+    const token = await user.getIdToken();
 
-        setCookie(undefined, "carPark.token", token, {
-          maxAge: 60 * 60 * 24, // 1 day,
-          path: "/",
-        });
-        setCookie(undefined, "carPark.user", JSON.stringify(user), {
-          maxAge: 60 * 60 * 24, // 1 day,
-          path: "/",
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    setUser({
+      token,
+      user,
+      type: "default",
+    });
+
+    setCookie(undefined, "carPark.token", token, {
+      maxAge: 60 * 60 * 24, // 1 day,
+      path: "/",
+    });
+    setCookie(undefined, "carPark.user", JSON.stringify(user), {
+      maxAge: 60 * 60 * 24, // 1 day,
+      path: "/",
+    });
   };
   return (
     <RegisterContext.Provider
