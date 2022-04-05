@@ -16,10 +16,12 @@ import {
 import { app } from "../../services/firebase";
 import { ILoginContext, IUser } from "./types";
 import { setCookie, parseCookies, destroyCookie } from "nookies";
+import { useRouter } from "next/router";
 
 const LoginContext = createContext({} as ILoginContext);
 
 const LoginProvider = ({ children }: { children: React.ReactNode }) => {
+  const router = useRouter();
   const [user, setUser] = useState<IUser | null>(() => {
     const { "carPark.token": tokenCookies, "carPark.user": userCookies } =
       parseCookies();
@@ -58,6 +60,7 @@ const LoginProvider = ({ children }: { children: React.ReactNode }) => {
         maxAge: 60 * 60 * 24, // 1 day
         path: "/",
       });
+      router.push("/");
     } catch (error: any) {
       const errorCode = error.code;
       const errorMessage = error.message;
@@ -95,6 +98,7 @@ const LoginProvider = ({ children }: { children: React.ReactNode }) => {
           path: "/",
         });
       });
+      router.push("/");
     } catch (error: any) {
       console.log(error);
     }
@@ -126,6 +130,7 @@ const LoginProvider = ({ children }: { children: React.ReactNode }) => {
         maxAge: 60 * 60 * 24, // 1 day
         path: "/",
       });
+      router.push("/");
     } catch (e) {
       console.log(e);
     }

@@ -55,8 +55,8 @@ const Header = () => {
           </UserLoggedInWrapper>
         ) : (
           <>
-            <Link href="/">Login</Link>
-            <Link href="/">Register</Link>
+            <Link href="/auth/login">Login</Link>
+            <Link href="/auth/register">Register</Link>
           </>
         )}
       </ActionsWrapper>
