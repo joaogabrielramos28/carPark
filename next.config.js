@@ -12,4 +12,5 @@ module.exports = {
     formats: ["image/avif", "image/webp"],
   },
   nextConfig,
+  pageExtensions: ["*.tsx", "*.ts"],
 };
