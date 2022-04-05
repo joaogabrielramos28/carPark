@@ -4,6 +4,7 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
+  pageExtensions: ["page.tsx", "page.ts", "page.jsx", "page.js"],
 };
 
 module.exports = {
@@ -12,5 +13,4 @@ module.exports = {
     formats: ["image/avif", "image/webp"],
   },
   nextConfig,
-  pageExtensions: ["page.tsx", "page.ts", "page.jsx", "page.js"],
 };
