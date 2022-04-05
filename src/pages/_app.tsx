@@ -2,8 +2,8 @@ import type { AppProps } from "next/app";
 import { ThemeProvider } from "styled-components";
 import GlobalStyle from "../styles/globalStyle";
 import theme from "../styles/theme";
-import { LoginProvider } from "./auth/login/context";
-import { RegisterProvider } from "./auth/register/context";
+import { LoginProvider } from "../contexts/Login";
+import { RegisterProvider } from "../contexts/Register";
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <LoginProvider>

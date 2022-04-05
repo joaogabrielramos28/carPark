@@ -1,6 +1,6 @@
 import React, { FormEvent } from "react";
 import Image from "next/image";
-import InputForm from "../../../components/Input";
+import InputForm from "../../../components/Input/Input";
 import {
   Container,
   FormContainer,
@@ -10,10 +10,10 @@ import {
   Button,
   OauthSection,
   ButtonOAuth,
-} from "./styles";
+} from "../../../styles/login/styles";
 
 import { BsGithub, BsGoogle } from "react-icons/bs";
-import { useLoginContext } from "./context";
+import { useLoginContext } from "../../../contexts/Login";
 import { GithubAuthProvider } from "firebase/auth";
 const Login = () => {
   const {

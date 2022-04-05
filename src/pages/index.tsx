@@ -1,9 +1,9 @@
 import type { NextPage } from "next";
-import AppInfo from "../components/AppInfo";
-import Header from "../components/Header";
-import Hero from "../components/Hero";
-import InfoGroup from "../components/InfoGroup";
-import { Container, InfoGroupContainer } from "./styles";
+import AppInfo from "../components/AppInfo/AppInfo";
+import Header from "../components/Header/Header";
+import Hero from "../components/Hero/Hero";
+import InfoGroup from "../components/InfoGroup/InfoGroup";
+import { Container, InfoGroupContainer } from "../styles/home/styles";
 const Home: NextPage = () => {
   return (
     <Container>

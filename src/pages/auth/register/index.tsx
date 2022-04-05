@@ -6,10 +6,10 @@ import {
   Form,
   Title,
   Button,
-} from "./styles";
-import InputForm from "../../../components/Input";
+} from "../../../styles/register/styles";
+import InputForm from "../../../components/Input/Input";
 import Image from "next/image";
-import { useRegisterContext } from "./context";
+import { useRegisterContext } from "../../../contexts/Register";
 
 const Register = () => {
   const { email, password, handleSubmit } = useRegisterContext();

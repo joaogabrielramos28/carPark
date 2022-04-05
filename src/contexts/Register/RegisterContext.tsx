@@ -1,7 +1,7 @@
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import React, { createContext, FormEvent, useContext, useRef } from "react";
-import { app } from "../../../../services/firebase";
-import { useLoginContext } from "../../login/context";
+import { app } from "../../services/firebase";
+import { useLoginContext } from "../Login";
 import { IRegisterContext } from "./types";
 import { setCookie } from "nookies";
 const RegisterContext = createContext({} as IRegisterContext);

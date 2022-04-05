@@ -13,7 +13,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
-import { app } from "../../../../services/firebase";
+import { app } from "../../services/firebase";
 import { ILoginContext, IUser } from "./types";
 import { setCookie, parseCookies, destroyCookie } from "nookies";
 

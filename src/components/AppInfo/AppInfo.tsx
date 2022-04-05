@@ -9,7 +9,7 @@ import {
   Subtitle,
   FeaturesContainer,
 } from "./styles";
-import Tasks from "./Features";
+import Tasks from "./Features/Features";
 
 const AppInfo = () => {
   return (

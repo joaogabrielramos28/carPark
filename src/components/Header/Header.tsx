@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React, { useState } from "react";
-import { useLoginContext } from "../../pages/auth/login/context";
+import { useLoginContext } from "../../contexts/Login";
 
 import {
   Container,
