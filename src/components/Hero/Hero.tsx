@@ -12,16 +12,7 @@ const Hero: NextComponentType = () => {
         </Title>
         <Button>Veja nossos estacionamentos</Button>
       </Content>
-      <ImageWrapper>
-        <Image
-          src="/parking.png"
-          width={650}
-          height={650}
-          alt={
-            "Car parking with 2 cars, one purple and one white. Trees, sun and clouds in the sky"
-          }
-        />
-      </ImageWrapper>
+      <ImageWrapper></ImageWrapper>
     </Container>
   );
 };

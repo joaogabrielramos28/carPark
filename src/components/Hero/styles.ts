@@ -7,6 +7,20 @@ export const Container = styled.div`
   align-items: center;
   height: 550px;
   align-items: center;
+  background: url("/test.jpg");
+  object-fit: cover;
+  background-size: cover;
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+  }
 `;
 
 export const Content = styled.div`
@@ -16,12 +30,14 @@ export const Content = styled.div`
   flex-direction: column;
 `;
 export const Title = styled.h2`
+  z-index: 1;
   font-size: 32px;
-  color: ${({ theme }) => theme.colors.title};
+  color: ${({ theme }) => theme.colors.shape};
 `;
 export const Button = styled.button`
+  z-index: 1;
   max-width: 250px;
-  background-color: ${({ theme }) => theme.colors.primary};
+  background-color: ${({ theme }) => theme.colors.success};
   border: none;
   outline: none;
   color: ${({ theme }) => theme.colors.shape};
