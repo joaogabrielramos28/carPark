@@ -14,5 +14,6 @@ export default {
     dark: "#000",
     light_gray: "#F8F9FE",
     secondary: "#f26600",
+    success: "#00C977",
   },
 };

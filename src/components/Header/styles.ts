@@ -17,10 +17,27 @@ export const Logo = styled(Image)``;
 export const ActionsWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-
+  align-items: center;
   a {
     margin: 0 10px;
-    color: ${({ theme }) => theme.colors.shape};
+
+    &:last-child {
+      color: ${({ theme }) => theme.colors.shape};
+      background-color: ${({ theme }) => theme.colors.success};
+      border-radius: 8px;
+      padding: 14px;
+      font-weight: 500;
+    }
+
+    &:first-child {
+      color: ${({ theme }) => theme.colors.title};
+      font-weight: 500;
+    }
+
+    &:hover {
+      opacity: 0.7;
+      transition: 0.4s ease;
+    }
   }
 `;
 

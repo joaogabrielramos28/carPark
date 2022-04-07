@@ -30,7 +30,7 @@ const Header = () => {
   return (
     <Container>
       <LogoWrapper>
-        <Logo src="/logo.png" width={150} height={100} />
+        <Logo src="/logo.svg" width={150} height={100} />
       </LogoWrapper>
 
       <ActionsWrapper>
