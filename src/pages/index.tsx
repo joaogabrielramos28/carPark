@@ -6,6 +6,7 @@ import Hero from "../components/Hero/Hero";
 import InfoGroup from "../components/InfoGroup/InfoGroup";
 import { Container, InfoGroupContainer } from "../styles/pages/home/styles";
 import { MdSecurity } from "react-icons/md";
+import ClientsApprove from "../components/ClientsApprove/ClientsApprove";
 const Home: NextPage = () => {
   return (
     <Container>
@@ -16,6 +17,8 @@ const Home: NextPage = () => {
       </InfoGroupContainer>
 
       <AppInfo />
+
+      <ClientsApprove />
     </Container>
   );
 };

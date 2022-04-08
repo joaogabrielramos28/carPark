@@ -42,7 +42,7 @@ const AppInfo = () => {
           />
           <Features
             icon={MdAccountBalanceWallet}
-            title={"Seguro e protegido"}
+            title={"Investimento baixo"}
             description={
               "Estacionamentos premium de baixo custo para deixar seu carro mais seguro. "
             }
