@@ -1,23 +1,29 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  width: 100%;
   display: flex;
-  justify-content: space-between;
-  padding: 0 97px;
   align-items: center;
-  height: 550px;
-  align-items: center;
+  justify-content: center;
 `;
 
 export const Content = styled.div`
-  flex: 1;
+  max-width: 1200px;
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  margin-left: 100px;
-  height: 100%;
-  margin-top: 80px;
 `;
 export const Title = styled.h2`
   font-size: 32px;
   color: ${({ theme }) => theme.colors.title};
+`;
+
+export const FeaturesWrapper = styled.div`
+  margin-top: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 50px;
 `;

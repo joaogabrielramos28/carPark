@@ -4,4 +4,5 @@ import Hero from "./Hero/Hero";
 import InfoGroup from "./InfoGroup/InfoGroup";
 import Input from "./Input/Input";
 import Icon from "./Icon/Icon";
-export { AppInfo, Header, Hero, InfoGroup, Input, Icon };
+import Features from "./Features/Features";
+export { AppInfo, Header, Hero, InfoGroup, Input, Icon, Features };
