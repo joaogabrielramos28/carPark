@@ -1,30 +1,20 @@
-import { NextComponentType } from "next";
-import Image from "next/image";
 import React from "react";
+import Icon from "../../Icon/Icon";
 
 import {
   Container,
   ContentWrapper,
-  ImageContainer,
   InfoContainer,
   Quantity,
   Type,
 } from "./styles";
+import { ICardInfoProps } from "./types";
 
-interface ICardInfoProps {
-  quantity: string;
-  image: string;
-  type: string;
-  isLast?: boolean;
-}
-
-const CardInfo = ({ quantity, image, type, isLast }: ICardInfoProps) => {
+const CardInfo = ({ quantity, icon, type, isLast }: ICardInfoProps) => {
   return (
     <Container isLast={isLast}>
       <ContentWrapper>
-        <ImageContainer>
-          <Image src={image} width={25} height={25} alt={`Icone de ${type}`} />
-        </ImageContainer>
+        <Icon icon={icon} />
 
         <InfoContainer>
           <Quantity>{quantity}</Quantity>

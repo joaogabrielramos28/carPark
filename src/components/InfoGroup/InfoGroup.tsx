@@ -1,5 +1,6 @@
 import React from "react";
 import CardInfo from "./CardInfo/CardInfo";
+import { FaCar, FaParking, FaUser } from "react-icons/fa";
 
 import { Container, Wrapper } from "./styles";
 
@@ -7,9 +8,9 @@ const InfoGroup = () => {
   return (
     <Container>
       <Wrapper>
-        <CardInfo image="/user.png" quantity="90+" type="Users" />
-        <CardInfo image="/car-park.png" quantity="90+" type="Parks" />
-        <CardInfo image="/car.png" quantity="90+" type="Cars" isLast />
+        <CardInfo icon={FaUser} quantity="90+" type="Users" />
+        <CardInfo icon={FaParking} quantity="90+" type="Parks" />
+        <CardInfo icon={FaCar} quantity="90+" type="Cars" isLast />
       </Wrapper>
     </Container>
   );
