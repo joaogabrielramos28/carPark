@@ -1,12 +1,11 @@
 import styled from "styled-components";
 import Image from "next/image";
-import Link from "next/link";
 export const Container = styled.div`
   width: 100%;
   background-color: transparent;
   display: flex;
   justify-content: space-between;
-  padding: 0px 75px;
+  padding: 0px 97px;
   align-items: center;
 `;
 
