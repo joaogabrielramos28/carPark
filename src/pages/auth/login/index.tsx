@@ -10,7 +10,7 @@ import {
   Button,
   OauthSection,
   ButtonOAuth,
-} from "../../../styles/login/styles";
+} from "../../../styles/pages/login/styles";
 
 import { BsGithub, BsGoogle } from "react-icons/bs";
 import { useLoginContext } from "../../../contexts/Login";

@@ -6,7 +6,7 @@ import {
   Form,
   Title,
   Button,
-} from "../../../styles/register/styles";
+} from "../../../styles/pages/register/styles";
 import InputForm from "../../../components/Input/Input";
 import Image from "next/image";
 import { useRegisterContext } from "../../../contexts/Register";
