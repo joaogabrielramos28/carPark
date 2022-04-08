@@ -11,7 +11,8 @@ import { useEffect } from "react";
 function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     Aos.init({
-      easing: "ease-out-cubic",
+      easing: "ease",
+      duration: 700,
     });
   }, []);
   return (
