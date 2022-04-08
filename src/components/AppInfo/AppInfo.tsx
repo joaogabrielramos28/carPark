@@ -12,7 +12,7 @@ import { Container, Content, Title, FeaturesWrapper } from "./styles";
 
 const AppInfo = () => {
   return (
-    <Container>
+    <Container data-aos="fade-right">
       <Content>
         <Title>Nossos recursos</Title>
         <FeaturesWrapper>

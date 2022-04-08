@@ -9,9 +9,10 @@ import { MdSecurity } from "react-icons/md";
 import ClientsApprove from "../components/ClientsApprove/ClientsApprove";
 const Home: NextPage = () => {
   return (
-    <Container>
+    <Container data-aos="fade-in">
       <Header />
       <Hero />
+
       <InfoGroupContainer>
         <InfoGroup />
       </InfoGroupContainer>

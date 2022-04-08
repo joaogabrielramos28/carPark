@@ -4,7 +4,16 @@ import GlobalStyle from "../styles/globalStyle";
 import theme from "../styles/theme";
 import { LoginProvider } from "../contexts/Login";
 import { RegisterProvider } from "../contexts/Register";
+
+import Aos from "aos";
+import "aos/dist/aos.css";
+import { useEffect } from "react";
 function MyApp({ Component, pageProps }: AppProps) {
+  useEffect(() => {
+    Aos.init({
+      easing: "ease-out-cubic",
+    });
+  }, []);
   return (
     <LoginProvider>
       <RegisterProvider>

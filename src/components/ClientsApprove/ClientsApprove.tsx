@@ -30,7 +30,7 @@ const options: ApexOptions = {
 
 const ClientsApprove = () => {
   return (
-    <Container>
+    <Container data-aos="fade-up">
       <Content>
         <CharWrapper>
           <Chart
