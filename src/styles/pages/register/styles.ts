@@ -82,6 +82,7 @@ export const HasAccount = styled.span`
   margin-top: 15px;
   color: ${({ theme }) => theme.colors.title};
   cursor: pointer;
+  text-align: center;
 
   &:hover {
     opacity: 0.7;
