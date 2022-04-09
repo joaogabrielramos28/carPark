@@ -15,5 +15,6 @@ export default {
     light_gray: "#F8F9FE",
     secondary: "#f26600",
     success: "#00C977",
+    success_light: "rgba(0, 201, 119,0.5)",
   },
 };

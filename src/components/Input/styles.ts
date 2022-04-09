@@ -25,7 +25,7 @@ export const Input = styled.input<IInputProps>`
   ${({ theme, isFocus }) =>
     isFocus &&
     css`
-      border: 2px solid ${theme.colors.primary};
+      border: 2px solid ${theme.colors.success_light};
     `}
 `;
 

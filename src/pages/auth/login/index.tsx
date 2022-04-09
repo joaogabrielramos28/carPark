@@ -1,8 +1,9 @@
-import React, { FormEvent } from "react";
+import React from "react";
 import Image from "next/image";
 import InputForm from "../../../components/Input/Input";
 import {
   Container,
+  ArrowBack,
   FormContainer,
   ImageContainer,
   Form,
@@ -11,10 +12,10 @@ import {
   OauthSection,
   ButtonOAuth,
 } from "../../../styles/pages/login/styles";
-
 import { BsGithub, BsGoogle } from "react-icons/bs";
 import { useLoginContext } from "../../../contexts/Login";
-import { GithubAuthProvider } from "firebase/auth";
+import { AiOutlineArrowLeft } from "react-icons/ai";
+import Link from "next/link";
 const Login = () => {
   const {
     email,
@@ -25,7 +26,13 @@ const Login = () => {
   } = useLoginContext();
 
   return (
-    <Container>
+    <Container data-aos="fade-right">
+      <ArrowBack>
+        <Link href="/" passHref>
+          <AiOutlineArrowLeft size={32} />
+        </Link>
+      </ArrowBack>
+
       <FormContainer>
         <Form onSubmit={loginWithCredentials}>
           <Title>Entre na sua conta</Title>
@@ -51,14 +58,7 @@ const Login = () => {
           <Button type="submit">Entrar</Button>
         </Form>
       </FormContainer>
-      <ImageContainer>
-        <Image
-          src="/parking-login.gif"
-          width={650}
-          height={650}
-          alt="A woman opening your car in car park"
-        />
-      </ImageContainer>
+      <ImageContainer></ImageContainer>
     </Container>
   );
 };

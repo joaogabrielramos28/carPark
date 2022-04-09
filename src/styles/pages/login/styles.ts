@@ -4,9 +4,24 @@ export const Container = styled.div`
   flex: 1;
   display: flex;
   width: 100%;
+  position: relative;
+`;
+
+export const ArrowBack = styled.div`
+  padding: 50px 80px;
+  position: absolute;
+  svg {
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.4;
+      transition: 0.7s;
+    }
+  }
 `;
 
 export const FormContainer = styled.div`
+  padding: 0 80px;
   max-width: 800px;
   width: 100%;
   height: 100vh;
@@ -31,7 +46,7 @@ export const Label = styled.label`
 
 export const Button = styled.button`
   max-width: 450px;
-  background-color: ${({ theme }) => theme.colors.primary};
+  background-color: ${({ theme }) => theme.colors.success};
 
   color: ${({ theme }) => theme.colors.shape};
 
@@ -80,4 +95,7 @@ export const ImageContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  background: url("/login-bg.jpg") no-repeat bottom;
+  background-size: cover;
+  object-fit: cover;
 `;
