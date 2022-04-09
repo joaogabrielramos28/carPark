@@ -10,7 +10,6 @@ import {
   HasAccount,
 } from "../../../styles/pages/register/styles";
 import InputForm from "../../../components/Input/Input";
-import Image from "next/image";
 import { useRegisterContext } from "../../../contexts/Register";
 import Link from "next/link";
 import { AiOutlineArrowLeft } from "react-icons/ai";
