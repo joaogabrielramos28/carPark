@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import { Features } from "../components";
+import { AppMobile, Features } from "../components";
 import AppInfo from "../components/AppInfo/AppInfo";
 import Header from "../components/Header/Header";
 import Hero from "../components/Hero/Hero";
@@ -20,6 +20,8 @@ const Home: NextPage = () => {
       <AppInfo />
 
       <ClientsApprove />
+
+      <AppMobile />
     </Container>
   );
 };

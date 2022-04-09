@@ -5,4 +5,5 @@ import InfoGroup from "./InfoGroup/InfoGroup";
 import Input from "./Input/Input";
 import Icon from "./Icon/Icon";
 import Features from "./Features/Features";
-export { AppInfo, Header, Hero, InfoGroup, Input, Icon, Features };
+import AppMobile from "./AppMobile/AppMobile";
+export { AppInfo, Header, Hero, InfoGroup, Input, Icon, Features, AppMobile };
