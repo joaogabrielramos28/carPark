@@ -45,8 +45,9 @@ const AppMobile = () => {
       </DownloadContainer>
 
       <ImageContainer
+        data-aos="flip-right"
         src="https://cdn.dribbble.com/users/9516339/screenshots/16971584/media/224455b212ffdaca52831f935c8b2a78.png?compress=1&resize=1000x750&vertical=top"
-        alt=""
+        alt="Picture of car park app mobile"
       />
     </Container>
   );
