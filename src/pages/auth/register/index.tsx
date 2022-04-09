@@ -1,20 +1,29 @@
 import React from "react";
 import {
   Container,
+  ArrowBack,
   FormContainer,
   ImageContainer,
   Form,
   Title,
   Button,
+  HasAccount,
 } from "../../../styles/pages/register/styles";
 import InputForm from "../../../components/Input/Input";
 import Image from "next/image";
 import { useRegisterContext } from "../../../contexts/Register";
+import Link from "next/link";
+import { AiOutlineArrowLeft } from "react-icons/ai";
 
 const Register = () => {
   const { email, password, handleSubmit } = useRegisterContext();
   return (
-    <Container>
+    <Container data-aos="fade-right">
+      <ArrowBack>
+        <Link href="/" passHref>
+          <AiOutlineArrowLeft size={32} />
+        </Link>
+      </ArrowBack>
       <FormContainer>
         <Form onSubmit={handleSubmit}>
           <Title>Crie sua conta</Title>
@@ -29,17 +38,14 @@ const Register = () => {
             placeholder="Digite sua senha"
             inputRef={password}
           />
+
           <Button type="submit">Entrar</Button>
+          <Link href={"/auth/login"} passHref>
+            <HasAccount>Já tenho uma conta</HasAccount>
+          </Link>
         </Form>
       </FormContainer>
-      <ImageContainer>
-        <Image
-          src="/parking.gif"
-          width={650}
-          height={650}
-          alt="A woman opening your car in car park"
-        />
-      </ImageContainer>
+      <ImageContainer></ImageContainer>
     </Container>
   );
 };

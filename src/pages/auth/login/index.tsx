@@ -9,6 +9,7 @@ import {
   Form,
   Title,
   Button,
+  ForgetMyPass,
   OauthSection,
   ButtonOAuth,
 } from "../../../styles/pages/login/styles";
@@ -56,6 +57,7 @@ const Login = () => {
             </ButtonOAuth>
           </OauthSection>
           <Button type="submit">Entrar</Button>
+          <ForgetMyPass>Esqueci minha senha</ForgetMyPass>
         </Form>
       </FormContainer>
       <ImageContainer></ImageContainer>

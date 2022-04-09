@@ -99,3 +99,15 @@ export const ImageContainer = styled.div`
   background-size: cover;
   object-fit: cover;
 `;
+
+export const ForgetMyPass = styled.span`
+  max-width: 450px;
+  margin-top: 15px;
+  color: ${({ theme }) => theme.colors.title};
+  cursor: pointer;
+  text-align: center;
+  &:hover {
+    opacity: 0.7;
+    transition: 0.5s;
+  }
+`;
