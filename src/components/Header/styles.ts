@@ -16,7 +16,9 @@ export const Container = styled.div`
 export const LogoWrapper = styled.div`
   background-color: transparent;
 `;
-export const Logo = styled(Image)``;
+export const Logo = styled(Image)`
+  cursor: pointer;
+`;
 export const ActionsWrapper = styled.div`
   display: flex;
   justify-content: space-between;
