@@ -20,6 +20,7 @@ export const ArrowBack = styled.div`
 `;
 
 export const FormContainer = styled.div`
+  padding: 0 80px;
   max-width: 800px;
   width: 100%;
   height: 100vh;
@@ -82,6 +83,7 @@ export const HasAccount = styled.span`
   margin-top: 15px;
   color: ${({ theme }) => theme.colors.title};
   cursor: pointer;
+  text-align: center;
 
   &:hover {
     opacity: 0.7;
