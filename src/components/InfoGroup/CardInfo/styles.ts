@@ -13,6 +13,12 @@ export const Container = styled.div<ContainerProps>`
     `};
   padding: 10px;
   margin: 0 30px;
+
+  @media (max-width: 550px) {
+    margin: 0;
+    padding: 20px;
+    border-right: 0;
+  }
 `;
 
 export const ContentWrapper = styled.div`
@@ -20,26 +26,30 @@ export const ContentWrapper = styled.div`
 
   align-items: center;
 `;
-export const ImageContainer = styled.div`
-  width: 70px;
-  height: 70px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 35px;
-  background-color: ${({ theme }) => theme.colors.alert_light};
-`;
+
 export const InfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 30px;
+
+  @media (max-width: 550px) {
+    margin-left: 10px;
+  }
 `;
 export const Quantity = styled.span`
   font-size: 24px;
   font-weight: 500;
   color: ${({ theme }) => theme.colors.dark};
+
+  @media screen and (max-width: 500px) {
+    font-size: 18px;
+  }
 `;
 export const Type = styled.span`
   font-size: 24px;
   color: ${({ theme }) => theme.colors.text};
+
+  @media screen and (max-width: 500px) {
+    font-size: 16px;
+  }
 `;

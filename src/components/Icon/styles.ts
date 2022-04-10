@@ -8,4 +8,13 @@ export const Container = styled.div`
   justify-content: center;
   border-radius: 35px;
   background-color: ${({ theme }) => theme.colors.alert_light};
+
+  @media (max-width: 550px) {
+    width: 40px;
+    height: 40px;
+
+    svg {
+      width: 18px;
+    }
+  }
 `;

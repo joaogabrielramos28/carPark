@@ -7,6 +7,10 @@ export const Container = styled.div`
   justify-content: space-between;
   padding: 0px 97px;
   align-items: center;
+
+  @media (max-width: 550px) {
+    padding: 0 20px;
+  }
 `;
 
 export const LogoWrapper = styled.div`
