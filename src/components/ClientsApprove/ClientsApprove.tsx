@@ -17,6 +17,9 @@ import dynamic from "next/dynamic";
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 const options: ApexOptions = {
+  chart: {
+    width: 550,
+  },
   labels: [
     "Vagas de carro",
     "Vagas de moto",
@@ -26,6 +29,24 @@ const options: ApexOptions = {
   series: [40, 30, 20, 10],
   colors: ["#00b894", "#F7373A", "#f8c419", "#68292c"],
   legend: { show: false },
+  responsive: [
+    {
+      breakpoint: 550,
+      options: {
+        chart: {
+          width: 400,
+        },
+      },
+    },
+    {
+      breakpoint: 400,
+      options: {
+        chart: {
+          width: 300,
+        },
+      },
+    },
+  ],
 };
 
 const ClientsApprove = () => {
@@ -33,12 +54,7 @@ const ClientsApprove = () => {
     <Container data-aos="fade-up">
       <Content>
         <CharWrapper>
-          <Chart
-            type="donut"
-            width={550}
-            options={options}
-            series={options.series}
-          />
+          <Chart type="donut" options={options} series={options.series} />
         </CharWrapper>
         <InfoContainer>
           <Title>Vagas CarPark</Title>

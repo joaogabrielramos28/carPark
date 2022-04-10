@@ -28,6 +28,13 @@ export const Content = styled.div`
   background: #f5f8ff;
   border-radius: 8px;
   padding: 50px 30px;
+
+  @media (max-width: 550px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 `;
 export const InfoContainer = styled.div`
   display: flex;

@@ -20,6 +20,7 @@ export const ArrowBack = styled.div`
 `;
 
 export const FormContainer = styled.div`
+  padding: 0 80px;
   max-width: 800px;
   width: 100%;
   height: 100vh;

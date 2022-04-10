@@ -5,6 +5,11 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media (max-width: 550px) {
+    flex-direction: column;
+    padding: 0 20px;
+  }
 `;
 
 export const DownloadContainer = styled.div`
@@ -106,4 +111,10 @@ export const AndroidButton = styled.button`
 `;
 export const ImageContainer = styled.img`
   max-width: 600px;
+
+  @media (max-width: 550px) {
+    margin-top: 20px;
+    width: 100%;
+    height: 100%;
+  }
 `;

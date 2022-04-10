@@ -28,6 +28,11 @@ export const Content = styled.div`
   display: flex;
   justify-content: left;
   flex-direction: column;
+
+  @media (max-width: 550px) {
+    width: 100vw;
+    justify-content: center;
+  }
 `;
 export const Title = styled.h2`
   z-index: 1;
