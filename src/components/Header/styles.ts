@@ -87,7 +87,7 @@ export const DropDownOption = styled.button`
   color: ${({ theme }) => theme.colors.title};
 
   &:hover {
-    color: ${({ theme }) => theme.colors.primary};
+    color: ${({ theme }) => theme.colors.success};
     transition: 0.3s ease;
   }
 `;
