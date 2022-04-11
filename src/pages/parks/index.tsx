@@ -1,7 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Header, Loading } from "../../components";
 import { ParkCard } from "../../components";
-import { Container } from "../../styles/pages/parks/styles";
+import {
+  Container,
+  NoParks,
+  ContainerNoParks,
+} from "../../styles/pages/parks/styles";
 import { collection, getDocs, query, DocumentData } from "firebase/firestore";
 import { database } from "../../services/firebase";
 import { GetServerSideProps, GetStaticProps } from "next";
@@ -11,15 +15,15 @@ interface IParkProps extends DocumentData {
 }
 
 const Parks = ({ parks }: IParkProps) => {
-  console.log(parks);
-
-  if (parks.length === 0) {
-    return <Loading />;
-  }
-
   return (
     <Container>
       <Header />
+      {parks.length === 0 && (
+        <ContainerNoParks>
+          <NoParks>Não foi encontrado nenhum park {":("} </NoParks>
+          <Loading />
+        </ContainerNoParks>
+      )}
       {parks.map((park: IParkProps) => (
         <ParkCard
           key={park.id}

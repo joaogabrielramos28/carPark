@@ -7,7 +7,7 @@ export const Container = styled.div`
   align-items: center;
   height: 550px;
   align-items: center;
-  background: url("/test.jpg");
+  background: url("/background-home.jpg");
   object-fit: cover;
   background-size: cover;
   position: relative;
