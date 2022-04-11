@@ -7,6 +7,7 @@ import Icon from "./Icon/Icon";
 import Features from "./Features/Features";
 import AppMobile from "./AppMobile/AppMobile";
 import ParkCard from "./ParkCard/ParkCard";
+import Loading from "./Loading/Loading";
 export {
   AppInfo,
   Header,
@@ -17,4 +18,5 @@ export {
   Features,
   AppMobile,
   ParkCard,
+  Loading,
 };
