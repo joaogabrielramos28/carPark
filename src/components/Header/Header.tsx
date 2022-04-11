@@ -30,7 +30,9 @@ const Header = () => {
   return (
     <Container>
       <LogoWrapper>
-        <Logo src="/logo.svg" width={150} height={100} />
+        <Link href={"/"} passHref>
+          <Logo src="/logo.svg" width={150} height={100} />
+        </Link>
       </LogoWrapper>
 
       <ActionsWrapper>
