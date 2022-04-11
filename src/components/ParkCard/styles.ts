@@ -9,6 +9,12 @@ export const Container = styled.div`
   height: 165px;
 
   cursor: pointer;
+
+  @media (max-width: 550px) {
+    width: 100%;
+    flex-direction: column;
+    height: 100%;
+  }
 `;
 
 export const ParkWrapper = styled.div``;
@@ -17,6 +23,9 @@ export const ParkImage = styled.img`
   height: 100%;
   object-fit: cover;
   border-radius: 8px;
+  @media (max-width: 550px) {
+    width: 100%;
+  }
 `;
 export const ParkInfoWrapper = styled.div`
   width: 100%;
@@ -54,6 +63,10 @@ export const ParkWrapperPrice = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+
+  @media (max-width: 550px) {
+    padding: 0 5px;
+  }
 `;
 
 export const ParkType = styled.div`
@@ -63,5 +76,9 @@ export const ParkType = styled.div`
 
   svg {
     margin: 0px 5px;
+  }
+
+  @media (max-width: 550px) {
+    margin: 10px 0;
   }
 `;
