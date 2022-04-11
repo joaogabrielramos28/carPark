@@ -8,6 +8,20 @@ import { RegisterProvider } from "../contexts/Register";
 import Aos from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
+import Nprogress from "nprogress";
+import { Router } from "next/router";
+import "../../public/nprogress.css";
+Router.events.on("routeChangeStart", () => {
+  Nprogress.start();
+});
+
+Router.events.on("routeChangeComplete", () => {
+  Nprogress.done();
+});
+Router.events.on("routeChangeError", () => {
+  Nprogress.done();
+});
+
 function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     Aos.init({
