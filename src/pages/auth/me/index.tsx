@@ -93,8 +93,10 @@ const Me = () => {
     reload(auth.currentUser!);
   };
 
-  const lastLoginTimeStamp = Number(user?.user?.lastLoginAt);
-  const createdAtTimeStamp = Number(user?.user?.createdAt);
+  const lastLoginTimeStamp =
+    Number(user?.user?.lastLoginAt) || user?.user.metadata.lastSignInTime;
+  const createdAtTimeStamp =
+    Number(user?.user?.createdAt) || user?.user.metadata.creationTime;
 
   const lastLoginDate = new Date(lastLoginTimeStamp!).toLocaleString("pt-BR");
   const createdAtDate = new Date(createdAtTimeStamp!).toLocaleString("pt-BR");
