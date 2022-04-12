@@ -92,10 +92,12 @@ const Me = () => {
     await sendEmailVerification(auth.currentUser!);
     reload(auth.currentUser!);
   };
-  const lastLoginTimeStamp = Number(user?.user?.metadata?.lastSignInTime);
-  const createdAtTimeStamp = Number(user?.user.metadata.creationTime);
-  const lastLogindate = new Date(lastLoginTimeStamp).toLocaleString("pt-BR");
-  const createdAtdate = new Date(createdAtTimeStamp).toLocaleString("pt-BR");
+
+  const lastLoginTimeStamp = Number(user?.user?.lastLoginAt);
+  const createdAtTimeStamp = Number(user?.user?.createdAt);
+
+  const lastLoginDate = new Date(lastLoginTimeStamp!).toLocaleString("pt-BR");
+  const createdAtDate = new Date(createdAtTimeStamp!).toLocaleString("pt-BR");
 
   return (
     <Container>
@@ -111,9 +113,9 @@ const Me = () => {
             </ReSendConfirmation>
           )}
           <UserLastLoginTitle>Ultimo Acesso</UserLastLoginTitle>
-          <UserLastLoginDate>{lastLogindate}</UserLastLoginDate>
+          <UserLastLoginDate>{lastLoginDate}</UserLastLoginDate>
           <UserLastLoginTitle>Conta criada</UserLastLoginTitle>
-          <UserLastLoginDate>{createdAtdate}</UserLastLoginDate>
+          <UserLastLoginDate>{createdAtDate}</UserLastLoginDate>
         </Painel>
       )}
     </Container>
