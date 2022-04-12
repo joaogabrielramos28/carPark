@@ -40,7 +40,7 @@ const Header = () => {
           <UserLoggedInWrapper onClick={toggleDropDown}>
             <ImageWrapper>
               <AvatarLogo
-                src={user?.user?.photoURL || ""}
+                src={user?.user?.photoURL || "/user-placeholder.png"}
                 width={30}
                 height={30}
                 alt={"User logged image"}
@@ -49,7 +49,9 @@ const Header = () => {
             </ImageWrapper>
             {dropDownIsActive && (
               <DropDown>
-                <DropDownOption>Perfil</DropDownOption>
+                <Link href={"/auth/me"} passHref>
+                  <DropDownOption>Perfil</DropDownOption>
+                </Link>
                 <DropDownOption>Reservas</DropDownOption>
                 <DropDownOption onClick={logout}>Logout</DropDownOption>
               </DropDown>
