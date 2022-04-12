@@ -92,8 +92,8 @@ const Me = () => {
     await sendEmailVerification(auth.currentUser!);
     reload(auth.currentUser!);
   };
-  const lastLoginTimeStamp = Number(user?.user.lastLoginAt);
-  const createdAtTimeStamp = Number(user?.user.createdAt);
+  const lastLoginTimeStamp = Number(user?.user?.metadata?.lastSignInTime);
+  const createdAtTimeStamp = Number(user?.user.metadata.creationTime);
   const lastLogindate = new Date(lastLoginTimeStamp).toLocaleString("pt-BR");
   const createdAtdate = new Date(createdAtTimeStamp).toLocaleString("pt-BR");
 

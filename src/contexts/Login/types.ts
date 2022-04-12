@@ -14,11 +14,6 @@ export interface ILoginContext {
 
 export interface IUser {
   token: string | Promise<string>;
-  user: IUserFirebase;
+  user: User;
   type: string;
-}
-
-export interface IUserFirebase extends User {
-  lastLoginAt: string;
-  createdAt: string;
 }
