@@ -12,6 +12,7 @@ export default {
     alert: "",
     alert_light: "#FFECED",
     dark: "#000",
+    gray: "#d4d4d4",
     light_gray: "#F8F9FE",
     secondary: "#f26600",
     success: "#00C977",

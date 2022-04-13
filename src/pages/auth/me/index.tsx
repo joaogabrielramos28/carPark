@@ -22,6 +22,8 @@ import {
   UserLastLoginDate,
 } from "../../../styles/pages/me/styles";
 import { setCookie, parseCookies } from "nookies";
+import { Header } from "../../../components";
+import Router from "next/router";
 const Me = () => {
   const [newUserImage, setNewUserImage] = useState<any | null>({});
   const storage = getStorage();
@@ -56,6 +58,7 @@ const Me = () => {
     });
 
     reload(auth.currentUser!);
+    Router.reload();
   };
 
   const handleChangeImage = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -79,39 +82,46 @@ const Me = () => {
   const createdAtDate = new Date(createdAtTimeStamp!).toLocaleString("pt-BR");
 
   return (
-    <Container>
-      {!!user && (
-        <Painel>
-          <UserImageWrapper>
-            <UserImage src={user?.user?.photoURL || "/user-placeholder.png"} />
-            <CircleCamera>
-              <label htmlFor="file">
-                <AiOutlineCamera color={"#FFFF"} size={20} />
-              </label>
-
-              <input
-                type="file"
-                id="file"
-                onChange={(e) => handleChangeImage(e)}
+    <>
+      <Header />
+      <Container>
+        {!!user && (
+          <Painel>
+            <UserImageWrapper>
+              <UserImage
+                src={user?.user?.photoURL || "/user-placeholder.png"}
               />
-            </CircleCamera>
-          </UserImageWrapper>
-          <UserName>{user?.user.displayName}</UserName>
-          <UserEmail>{user?.user.email}</UserEmail>
+              <CircleCamera>
+                <label htmlFor="file">
+                  <AiOutlineCamera color={"#FFFF"} size={20} />
+                </label>
 
-          {!user?.user.emailVerified && (
-            <ReSendConfirmation onClick={handleSendEmailConfirmation}>
-              Reenviar email para confirmação
-            </ReSendConfirmation>
-          )}
-          <UserLastLoginTitle>Ultimo Acesso</UserLastLoginTitle>
-          <UserLastLoginDate>{lastLoginDate}</UserLastLoginDate>
-          <UserLastLoginTitle>Conta criada</UserLastLoginTitle>
-          <UserLastLoginDate>{createdAtDate}</UserLastLoginDate>
-          <button onClick={update}>UP</button>
-        </Painel>
-      )}
-    </Container>
+                <input
+                  type="file"
+                  id="file"
+                  onChange={(e) => handleChangeImage(e)}
+                />
+              </CircleCamera>
+            </UserImageWrapper>
+            <UserName>{user?.user.displayName}</UserName>
+            <UserEmail>{user?.user.email}</UserEmail>
+
+            {!user?.user.emailVerified && (
+              <ReSendConfirmation onClick={handleSendEmailConfirmation}>
+                Reenviar email para confirmação
+              </ReSendConfirmation>
+            )}
+            <UserLastLoginTitle>Ultimo Acesso</UserLastLoginTitle>
+            <UserLastLoginDate>{lastLoginDate}</UserLastLoginDate>
+            <UserLastLoginTitle>Conta criada</UserLastLoginTitle>
+            <UserLastLoginDate>{createdAtDate}</UserLastLoginDate>
+            <button type={"submit"} onClick={update}>
+              UP
+            </button>
+          </Painel>
+        )}
+      </Container>
+    </>
   );
 };
 export default Me;

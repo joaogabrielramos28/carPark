@@ -6,6 +6,7 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  user-select: none;
 `;
 
 export const Painel = styled.section`
@@ -13,7 +14,7 @@ export const Painel = styled.section`
   margin-top: 40px;
   width: 1200px;
   height: 800px;
-  background-color: ${({ theme }) => theme.colors.primary};
+  background-color: ${({ theme }) => theme.colors.gray};
   border-radius: 8px;
   display: flex;
   flex-direction: column;
