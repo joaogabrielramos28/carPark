@@ -12,6 +12,7 @@ module.exports = {
       "avatars.githubusercontent.com",
       "lh3.googleusercontent.com",
       "upload.wikimedia.org",
+      "firebasestorage.googleapis.com",
     ],
     formats: ["image/avif", "image/webp"],
   },
