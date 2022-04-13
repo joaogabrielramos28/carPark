@@ -34,6 +34,8 @@ const LoginProvider = ({ children }: { children: React.ReactNode }) => {
     return null;
   });
 
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
   const auth = getAuth(app);
   const email = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
@@ -148,8 +150,16 @@ const LoginProvider = ({ children }: { children: React.ReactNode }) => {
   }
 
   async function resetPassword(email: string) {
-    await sendPasswordResetEmail(auth, email);
+    if (email) {
+      await sendPasswordResetEmail(auth, email);
+    }
+
+    return;
   }
+
+  const handleToogleModal = () => {
+    setModalIsOpen(!modalIsOpen);
+  };
   return (
     <LoginContext.Provider
       value={{
@@ -162,6 +172,8 @@ const LoginProvider = ({ children }: { children: React.ReactNode }) => {
         setUser,
         logout,
         resetPassword,
+        modalIsOpen,
+        handleToogleModal,
       }}
     >
       {children}

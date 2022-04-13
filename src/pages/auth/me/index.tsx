@@ -26,7 +26,7 @@ import {
 } from "../../../styles/pages/me/styles";
 import { FiEdit2 } from "react-icons/fi";
 
-import { BackButton, ModalEdit } from "../../../components";
+import { BackButton, Modal } from "../../../components";
 import { useMeContext } from "../../../contexts/Me/";
 import { useLoginContext } from "../../../contexts/Login";
 const Me = () => {
@@ -87,7 +87,7 @@ const Me = () => {
             <UserLastLoginTitle>Conta criada</UserLastLoginTitle>
             <UserLastLoginDate>{createdAtDate}</UserLastLoginDate>
             {isEditing && (
-              <ModalEdit>
+              <Modal onClose={handleToogleEditMode}>
                 <Content>
                   <UserImageWrapper>
                     <UserImageModal
@@ -138,7 +138,7 @@ const Me = () => {
                     </UpdateUser>
                   </InfoWrapper>
                 </Content>
-              </ModalEdit>
+              </Modal>
             )}
           </Painel>
         )}

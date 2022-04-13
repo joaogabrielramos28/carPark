@@ -9,7 +9,7 @@ import AppMobile from "./AppMobile/AppMobile";
 import ParkCard from "./ParkCard/ParkCard";
 import Loading from "./Loading/Loading";
 import BackButton from "./BackButton/BackButton";
-import ModalEdit from "./ModalEdit/ModalEdit";
+import Modal from "./Modal/Modal";
 export {
   AppInfo,
   Header,
@@ -22,5 +22,5 @@ export {
   ParkCard,
   Loading,
   BackButton,
-  ModalEdit,
+  Modal,
 };

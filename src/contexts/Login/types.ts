@@ -11,6 +11,8 @@ export interface ILoginContext {
   user: IUser | null;
   logout: () => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
+  modalIsOpen: boolean;
+  handleToogleModal: () => void;
 }
 
 export interface IUser {

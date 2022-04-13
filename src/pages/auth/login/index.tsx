@@ -1,5 +1,4 @@
-import React from "react";
-import Image from "next/image";
+import React, { useRef } from "react";
 import InputForm from "../../../components/Input/Input";
 import {
   Container,
@@ -12,12 +11,17 @@ import {
   ForgetMyPass,
   OauthSection,
   ButtonOAuth,
+  ModalContent,
+  TitleModal,
+  DescriptionModal,
+  InputReset,
+  ButtonReset,
 } from "../../../styles/pages/login/styles";
 import { BsGithub, BsGoogle } from "react-icons/bs";
 import { useLoginContext } from "../../../contexts/Login";
-import { AiOutlineArrowLeft } from "react-icons/ai";
-import Link from "next/link";
-import { BackButton } from "../../../components";
+
+import { BackButton, Modal } from "../../../components";
+import { useMeContext } from "../../../contexts/Me";
 const Login = () => {
   const {
     email,
@@ -26,7 +30,11 @@ const Login = () => {
     loginWithGithub,
     loginWithGoogle,
     resetPassword,
+    handleToogleModal,
+    modalIsOpen,
   } = useLoginContext();
+
+  const emailRef = useRef<HTMLInputElement>(null);
 
   return (
     <Container data-aos="fade-right">
@@ -57,10 +65,34 @@ const Login = () => {
             </ButtonOAuth>
           </OauthSection>
           <Button type="submit">Entrar</Button>
-          <ForgetMyPass>Esqueci minha senha</ForgetMyPass>
+          <ForgetMyPass onClick={handleToogleModal}>
+            Esqueci minha senha
+          </ForgetMyPass>
         </Form>
       </FormContainer>
       <ImageContainer></ImageContainer>
+      {modalIsOpen && (
+        <Modal onClose={handleToogleModal}>
+          <ModalContent>
+            <TitleModal>Esqueceu sua senha?</TitleModal>
+            <DescriptionModal>
+              Digite seu e-mail para enviarmos um link para você redefinir sua
+              senha.
+            </DescriptionModal>
+
+            <InputReset
+              placeholder="Digite seu e-mail"
+              inputRef={emailRef}
+              onChange={(e) => console.log(emailRef.current?.value!)}
+            />
+            <ButtonReset
+              onClick={() => resetPassword(emailRef.current?.value!)}
+            >
+              Enviar e-mail
+            </ButtonReset>
+          </ModalContent>
+        </Modal>
+      )}
     </Container>
   );
 };

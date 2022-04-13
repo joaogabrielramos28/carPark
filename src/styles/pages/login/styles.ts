@@ -1,4 +1,6 @@
+import { BsFileX } from "react-icons/bs";
 import styled from "styled-components";
+import InputForm from "../../../components/Input/Input";
 
 export const Container = styled.div`
   flex: 1;
@@ -110,4 +112,35 @@ export const ForgetMyPass = styled.span`
     opacity: 0.7;
     transition: 0.5s;
   }
+`;
+
+export const ModalContent = styled.section`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60%;
+  flex-direction: column;
+`;
+
+export const TitleModal = styled.h3`
+  color: ${({ theme }) => theme.colors.title};
+  font-size: 1.4rem;
+`;
+
+export const DescriptionModal = styled.p`
+  color: ${({ theme }) => theme.colors.text};
+  font-size: 1.1rem;
+  margin-top: 20px;
+`;
+
+export const InputReset = styled(InputForm)`
+  border: 1px solid ${({ theme }) => theme.colors.gray};
+
+  padding: 16px;
+`;
+
+export const ButtonReset = styled(Button)`
+  padding: 16px;
+  width: 100%;
 `;
