@@ -2,6 +2,7 @@ import React, {
   createContext,
   FormEvent,
   useContext,
+  useEffect,
   useRef,
   useState,
 } from "react";
@@ -23,16 +24,7 @@ const LoginContext = createContext({} as ILoginContext);
 
 const LoginProvider = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
-  const [user, setUser] = useState<IUser | null>(() => {
-    const { "carPark.token": tokenCookies, "carPark.user": userCookies } =
-      parseCookies();
-
-    if (tokenCookies && userCookies) {
-      return { token: tokenCookies, user: JSON.parse(userCookies), type: "" };
-    }
-
-    return null;
-  });
+  const [user, setUser] = useState<IUser | null>({} as IUser);
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
@@ -46,23 +38,7 @@ const LoginProvider = ({ children }: { children: React.ReactNode }) => {
     try {
       const result = await signInWithPopup(auth, provider);
       const credential = GithubAuthProvider.credentialFromResult(result);
-      const token = credential?.accessToken;
 
-      const user = result.user;
-      setUser({
-        token: token!,
-        user,
-        type: "github",
-      });
-
-      setCookie(undefined, "carPark.token", token!, {
-        maxAge: 60 * 60 * 24, // 1 day
-        path: "/",
-      });
-      setCookie(undefined, "carPark.user", JSON.stringify(user), {
-        maxAge: 60 * 60 * 24, // 1 day
-        path: "/",
-      });
       router.push("/");
     } catch (error: any) {
       const errorCode = error.code;
@@ -82,24 +58,6 @@ const LoginProvider = ({ children }: { children: React.ReactNode }) => {
 
       await signInWithPopup(auth, provider).then((result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential?.accessToken;
-
-        const user = result.user;
-
-        setUser({
-          token: token!,
-          user,
-          type: "google",
-        });
-
-        setCookie(undefined, "carPark.token", token!, {
-          maxAge: 60 * 60 * 24, // 1 day
-          path: "/",
-        });
-        setCookie(undefined, "carPark.user", JSON.stringify(user), {
-          maxAge: 60 * 60 * 24, // 1 day
-          path: "/",
-        });
       });
       router.push("/");
     } catch (error: any) {
@@ -116,23 +74,6 @@ const LoginProvider = ({ children }: { children: React.ReactNode }) => {
         password.current?.value!
       );
 
-      const user = result.user;
-      const token = await user.getIdToken();
-
-      setUser({
-        token,
-        user,
-        type: "default",
-      });
-
-      setCookie(undefined, "carPark.token", token!, {
-        maxAge: 60 * 60 * 24, // 1 day
-        path: "/",
-      });
-      setCookie(undefined, "carPark.user", JSON.stringify(user), {
-        maxAge: 60 * 60 * 24, // 1 day
-        path: "/",
-      });
       router.push("/");
     } catch (e) {
       console.log(e);
@@ -160,6 +101,22 @@ const LoginProvider = ({ children }: { children: React.ReactNode }) => {
   const handleToogleModal = () => {
     setModalIsOpen(!modalIsOpen);
   };
+
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        setUser({
+          token: user.getIdToken(),
+          user,
+          type: "default",
+        });
+      } else {
+        setUser(null);
+      }
+    });
+  }, []);
+  console.log(user);
+
   return (
     <LoginContext.Provider
       value={{

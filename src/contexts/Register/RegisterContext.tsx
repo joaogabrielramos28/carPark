@@ -4,6 +4,7 @@ import { app } from "../../services/firebase";
 import { useLoginContext } from "../Login";
 import { IRegisterContext } from "./types";
 import { setCookie } from "nookies";
+import Router from "next/router";
 const RegisterContext = createContext({} as IRegisterContext);
 
 const RegisterProvider = ({ children }: { children: React.ReactNode }) => {
@@ -11,34 +12,16 @@ const RegisterProvider = ({ children }: { children: React.ReactNode }) => {
   const email = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
 
-  const { setUser } = useLoginContext();
-
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    const result = await createUserWithEmailAndPassword(
+    await createUserWithEmailAndPassword(
       auth,
       email?.current!.value,
       password?.current!.value
     );
 
-    const user = result.user;
-    const token = await user.getIdToken();
-
-    setUser({
-      token,
-      user,
-      type: "default",
-    });
-
-    setCookie(undefined, "carPark.token", token, {
-      maxAge: 60 * 60 * 24, // 1 day,
-      path: "/",
-    });
-    setCookie(undefined, "carPark.user", JSON.stringify(user), {
-      maxAge: 60 * 60 * 24, // 1 day,
-      path: "/",
-    });
+    Router.push("/");
   };
   return (
     <RegisterContext.Provider

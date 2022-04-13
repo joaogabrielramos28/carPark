@@ -53,19 +53,6 @@ const MeProvider = ({ children }: { children: React.ReactNode }) => {
       displayName: newName,
       photoURL: newPhotoUrl,
     });
-    const { "carPark.user": userCookies } = parseCookies();
-
-    const cookiesUser = JSON.parse(userCookies);
-
-    const newUser = {
-      ...cookiesUser,
-      photoURL: newPhotoUrl,
-      displayName: newName,
-    };
-    setCookie(undefined, "carPark.user", JSON.stringify(newUser), {
-      maxAge: 60 * 60 * 24, // 1 day
-      path: "/",
-    });
 
     if (password && confirmPassword) {
       if (password === confirmPassword) {
@@ -84,9 +71,9 @@ const MeProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const lastLoginTimeStamp =
-    Number(user?.user?.lastLoginAt) || user?.user.metadata.lastSignInTime;
+    Number(user?.user?.lastLoginAt) || user?.user?.metadata.lastSignInTime;
   const createdAtTimeStamp =
-    Number(user?.user?.createdAt) || user?.user.metadata.creationTime;
+    Number(user?.user?.createdAt) || user?.user?.metadata.creationTime;
 
   const lastLoginDate = new Date(lastLoginTimeStamp!).toLocaleString("pt-BR");
   const createdAtDate = new Date(createdAtTimeStamp!).toLocaleString("pt-BR");

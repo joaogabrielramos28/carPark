@@ -72,10 +72,10 @@ const Me = () => {
                 <FiEdit2 size={24} onClick={handleToogleEditMode} />
               </BoxHeader>
               <BoxTitle>Meus dados</BoxTitle>
-              <UserInfo>Nome: {user?.user.displayName}</UserInfo>
-              <UserInfo>E-mail: {user?.user.email}</UserInfo>
+              <UserInfo>Nome: {user?.user?.displayName}</UserInfo>
+              <UserInfo>E-mail: {user?.user?.email}</UserInfo>
 
-              {!user?.user.emailVerified && (
+              {!user?.user?.emailVerified && (
                 <ReSendConfirmation onClick={handleSendEmailConfirmation}>
                   Reenviar email para confirmação
                 </ReSendConfirmation>
@@ -113,12 +113,12 @@ const Me = () => {
                   <InfoWrapper>
                     <Info>
                       <InputEdit
-                        defaultValue={user?.user.displayName!}
+                        defaultValue={user?.user?.displayName!}
                         inputRef={newName}
                       />
                     </Info>
                     <Info>
-                      <InputEdit defaultValue={user?.user.email!} />
+                      <InputEdit defaultValue={user?.user?.email!} />
                     </Info>
                     <ChangePasswordWrapper>
                       <InputEdit
