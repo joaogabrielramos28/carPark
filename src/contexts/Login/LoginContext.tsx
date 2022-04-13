@@ -142,6 +142,8 @@ const LoginProvider = ({ children }: { children: React.ReactNode }) => {
     destroyCookie(undefined, "carPark.token");
     destroyCookie(undefined, "carPark.user");
     setUser(null);
+
+    router.push("/");
   }
   return (
     <LoginContext.Provider
