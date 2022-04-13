@@ -17,6 +17,7 @@ import { BsGithub, BsGoogle } from "react-icons/bs";
 import { useLoginContext } from "../../../contexts/Login";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import Link from "next/link";
+import { BackButton } from "../../../components";
 const Login = () => {
   const {
     email,
@@ -29,9 +30,7 @@ const Login = () => {
   return (
     <Container data-aos="fade-right">
       <ArrowBack>
-        <Link href="/" passHref>
-          <AiOutlineArrowLeft size={32} />
-        </Link>
+        <BackButton />
       </ArrowBack>
 
       <FormContainer>

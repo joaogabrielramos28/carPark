@@ -1,5 +1,18 @@
 import styled, { css } from "styled-components";
 
+export const Header = styled.header`
+  width: 100%;
+  height: 160px;
+  background-color: ${({ theme }) => theme.colors.gray};
+  display: flex;
+  justify-content: flex-start;
+  padding: 20px 40px;
+
+  svg {
+    cursor: pointer;
+  }
+`;
+
 export const Container = styled.div`
   width: 100%;
   height: 100%;
@@ -10,15 +23,15 @@ export const Container = styled.div`
 `;
 
 export const Painel = styled.section`
-  padding: 20px 40px;
-  margin-top: 40px;
+  padding: 0px 40px;
   width: 1200px;
   height: 800px;
-  background-color: ${({ theme }) => theme.colors.gray};
   border-radius: 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  transform: translateY(-120px);
 `;
 
 export const UserImageWrapper = styled.div`
@@ -38,16 +51,17 @@ export const UserImageWrapper = styled.div`
 
 export const CircleCamera = styled.div`
   position: absolute;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background-color: ${({ theme }) => theme.colors.success};
+  width: 150px;
+  height: 60px;
+  border-radius: 4px 4px 50% 50%;
+  background-color: rgba(0, 0, 0, 0.3);
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  bottom: 10px;
-  right: 20px;
-  z-index: 9999999;
+  bottom: 0px;
+  right: 0px;
+  z-index: 1;
+  overflow: hidden;
 
   cursor: pointer;
 
@@ -59,8 +73,8 @@ export const CircleCamera = styled.div`
 
 export const UserImage = styled.img`
   margin-top: 20px;
-  width: 150px;
-  height: 150px;
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
   position: relative;
 `;
@@ -113,17 +127,6 @@ export const UserLastLoginDate = styled.span``;
 
 export const UserLastLogin = styled.h2``;
 
-export const InputEdit = styled.input`
-  background-color: transparent;
-  padding: 6px 8px;
-  border-radius: 4px;
-  outline: none;
-  border: none;
-  margin-left: 5px;
-  width: 100%;
-  background-color: ${({ theme }) => theme.colors.light_gray};
-`;
-
 export const Box = styled.section`
   margin-top: 20px;
   width: 100%;
@@ -131,9 +134,6 @@ export const Box = styled.section`
   align-items: flex-start;
   flex-direction: column;
   padding: 12px 18px;
-  background-color: #f4f5f6;
-
-  border-radius: 8px;
 `;
 
 export const BoxHeader = styled.nav`

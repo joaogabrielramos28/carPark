@@ -1,9 +1,4 @@
 import type { AppProps } from "next/app";
-import { ThemeProvider } from "styled-components";
-import GlobalStyle from "../styles/globalStyle";
-import theme from "../styles/theme";
-import { LoginProvider } from "../contexts/Login";
-import { RegisterProvider } from "../contexts/Register";
 
 import Aos from "aos";
 import "aos/dist/aos.css";
@@ -11,6 +6,7 @@ import { useEffect } from "react";
 import Nprogress from "nprogress";
 import { Router } from "next/router";
 import "../../public/nprogress.css";
+import AppProvider from "../contexts";
 Router.events.on("routeChangeStart", () => {
   Nprogress.start();
 });
@@ -30,14 +26,9 @@ function MyApp({ Component, pageProps }: AppProps) {
     });
   }, []);
   return (
-    <LoginProvider>
-      <RegisterProvider>
-        <ThemeProvider theme={theme}>
-          <Component {...pageProps} />
-          <GlobalStyle />
-        </ThemeProvider>
-      </RegisterProvider>
-    </LoginProvider>
+    <AppProvider>
+      <Component {...pageProps} />
+    </AppProvider>
   );
 }
 

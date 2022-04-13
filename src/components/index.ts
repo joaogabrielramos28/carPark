@@ -8,6 +8,8 @@ import Features from "./Features/Features";
 import AppMobile from "./AppMobile/AppMobile";
 import ParkCard from "./ParkCard/ParkCard";
 import Loading from "./Loading/Loading";
+import BackButton from "./BackButton/BackButton";
+import ModalEdit from "./ModalEdit/ModalEdit";
 export {
   AppInfo,
   Header,
@@ -19,4 +21,6 @@ export {
   AppMobile,
   ParkCard,
   Loading,
+  BackButton,
+  ModalEdit,
 };

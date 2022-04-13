@@ -13,15 +13,14 @@ import InputForm from "../../../components/Input/Input";
 import { useRegisterContext } from "../../../contexts/Register";
 import Link from "next/link";
 import { AiOutlineArrowLeft } from "react-icons/ai";
+import { BackButton } from "../../../components";
 
 const Register = () => {
   const { email, password, handleSubmit } = useRegisterContext();
   return (
     <Container data-aos="fade-right">
       <ArrowBack>
-        <Link href="/" passHref>
-          <AiOutlineArrowLeft size={32} />
-        </Link>
+        <BackButton />
       </ArrowBack>
       <FormContainer>
         <Form onSubmit={handleSubmit}>
