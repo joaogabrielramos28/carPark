@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import InputForm from "../../../components/Input/Input";
 
 export const Header = styled.header`
   width: 100%;
@@ -32,43 +33,6 @@ export const Painel = styled.section`
   align-items: center;
 
   transform: translateY(-120px);
-`;
-
-export const UserImageWrapper = styled.div`
-  position: relative;
-
-  input {
-    display: none;
-  }
-
-  label {
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-`;
-
-export const CircleCamera = styled.div`
-  position: absolute;
-  width: 150px;
-  height: 60px;
-  border-radius: 4px 4px 50% 50%;
-  background-color: rgba(0, 0, 0, 0.3);
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  bottom: 0px;
-  right: 0px;
-  z-index: 1;
-  overflow: hidden;
-
-  cursor: pointer;
-
-  &:hover {
-    opacity: 0.7;
-    transition: 0.4s;
-  }
 `;
 
 export const UserImage = styled.img`
@@ -150,4 +114,91 @@ export const BoxTitle = styled.h3`
   color: ${({ theme }) => theme.colors.title};
   font-weight: 700;
   font-size: 1.6rem;
+`;
+
+export const Content = styled.section`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-direction: column;
+`;
+
+export const UserImageWrapper = styled.div`
+  position: relative;
+  input {
+    display: none;
+  }
+
+  label {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+`;
+
+export const CircleCamera = styled.div`
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: ${({ theme }) => theme.colors.success};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  bottom: 10px;
+  right: 20px;
+
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.7;
+    transition: 0.4s;
+  }
+`;
+
+export const UserImageModal = styled.img`
+  margin-top: 20px;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  position: relative;
+`;
+
+export const InfoWrapper = styled.section``;
+
+export const Info = styled.div``;
+
+export const InputEdit = styled(InputForm)`
+  width: 300px;
+
+  padding: 12px 16px;
+
+  border: 1px solid ${({ theme }) => theme.colors.gray};
+`;
+
+export const ChangePasswordWrapper = styled.div`
+  margin-top: 40px;
+`;
+
+export const UpdateUser = styled.button`
+  width: 300px;
+
+  padding: 12px;
+
+  background-color: ${({ theme }) => theme.colors.success};
+  color: ${({ theme }) => theme.colors.shape};
+
+  outline: none;
+  border: none;
+
+  border-radius: 8px;
+  margin-top: 10px;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.6;
+    transition: 0.4s ease;
+  }
 `;

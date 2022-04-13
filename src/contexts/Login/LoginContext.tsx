@@ -12,6 +12,7 @@ import {
   GoogleAuthProvider,
   signInWithEmailAndPassword,
   signOut,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 import { app } from "../../services/firebase";
 import { ILoginContext, IUser } from "./types";
@@ -145,6 +146,10 @@ const LoginProvider = ({ children }: { children: React.ReactNode }) => {
 
     router.push("/");
   }
+
+  async function resetPassword(email: string) {
+    await sendPasswordResetEmail(auth, email);
+  }
   return (
     <LoginContext.Provider
       value={{
@@ -156,6 +161,7 @@ const LoginProvider = ({ children }: { children: React.ReactNode }) => {
         user,
         setUser,
         logout,
+        resetPassword,
       }}
     >
       {children}

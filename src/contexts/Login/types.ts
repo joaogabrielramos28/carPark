@@ -10,6 +10,7 @@ export interface ILoginContext {
   setUser: React.Dispatch<IUser | null>;
   user: IUser | null;
   logout: () => Promise<void>;
+  resetPassword: (email: string) => Promise<void>;
 }
 
 export interface IUser {

@@ -25,6 +25,7 @@ const Login = () => {
     loginWithCredentials,
     loginWithGithub,
     loginWithGoogle,
+    resetPassword,
   } = useLoginContext();
 
   return (
