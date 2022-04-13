@@ -1,8 +1,6 @@
 /* eslint-disable import/no-anonymous-default-export */
 export default {
   colors: {
-    background:
-      "linear-gradient(180deg, #F4C4F3 0%, rgba(255, 253, 255, 0.03125) 96.87%, rgba(252, 103, 250, 0) 100%);",
     title: "#383838",
     title_light: "#C4C4C4",
     text: "#7E7B7B",
@@ -14,7 +12,7 @@ export default {
     dark: "#000",
     gray: "#d4d4d4",
     light_gray: "#F8F9FE",
-    secondary: "#f26600",
+    secondary: "#F7373A",
     success: "#00C977",
     success_light: "rgba(0, 201, 119,0.5)",
   },

@@ -19,7 +19,7 @@ const InputForm = ({
   };
   return (
     <Container>
-      <Label>{label}</Label>
+      {label && <Label>{label}</Label>}
       <Input
         type={type}
         onFocus={handleInputFocus}

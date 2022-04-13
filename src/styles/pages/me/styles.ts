@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Container = styled.div`
   width: 100%;
@@ -67,16 +67,18 @@ export const UserImage = styled.img`
 
 export const ImageInput = styled.input``;
 
-export const UserName = styled.h2`
+export const UserInfo = styled.h2`
+  display: flex;
+  align-items: center;
   color: ${({ theme }) => theme.colors.title};
   margin-top: 20px;
-  font-size: 1.6rem;
-`;
+  font-size: 1.2rem;
 
-export const UserEmail = styled.h2`
-  color: ${({ theme }) => theme.colors.title};
-  margin-top: 20px;
-  font-size: 1.6rem;
+  svg {
+    margin-left: 5px;
+
+    cursor: pointer;
+  }
 `;
 
 export const ReSendConfirmation = styled.button`
@@ -110,3 +112,42 @@ export const UserLastLoginTitle = styled.h2`
 export const UserLastLoginDate = styled.span``;
 
 export const UserLastLogin = styled.h2``;
+
+export const InputEdit = styled.input`
+  background-color: transparent;
+  padding: 6px 8px;
+  border-radius: 4px;
+  outline: none;
+  border: none;
+  margin-left: 5px;
+  width: 100%;
+  background-color: ${({ theme }) => theme.colors.light_gray};
+`;
+
+export const Box = styled.section`
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  padding: 12px 18px;
+  background-color: #f4f5f6;
+
+  border-radius: 8px;
+`;
+
+export const BoxHeader = styled.nav`
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+
+  svg {
+    cursor: pointer;
+  }
+`;
+
+export const BoxTitle = styled.h3`
+  color: ${({ theme }) => theme.colors.title};
+  font-weight: 700;
+  font-size: 1.6rem;
+`;
