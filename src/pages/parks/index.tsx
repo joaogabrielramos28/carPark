@@ -9,6 +9,7 @@ import {
 import { collection, getDocs, query, DocumentData } from "firebase/firestore";
 import { database } from "../../services/firebase";
 import { GetServerSideProps, GetStaticProps } from "next";
+import theme from "../../styles/theme";
 
 interface IParkProps extends DocumentData {
   id: string;
@@ -21,7 +22,7 @@ const Parks = ({ parks }: IParkProps) => {
       {parks.length === 0 && (
         <ContainerNoParks>
           <NoParks>Não foi encontrado nenhum park {":("} </NoParks>
-          <Loading />
+          <Loading size={100} color={theme.colors.secondary} />
         </ContainerNoParks>
       )}
       {parks.map((park: IParkProps) => (
