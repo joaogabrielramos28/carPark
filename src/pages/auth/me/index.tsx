@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 
 import { AiOutlineCamera } from "react-icons/ai";
 
@@ -26,10 +26,12 @@ import {
 } from "../../../styles/pages/me/styles";
 import { FiEdit2 } from "react-icons/fi";
 
-import { BackButton, Modal } from "../../../components";
-import { useMeContext } from "../../../contexts/Me/";
+import { BackButton, Loading, Modal } from "../../../components";
+import { useMeContext } from "../../../contexts/Me";
 import { useLoginContext } from "../../../contexts/Login";
+import Image from "next/image";
 const Me = () => {
+  const [imageLoading, setImageLoading] = useState(true);
   const {
     isEditing,
     handleToogleEditMode,
@@ -39,6 +41,7 @@ const Me = () => {
     update,
     changeImage,
     handleChangeImage,
+    loadingNewImage,
   } = useMeContext();
 
   const { user } = useLoginContext();
@@ -63,8 +66,11 @@ const Me = () => {
         {!!user && (
           <Painel>
             <UserImageWrapper>
+              {imageLoading && <Loading />}
+
               <UserImage
                 src={user?.user?.photoURL || "/user-placeholder.png"}
+                onLoad={() => setImageLoading(false)}
               />
             </UserImageWrapper>
             <Box>
@@ -88,6 +94,7 @@ const Me = () => {
             <UserLastLoginDate>{createdAtDate}</UserLastLoginDate>
             {isEditing && (
               <Modal onClose={handleToogleEditMode}>
+                {loadingNewImage && <Loading />}
                 <Content>
                   <UserImageWrapper>
                     <UserImageModal

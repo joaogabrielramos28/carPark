@@ -15,6 +15,8 @@ import {
 } from "./styles";
 
 import { FiChevronDown } from "react-icons/fi";
+import Image from "next/image";
+import Loading from "../Loading/Loading";
 
 const Header = () => {
   const [dropDownIsActive, setDropDownIsActive] = useState<boolean>(false);
@@ -39,13 +41,19 @@ const Header = () => {
         {!!user ? (
           <UserLoggedInWrapper onClick={toggleDropDown}>
             <ImageWrapper>
-              <AvatarLogo
-                src={user?.user?.photoURL || "/user-placeholder.png"}
-                width={30}
-                height={30}
-                alt={"User logged image"}
-              />
-              <FiChevronDown size={20} />
+              {user.user?.photoURL === undefined ? (
+                <Loading />
+              ) : (
+                <>
+                  <AvatarLogo
+                    src={user?.user?.photoURL || "/user-placeholder.png"}
+                    width={30}
+                    height={30}
+                    alt={"User logged image"}
+                  />
+                  <FiChevronDown size={20} />
+                </>
+              )}
             </ImageWrapper>
             {dropDownIsActive && (
               <DropDown>

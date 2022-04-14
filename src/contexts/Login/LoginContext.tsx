@@ -115,7 +115,6 @@ const LoginProvider = ({ children }: { children: React.ReactNode }) => {
       }
     });
   }, []);
-  console.log(user);
 
   return (
     <LoginContext.Provider

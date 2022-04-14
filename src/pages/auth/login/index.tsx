@@ -80,11 +80,7 @@ const Login = () => {
               senha.
             </DescriptionModal>
 
-            <InputReset
-              placeholder="Digite seu e-mail"
-              inputRef={emailRef}
-              onChange={(e) => console.log(emailRef.current?.value!)}
-            />
+            <InputReset placeholder="Digite seu e-mail" inputRef={emailRef} />
             <ButtonReset
               onClick={() => resetPassword(emailRef.current?.value!)}
             >

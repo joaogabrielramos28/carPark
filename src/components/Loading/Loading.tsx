@@ -1,25 +1,12 @@
+import Image from "next/image";
 import React from "react";
+import { Container } from "./styles";
 
-import Lottie from "react-lottie";
 const Loading = () => {
-  const defaultOptions = {
-    loop: true,
-    autoplay: true,
-    animationData: require("../../../public/5156-parking-find.json"),
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
-  };
   return (
-    <div className="loading">
-      <Lottie
-        options={defaultOptions}
-        height={200}
-        width={200}
-        isStopped={false}
-        isPaused={false}
-      />
-    </div>
+    <Container>
+      <Image src="/spinner.gif" alt="Spinner girando" width={40} height={40} />
+    </Container>
   );
 };
 

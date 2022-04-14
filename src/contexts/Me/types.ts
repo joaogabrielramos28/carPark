@@ -11,4 +11,5 @@ export interface IMeContextProps {
   ) => void;
   lastLoginDate: string;
   createdAtDate: string;
+  loadingNewImage: boolean;
 }

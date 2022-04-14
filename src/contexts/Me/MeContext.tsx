@@ -17,6 +17,7 @@ const MeContext = createContext({} as IMeContextProps);
 
 const MeProvider = ({ children }: { children: React.ReactNode }) => {
   const [changeImage, setChangeImage] = useState("");
+  const [loadingNewImage, setLoadingNewImage] = useState(false);
   const storage = getStorage();
   const [isEditing, setIsEditing] = useState(false);
   const { user } = useLoginContext();
@@ -32,6 +33,7 @@ const MeProvider = ({ children }: { children: React.ReactNode }) => {
 
   const handleChangeImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target && e.target.files) {
+      setLoadingNewImage(true);
       const image = e.target.files[0];
       const storageRef = ref(storage, `users/${image.name}`);
 
@@ -40,6 +42,8 @@ const MeProvider = ({ children }: { children: React.ReactNode }) => {
       await getDownloadURL(storageRef).then((url) => {
         setChangeImage(url);
       });
+
+      setLoadingNewImage(false);
     }
   };
 
@@ -89,6 +93,7 @@ const MeProvider = ({ children }: { children: React.ReactNode }) => {
         createdAtDate,
         lastLoginDate,
         update,
+        loadingNewImage,
       }}
     >
       {children}
