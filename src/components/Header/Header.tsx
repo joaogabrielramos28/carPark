@@ -19,6 +19,7 @@ import Image from "next/image";
 import Loading from "../Loading/Loading";
 
 const Header = () => {
+  const [imageLoading, setImageLoading] = useState(true);
   const [dropDownIsActive, setDropDownIsActive] = useState<boolean>(false);
   const { user, logout } = useLoginContext();
 
@@ -41,19 +42,15 @@ const Header = () => {
         {!!user ? (
           <UserLoggedInWrapper onClick={toggleDropDown}>
             <ImageWrapper>
-              {user.user?.photoURL === undefined ? (
-                <Loading />
-              ) : (
-                <>
-                  <AvatarLogo
-                    src={user?.user?.photoURL || "/user-placeholder.png"}
-                    width={30}
-                    height={30}
-                    alt={"User logged image"}
-                  />
-                  <FiChevronDown size={20} />
-                </>
-              )}
+              {imageLoading && <Loading />}
+              <AvatarLogo
+                src={user?.user?.photoURL || "/user-placeholder.png"}
+                width={30}
+                height={30}
+                alt={"User logged image"}
+                onLoad={() => setImageLoading(false)}
+              />
+              <FiChevronDown size={20} />
             </ImageWrapper>
             {dropDownIsActive && (
               <DropDown>
