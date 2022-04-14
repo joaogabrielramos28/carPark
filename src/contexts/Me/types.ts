@@ -12,4 +12,6 @@ export interface IMeContextProps {
   lastLoginDate: string;
   createdAtDate: string;
   loadingNewImage: boolean;
+  loadingSendEmaiLConfirmation: boolean;
+  loadingUpdateUser: boolean;
 }

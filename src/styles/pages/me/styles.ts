@@ -61,7 +61,6 @@ export const UserInfo = styled.h2`
 
 export const ReSendConfirmation = styled.button`
   z-index: 1;
-  max-width: 400px;
   background-color: ${({ theme }) => theme.colors.success};
   border: none;
   outline: none;
@@ -70,8 +69,12 @@ export const ReSendConfirmation = styled.button`
   border-radius: 8px;
   margin-top: 50px;
   cursor: pointer;
-
+  height: 50px;
   font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 260px;
 
   &:hover {
     opacity: 0.7;
@@ -185,7 +188,7 @@ export const ChangePasswordWrapper = styled.div`
 
 export const UpdateUser = styled.button`
   width: 300px;
-
+  height: 42px;
   padding: 12px;
 
   background-color: ${({ theme }) => theme.colors.success};
@@ -196,6 +199,10 @@ export const UpdateUser = styled.button`
 
   border-radius: 8px;
   margin-top: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   &:hover {
     opacity: 0.6;

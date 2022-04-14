@@ -25,6 +25,8 @@ const LoginContext = createContext({} as ILoginContext);
 const LoginProvider = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const [user, setUser] = useState<IUser | null>({} as IUser);
+  const [loadingLogin, setLoadingLogin] = useState(false);
+  const [loadingSendEmail, setLoadingSendEmail] = useState(false);
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
@@ -33,12 +35,14 @@ const LoginProvider = ({ children }: { children: React.ReactNode }) => {
   const password = useRef<HTMLInputElement>(null);
 
   async function loginWithGithub(e: FormEvent) {
+    setLoadingLogin(true);
     e.preventDefault();
     const provider = new GithubAuthProvider();
     try {
       const result = await signInWithPopup(auth, provider);
       const credential = GithubAuthProvider.credentialFromResult(result);
 
+      setLoadingLogin(false);
       router.push("/");
     } catch (error: any) {
       const errorCode = error.code;
@@ -52,6 +56,7 @@ const LoginProvider = ({ children }: { children: React.ReactNode }) => {
   }
 
   async function loginWithGoogle(e: FormEvent) {
+    setLoadingLogin(true);
     e.preventDefault();
     try {
       const provider = new GoogleAuthProvider();
@@ -59,6 +64,7 @@ const LoginProvider = ({ children }: { children: React.ReactNode }) => {
       await signInWithPopup(auth, provider).then((result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
       });
+      setLoadingLogin(false);
       router.push("/");
     } catch (error: any) {
       console.log(error);
@@ -66,6 +72,7 @@ const LoginProvider = ({ children }: { children: React.ReactNode }) => {
   }
 
   async function loginWithCredentials(e: FormEvent) {
+    setLoadingLogin(true);
     e.preventDefault();
     try {
       const result = await signInWithEmailAndPassword(
@@ -73,7 +80,7 @@ const LoginProvider = ({ children }: { children: React.ReactNode }) => {
         email.current?.value!,
         password.current?.value!
       );
-
+      setLoadingLogin(false);
       router.push("/");
     } catch (e) {
       console.log(e);
@@ -91,8 +98,10 @@ const LoginProvider = ({ children }: { children: React.ReactNode }) => {
   }
 
   async function resetPassword(email: string) {
+    setLoadingSendEmail(true);
     if (email) {
       await sendPasswordResetEmail(auth, email);
+      setLoadingSendEmail(false);
     }
 
     return;
@@ -130,6 +139,8 @@ const LoginProvider = ({ children }: { children: React.ReactNode }) => {
         resetPassword,
         modalIsOpen,
         handleToogleModal,
+        loadingLogin,
+        loadingSendEmail,
       }}
     >
       {children}

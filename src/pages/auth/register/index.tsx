@@ -13,10 +13,11 @@ import InputForm from "../../../components/Input/Input";
 import { useRegisterContext } from "../../../contexts/Register";
 import Link from "next/link";
 import { AiOutlineArrowLeft } from "react-icons/ai";
-import { BackButton } from "../../../components";
+import { BackButton, Loading } from "../../../components";
+import theme from "../../../styles/theme";
 
 const Register = () => {
-  const { email, password, handleSubmit } = useRegisterContext();
+  const { email, password, handleSubmit, loading } = useRegisterContext();
   return (
     <Container data-aos="fade-right">
       <ArrowBack>
@@ -37,7 +38,15 @@ const Register = () => {
             inputRef={password}
           />
 
-          <Button type="submit">Entrar</Button>
+          <Button type="submit">
+            {loading ? (
+              <>
+                <Loading color={theme.colors.shape} size={40} />
+              </>
+            ) : (
+              "Criar conta"
+            )}
+          </Button>
           <Link href={"/auth/login"} passHref>
             <HasAccount>Já tenho uma conta</HasAccount>
           </Link>

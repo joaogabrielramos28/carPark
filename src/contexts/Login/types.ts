@@ -13,6 +13,8 @@ export interface ILoginContext {
   resetPassword: (email: string) => Promise<void>;
   modalIsOpen: boolean;
   handleToogleModal: () => void;
+  loadingLogin: boolean;
+  loadingSendEmail: boolean;
 }
 
 export interface IUser {

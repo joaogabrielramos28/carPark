@@ -61,6 +61,10 @@ export const Button = styled.button`
   font-size: 14px;
   font-weight: 500;
   text-transform: uppercase;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   &:hover {
     opacity: 0.7;
     transition: opacity 0.7s;

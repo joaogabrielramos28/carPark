@@ -43,6 +43,8 @@ const Me = () => {
     changeImage,
     handleChangeImage,
     loadingNewImage,
+    loadingSendEmaiLConfirmation,
+    loadingUpdateUser,
   } = useMeContext();
 
   const { user } = useLoginContext();
@@ -86,7 +88,11 @@ const Me = () => {
 
               {!user?.user?.emailVerified && (
                 <ReSendConfirmation onClick={handleSendEmailConfirmation}>
-                  Reenviar email para confirmação
+                  {loadingSendEmaiLConfirmation ? (
+                    <Loading color={theme.colors.shape} size={40} />
+                  ) : (
+                    "Reenviar email para confirmação"
+                  )}
                 </ReSendConfirmation>
               )}
             </Box>
@@ -146,7 +152,11 @@ const Me = () => {
                     </ChangePasswordWrapper>
 
                     <UpdateUser onClick={handleUpdateUser}>
-                      Atualizar perfil
+                      {loadingUpdateUser ? (
+                        <Loading color={theme.colors.shape} size={40} />
+                      ) : (
+                        "Atualizar perfil"
+                      )}
                     </UpdateUser>
                   </InfoWrapper>
                 </Content>

@@ -20,8 +20,9 @@ import {
 import { BsGithub, BsGoogle } from "react-icons/bs";
 import { useLoginContext } from "../../../contexts/Login";
 
-import { BackButton, Modal } from "../../../components";
+import { BackButton, Loading, Modal } from "../../../components";
 import { useMeContext } from "../../../contexts/Me";
+import theme from "../../../styles/theme";
 const Login = () => {
   const {
     email,
@@ -32,6 +33,8 @@ const Login = () => {
     resetPassword,
     handleToogleModal,
     modalIsOpen,
+    loadingLogin,
+    loadingSendEmail,
   } = useLoginContext();
 
   const emailRef = useRef<HTMLInputElement>(null);
@@ -64,7 +67,16 @@ const Login = () => {
               <BsGoogle color={"white"} size={24} />
             </ButtonOAuth>
           </OauthSection>
-          <Button type="submit">Entrar</Button>
+
+          <Button type="submit">
+            {loadingLogin ? (
+              <>
+                <Loading color={theme.colors.shape} size={40} />
+              </>
+            ) : (
+              "Entrar"
+            )}
+          </Button>
           <ForgetMyPass onClick={handleToogleModal}>
             Esqueci minha senha
           </ForgetMyPass>
@@ -84,7 +96,13 @@ const Login = () => {
             <ButtonReset
               onClick={() => resetPassword(emailRef.current?.value!)}
             >
-              Enviar e-mail
+              {loadingSendEmail ? (
+                <>
+                  <Loading color={theme.colors.shape} size={40} />
+                </>
+              ) : (
+                "Enviar e-mail"
+              )}
             </ButtonReset>
           </ModalContent>
         </Modal>

@@ -20,6 +20,9 @@ const MeProvider = ({ children }: { children: React.ReactNode }) => {
   const [loadingNewImage, setLoadingNewImage] = useState(false);
   const storage = getStorage();
   const [isEditing, setIsEditing] = useState(false);
+  const [loadingSendEmaiLConfirmation, setLoadingSendEmailConfirmation] =
+    useState(false);
+  const [loadingUpdateUser, setLoadingUpdateUser] = useState(false);
   const { user } = useLoginContext();
   const auth = getAuth();
 
@@ -52,6 +55,7 @@ const MeProvider = ({ children }: { children: React.ReactNode }) => {
     password?: string,
     confirmPassword?: string
   ) => {
+    setLoadingUpdateUser(true);
     const newPhotoUrl = changeImage === "" ? user?.user?.photoURL : changeImage;
     await updateProfile(auth.currentUser!, {
       displayName: newName,
@@ -65,11 +69,15 @@ const MeProvider = ({ children }: { children: React.ReactNode }) => {
     }
 
     reload(auth.currentUser!);
+    setLoadingUpdateUser(false);
     Router.reload();
   };
 
   const handleSendEmailConfirmation = async () => {
+    setLoadingSendEmailConfirmation(true);
     await sendEmailVerification(auth.currentUser!);
+
+    setLoadingSendEmailConfirmation(false);
 
     reload(auth.currentUser!);
   };
@@ -94,6 +102,8 @@ const MeProvider = ({ children }: { children: React.ReactNode }) => {
         lastLoginDate,
         update,
         loadingNewImage,
+        loadingSendEmaiLConfirmation,
+        loadingUpdateUser,
       }}
     >
       {children}
