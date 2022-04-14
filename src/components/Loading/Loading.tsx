@@ -1,11 +1,12 @@
 import Image from "next/image";
 import React from "react";
 import { Container } from "./styles";
-
-const Loading = () => {
+import ClipLoader from "react-spinners/ClipLoader";
+import { ILoadingProps } from "./types";
+const Loading = ({ color, size }: ILoadingProps) => {
   return (
     <Container>
-      <Image src="/spinner.gif" alt="Spinner girando" width={40} height={40} />
+      <ClipLoader color={color} size={size} />
     </Container>
   );
 };

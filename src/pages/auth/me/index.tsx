@@ -30,6 +30,7 @@ import { BackButton, Loading, Modal } from "../../../components";
 import { useMeContext } from "../../../contexts/Me";
 import { useLoginContext } from "../../../contexts/Login";
 import Image from "next/image";
+import theme from "../../../styles/theme";
 const Me = () => {
   const [imageLoading, setImageLoading] = useState(true);
   const {
@@ -66,7 +67,9 @@ const Me = () => {
         {!!user && (
           <Painel>
             <UserImageWrapper>
-              {imageLoading && <Loading />}
+              {imageLoading && (
+                <Loading size={50} color={theme.colors.secondary} />
+              )}
 
               <UserImage
                 src={user?.user?.photoURL || "/user-placeholder.png"}
@@ -94,7 +97,9 @@ const Me = () => {
             <UserLastLoginDate>{createdAtDate}</UserLastLoginDate>
             {isEditing && (
               <Modal onClose={handleToogleEditMode}>
-                {loadingNewImage && <Loading />}
+                {loadingNewImage && (
+                  <Loading size={50} color={theme.colors.secondary} />
+                )}
                 <Content>
                   <UserImageWrapper>
                     <UserImageModal

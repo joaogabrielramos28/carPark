@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLoginContext } from "../../contexts/Login";
 
 import {
@@ -17,6 +17,7 @@ import {
 import { FiChevronDown } from "react-icons/fi";
 import Image from "next/image";
 import Loading from "../Loading/Loading";
+import theme from "../../styles/theme";
 
 const Header = () => {
   const [imageLoading, setImageLoading] = useState(true);
@@ -30,6 +31,13 @@ const Header = () => {
       setDropDownIsActive(false);
     }
   };
+
+  useEffect(() => {
+    user?.user?.photoURL !== undefined
+      ? setImageLoading(false)
+      : setImageLoading(true);
+  }, [user]);
+
   return (
     <Container>
       <LogoWrapper>
@@ -41,14 +49,15 @@ const Header = () => {
       <ActionsWrapper>
         {!!user ? (
           <UserLoggedInWrapper onClick={toggleDropDown}>
+            {imageLoading && (
+              <Loading size={30} color={theme.colors.secondary} />
+            )}
             <ImageWrapper>
-              {imageLoading && <Loading />}
               <AvatarLogo
                 src={user?.user?.photoURL || "/user-placeholder.png"}
                 width={30}
                 height={30}
                 alt={"User logged image"}
-                onLoad={() => setImageLoading(false)}
               />
               <FiChevronDown size={20} />
             </ImageWrapper>
