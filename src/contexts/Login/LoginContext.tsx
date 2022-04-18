@@ -90,8 +90,6 @@ const LoginProvider = ({ children }: { children: React.ReactNode }) => {
   async function logout() {
     await signOut(auth);
 
-    destroyCookie(undefined, "carPark.token");
-    destroyCookie(undefined, "carPark.user");
     setUser(null);
 
     router.push("/");
@@ -112,17 +110,30 @@ const LoginProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   useEffect(() => {
-    auth.onAuthStateChanged((user) => {
+    auth.onIdTokenChanged(async (user) => {
       if (user) {
+        const token = await user.getIdToken();
         setUser({
-          token: user.getIdToken(),
+          token,
           user,
           type: "default",
         });
+        setCookie(undefined, "@carPark:token", token, { path: "/" });
       } else {
         setUser(null);
+        destroyCookie(undefined, "@carPark:token");
       }
     });
+  }, []);
+  // force refresh the token every 10 minutes
+  useEffect(() => {
+    const handle = setInterval(async () => {
+      const user = auth.currentUser;
+      if (user) await user.getIdToken(true);
+    }, 10 * 60 * 1000);
+
+    // clean up setInterval
+    return () => clearInterval(handle);
   }, []);
 
   return (
