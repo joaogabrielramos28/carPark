@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Header, Loading } from "../../components";
 import { ParkCard } from "../../components";
 import {
@@ -10,12 +10,16 @@ import { collection, getDocs, query, DocumentData } from "firebase/firestore";
 import { database } from "../../services/firebase";
 import { GetServerSideProps, GetStaticProps } from "next";
 import theme from "../../styles/theme";
-
-interface IParkProps extends DocumentData {
+import { useSelector, useDispatch } from "react-redux";
+import { IState, wrapper } from "../../store/index.store";
+import { fetchParks } from "../../store/parks/parks.actions";
+export interface IParkProps extends DocumentData {
   id: string;
 }
 
-const Parks = ({ parks }: IParkProps) => {
+const Parks = () => {
+  const { parks } = useSelector<IState, IParkProps>((state) => state.parks);
+
   return (
     <Container>
       <Header />
@@ -43,25 +47,26 @@ const Parks = ({ parks }: IParkProps) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const q = query(collection(database, "parks"));
+export const getServerSideProps: GetServerSideProps =
+  wrapper.getServerSideProps((store) => async ({ req }) => {
+    const q = query(collection(database, "parks"));
 
-  const res = await getDocs(q);
-  const parksResults: IParkProps[] = res.docs.map((doc: IParkProps) => {
-    const data = doc.data() as DocumentData;
-    doc = {
-      id: doc.id,
-      ...data,
+    const res = await getDocs(q);
+    const parksResults: IParkProps[] = res.docs.map((doc: IParkProps) => {
+      const data = doc.data() as DocumentData;
+      doc = {
+        id: doc.id,
+        ...data,
+      };
+
+      return doc;
+    });
+
+    store.dispatch(fetchParks(parksResults));
+
+    return {
+      props: { ok: "id" },
     };
-
-    return doc;
   });
-
-  return {
-    props: {
-      parks: parksResults,
-    },
-  };
-};
 
 export default Parks;

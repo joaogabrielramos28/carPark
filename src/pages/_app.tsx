@@ -7,6 +7,8 @@ import Nprogress from "nprogress";
 import { Router } from "next/router";
 import "../../public/nprogress.css";
 import AppProvider from "../contexts";
+import { wrapper } from "../store/index.store";
+
 Router.events.on("routeChangeStart", () => {
   Nprogress.start();
 });
@@ -32,4 +34,4 @@ function MyApp({ Component, pageProps }: AppProps) {
   );
 }
 
-export default MyApp;
+export default wrapper.withRedux(MyApp);
