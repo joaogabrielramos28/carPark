@@ -8,13 +8,12 @@ import {
   Title,
   Button,
   HasAccount,
-} from "../../../styles/pages/register/styles";
-import InputForm from "../../../components/Input/Input";
-import { useRegisterContext } from "../../../contexts/Register";
+} from "../../styles/pages/register/styles";
+import InputForm from "../../components/Input/Input";
+import { useRegisterContext } from "../../contexts/Register";
 import Link from "next/link";
-import { AiOutlineArrowLeft } from "react-icons/ai";
-import { BackButton, Loading } from "../../../components";
-import theme from "../../../styles/theme";
+import { BackButton, Loading } from "../../components";
+import theme from "../../styles/theme";
 
 const Register = () => {
   const { email, password, handleSubmit, loading } = useRegisterContext();

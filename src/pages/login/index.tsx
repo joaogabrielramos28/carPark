@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import InputForm from "../../../components/Input/Input";
+import InputForm from "../../components/Input/Input";
 import {
   Container,
   ArrowBack,
@@ -16,13 +16,13 @@ import {
   DescriptionModal,
   InputReset,
   ButtonReset,
-} from "../../../styles/pages/login/styles";
+} from "../../styles/pages/login/styles";
 import { BsGithub, BsGoogle } from "react-icons/bs";
-import { useLoginContext } from "../../../contexts/Login";
+import { useLoginContext } from "../../contexts/Login";
 
-import { BackButton, Loading, Modal } from "../../../components";
-import { useMeContext } from "../../../contexts/Me";
-import theme from "../../../styles/theme";
+import { BackButton, Loading, Modal } from "../../components";
+import { useMeContext } from "../../contexts/Me";
+import theme from "../../styles/theme";
 const Login = () => {
   const {
     email,
