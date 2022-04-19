@@ -2,11 +2,13 @@ import styled from "styled-components";
 import Image from "next/image";
 export const Container = styled.div`
   width: 100%;
-  background-color: transparent;
+  background-color: ${({ theme }) => theme.colors.shape};
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px 0px;
   display: flex;
   justify-content: space-between;
   padding: 0px 97px;
   align-items: center;
+  z-index: 1;
 
   @media (max-width: 550px) {
     padding: 0 20px;
@@ -14,7 +16,7 @@ export const Container = styled.div`
 `;
 
 export const LogoWrapper = styled.div`
-  background-color: transparent;
+  background-color: ${({ theme }) => theme.colors.shape};
 `;
 export const Logo = styled(Image)`
   cursor: pointer;

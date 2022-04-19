@@ -9,6 +9,12 @@ export default async function handle(
 
   if (token) {
     const verifiedToken = await admin.auth().verifyIdToken(token);
+    // admin.auth().setCustomUserClaims(verifiedToken.uid, {
+    //   admin: true,
+    // });
+
+    // console.log(await admin.auth().getUser(verifiedToken.uid));
+
     if (verifiedToken) {
       res.status(201).json({ verifiedToken });
       return new Response("You are logged in", {

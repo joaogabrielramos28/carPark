@@ -31,12 +31,16 @@ const Header = () => {
       setDropDownIsActive(false);
     }
   };
+  const isAdmin = user?.user?.reloadUserInfo?.customAttributes
+    ? JSON.parse(user?.user.reloadUserInfo?.customAttributes)
+    : "";
 
   useEffect(() => {
     user?.user?.photoURL !== undefined
       ? setImageLoading(false)
       : setImageLoading(true);
   }, [user]);
+  console.log(isAdmin.admin);
 
   return (
     <Container>
@@ -63,6 +67,12 @@ const Header = () => {
             </ImageWrapper>
             {dropDownIsActive && (
               <DropDown>
+                {isAdmin.admin && (
+                  <Link href={"/auth/app"} passHref>
+                    <DropDownOption>Dashboard</DropDownOption>
+                  </Link>
+                )}
+
                 <Link href={"/auth/me"} passHref>
                   <DropDownOption>Perfil</DropDownOption>
                 </Link>

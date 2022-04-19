@@ -26,4 +26,7 @@ export interface IUser {
 export interface UserFirebase extends User {
   createdAt?: string;
   lastLoginAt?: string;
+  reloadUserInfo?: {
+    customAttributes: string;
+  };
 }
