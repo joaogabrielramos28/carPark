@@ -1,19 +1,16 @@
 import React from "react";
 
-import { Container, NavItem } from "./styles";
-import { FiAirplay, FiBattery, FiBluetooth } from "react-icons/fi";
+import { Container } from "./styles";
+import { BsChevronRight } from "react-icons/bs";
+import { FaParking, FaUserAlt } from "react-icons/fa";
+import { IoAnalyticsSharp } from "react-icons/io5";
+import NavBarItem from "./NavBarItem/NavBarItem";
 const NavBar = () => {
   return (
     <Container>
-      <NavItem>
-        <FiAirplay size={24} />
-      </NavItem>
-      <NavItem>
-        <FiBattery size={24} />
-      </NavItem>
-      <NavItem>
-        <FiBluetooth size={24} />
-      </NavItem>
+      <NavBarItem path="parking" icon={FaParking} />
+      <NavBarItem path="parking" icon={FaUserAlt} />
+      <NavBarItem path="parking" icon={IoAnalyticsSharp} />
     </Container>
   );
 };
