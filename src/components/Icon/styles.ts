@@ -7,7 +7,7 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   border-radius: 35px;
-  background-color: ${({ theme }) => theme.colors.alert_light};
+  background-color: ${({ theme }) => theme.colors.secondary_light};
 
   @media (max-width: 550px) {
     width: 40px;

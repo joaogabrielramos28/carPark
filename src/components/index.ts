@@ -10,6 +10,7 @@ import ParkCard from "./ParkCard/ParkCard";
 import Loading from "./Loading/Loading";
 import BackButton from "./BackButton/BackButton";
 import Modal from "./Modal/Modal";
+import NavBar from "./NavBar/NavBar";
 export {
   AppInfo,
   Header,
@@ -23,4 +24,5 @@ export {
   Loading,
   BackButton,
   Modal,
+  NavBar,
 };
