@@ -1,16 +1,14 @@
 import admin from "firebase-admin";
-import fireConfig from "../../config/carpark-63baa-firebase-adminsdk-589pc-2396899626.json";
 
 try {
   admin.initializeApp({
     credential: admin.credential.cert({
-      clientEmail: fireConfig.client_email,
-      privateKey: fireConfig.private_key,
-      projectId: fireConfig.project_id,
+      clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+      privateKey: process.env.FIREBASE_PRIVATE_KEY,
+      projectId: process.env.FIREBASE_PROJECT_ID,
     }),
   });
-  console.log("Initialized.");
-} catch (error) {
+} catch (error: any) {
   /*
    * We skip the "already exists" message which is
    * not an actual error when we're hot-reloading.

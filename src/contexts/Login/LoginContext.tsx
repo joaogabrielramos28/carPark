@@ -92,6 +92,8 @@ const LoginProvider = ({ children }: { children: React.ReactNode }) => {
 
     setUser(null);
 
+    destroyCookie(null, "@carPark:token");
+
     router.push("/");
   }
 

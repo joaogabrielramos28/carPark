@@ -40,7 +40,6 @@ const Header = () => {
       ? setImageLoading(false)
       : setImageLoading(true);
   }, [user]);
-  console.log(isAdmin.admin);
 
   return (
     <Container>
