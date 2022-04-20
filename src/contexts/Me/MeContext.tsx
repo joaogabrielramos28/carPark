@@ -7,7 +7,6 @@ import {
   updateEmail,
 } from "firebase/auth";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
-import { parseCookies, setCookie } from "nookies";
 import React, { createContext, useState } from "react";
 import { useLoginContext } from "../Login";
 import { IMeContextProps } from "./types";

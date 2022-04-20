@@ -1,12 +1,11 @@
 import Router from "next/router";
 import React from "react";
-import { Header, NavBar } from "../../../../components";
+import App from "..";
 
 const Users = () => {
   return (
     <>
-      <Header />
-      <NavBar />
+      <App />
     </>
   );
 };

@@ -6,7 +6,10 @@ import { FaParking, FaUserAlt } from "react-icons/fa";
 import { IoAnalyticsSharp } from "react-icons/io5";
 import { IoIosSettings } from "react-icons/io";
 import NavBarItem from "./NavBarItem/NavBarItem";
+import Modal from "../Modal/Modal";
+import { useDashboardContext } from "../../contexts/Dashboard";
 const NavBar = () => {
+  const { settingsIsOpen, handleToggleModal } = useDashboardContext();
   return (
     <Container>
       <ItemsWrapper>

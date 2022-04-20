@@ -1,17 +1,30 @@
 import { useRouter } from "next/router";
-import React, { createContext, useEffect } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { IDashboardContextProps } from "./types";
 
 const DashboardContext = createContext({} as IDashboardContextProps);
 
 const DashboardProvider = ({ children }: { children: React.ReactNode }) => {
-  const [menuSelected, setMenuSelected] = React.useState("");
+  const [menuSelected, setMenuSelected] = useState("");
+  const [settingsIsOpen, setSettingsIsOpen] = useState(true);
   const router = useRouter();
+
+  const handleToggleModal = () => {
+    setSettingsIsOpen(!settingsIsOpen);
+  };
+
   useEffect(() => {
     setMenuSelected(router.pathname);
   }, [router]);
   return (
-    <DashboardContext.Provider value={{ menuSelected, setMenuSelected }}>
+    <DashboardContext.Provider
+      value={{
+        menuSelected,
+        setMenuSelected,
+        settingsIsOpen,
+        handleToggleModal,
+      }}
+    >
       {children}
     </DashboardContext.Provider>
   );

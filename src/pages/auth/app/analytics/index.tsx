@@ -1,11 +1,11 @@
 import React from "react";
+import App from "..";
 import { Header, NavBar } from "../../../../components";
 
 const Analytics = () => {
   return (
     <>
-      <Header />
-      <NavBar />
+      <App />
     </>
   );
 };
