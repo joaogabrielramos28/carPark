@@ -1,6 +1,10 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-export const Container = styled.button`
+interface ItemProps {
+  active?: boolean;
+}
+
+export const Container = styled.button<ItemProps>`
   color: ${({ theme }) => theme.colors.text};
   background-color: transparent;
   border: none;
@@ -12,6 +16,16 @@ export const Container = styled.button`
   text-align: left;
 
   cursor: pointer;
+
+  ${({ active }) =>
+    active &&
+    css`
+      background-color: ${({ theme }) => theme.colors.secondary_light};
+      border-left: 2px solid ${({ theme }) => theme.colors.secondary};
+      svg {
+        color: ${({ theme }) => theme.colors.secondary};
+      }
+    `}
 
   :hover {
     transition: background-color 0.6s;

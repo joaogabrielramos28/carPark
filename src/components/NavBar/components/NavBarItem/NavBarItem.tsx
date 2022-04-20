@@ -36,10 +36,11 @@ const NavBarItem = ({
       </Link>
     );
   }
+  console.log("SubMenu", menuSelected, totalPath);
 
   return (
     <Container onClick={handleToggleSubMenu}>
-      <NavItem active={menuSelected === totalPath}>
+      <NavItem active={menuSelected.startsWith(totalPath)}>
         <Icon size={24} />
       </NavItem>
       {SubMenu?.title && openSubMenu && (

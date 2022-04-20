@@ -1,7 +1,6 @@
 import Router from "next/router";
 import React from "react";
-import App from "..";
-import { Header, NavBar } from "../../../../components";
+import App from "../..";
 
 const Parking = () => {
   return (

@@ -12,12 +12,12 @@ const NavBar = () => {
     title: "Parks",
     items: [
       {
-        name: "Parking",
-        path: "/auth/app/parking",
+        name: "Criar Park",
+        path: "parks/create-parks",
       },
       {
-        name: "Parking History",
-        path: "/auth/app/parking-history",
+        name: "Listar Parks",
+        path: "parks/list-parks",
       },
     ],
   };
@@ -25,7 +25,7 @@ const NavBar = () => {
   return (
     <Container>
       <ItemsWrapper>
-        <NavBarItem path="parking" icon={FaParking} SubMenu={parkingSubMenu} />
+        <NavBarItem path="parks" icon={FaParking} SubMenu={parkingSubMenu} />
         <NavBarItem path="users" icon={FaUserAlt} />
         <NavBarItem path="analytics" icon={IoAnalyticsSharp} />
       </ItemsWrapper>
