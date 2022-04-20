@@ -9,7 +9,7 @@ const App = () => {
       <Header />
       <NavBar />
       {settingsIsOpen && (
-        <Modal onClose={handleToggleModal}>
+        <Modal onClose={handleToggleModal} overlay>
           <h1>Modal</h1>
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam

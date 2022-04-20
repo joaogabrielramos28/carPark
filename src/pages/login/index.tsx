@@ -84,7 +84,7 @@ const Login = () => {
       </FormContainer>
       <ImageContainer></ImageContainer>
       {modalIsOpen && (
-        <Modal onClose={handleToogleModal}>
+        <Modal onClose={handleToogleModal} overlay>
           <ModalContent>
             <TitleModal>Esqueceu sua senha?</TitleModal>
             <DescriptionModal>
