@@ -7,6 +7,7 @@ const DashboardContext = createContext({} as IDashboardContextProps);
 const DashboardProvider = ({ children }: { children: React.ReactNode }) => {
   const [menuSelected, setMenuSelected] = useState("");
   const [settingsIsOpen, setSettingsIsOpen] = useState(false);
+
   const router = useRouter();
 
   const handleToggleModal = () => {

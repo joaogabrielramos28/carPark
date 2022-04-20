@@ -1,19 +1,31 @@
 import React from "react";
 
 import { Container, ItemsWrapper, Settings } from "./styles";
-import { BsChevronRight } from "react-icons/bs";
+
 import { FaParking, FaUserAlt } from "react-icons/fa";
 import { IoAnalyticsSharp } from "react-icons/io5";
 import { IoIosSettings } from "react-icons/io";
-import NavBarItem from "./NavBarItem/NavBarItem";
-import Modal from "../Modal/Modal";
-import { useDashboardContext } from "../../contexts/Dashboard";
+import NavBarItem from "./components/NavBarItem/NavBarItem";
+
 const NavBar = () => {
-  const { settingsIsOpen, handleToggleModal } = useDashboardContext();
+  const parkingSubMenu = {
+    title: "Parks",
+    items: [
+      {
+        name: "Parking",
+        path: "/auth/app/parking",
+      },
+      {
+        name: "Parking History",
+        path: "/auth/app/parking-history",
+      },
+    ],
+  };
+
   return (
     <Container>
       <ItemsWrapper>
-        <NavBarItem path="parking" icon={FaParking} />
+        <NavBarItem path="parking" icon={FaParking} SubMenu={parkingSubMenu} />
         <NavBarItem path="users" icon={FaUserAlt} />
         <NavBarItem path="analytics" icon={IoAnalyticsSharp} />
       </ItemsWrapper>
