@@ -1,7 +1,7 @@
 import React from "react";
 import { Header, NavBar } from "../../../components";
 
-const app = () => {
+const App = () => {
   return (
     <>
       <Header />
@@ -9,4 +9,4 @@ const app = () => {
     </>
   );
 };
-export default app;
+export default App;
