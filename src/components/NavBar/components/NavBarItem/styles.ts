@@ -17,6 +17,10 @@ export const NavItem = styled.button<INavBarItemProps>`
   background-color: transparent;
   cursor: pointer;
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   svg {
     margin: 20px 0;
     color: ${({ theme }) => theme.colors.text};

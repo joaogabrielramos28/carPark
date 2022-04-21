@@ -4,7 +4,7 @@ import { useDashboardContext } from "../../../../contexts/Dashboard";
 import Item from "../Item/Item";
 import { NavItem, Container, ItemsWrapper, Title, Overlay } from "./styles";
 import { NavBarItemProps, SubMenuProps } from "./types";
-
+import { HiOutlineChevronRight } from "react-icons/hi";
 const NavBarItem = ({
   icon: Icon,
   path,
@@ -36,12 +36,15 @@ const NavBarItem = ({
       </Link>
     );
   }
-  console.log("SubMenu", menuSelected, totalPath);
 
   return (
     <Container onClick={handleToggleSubMenu}>
       <NavItem active={menuSelected.startsWith(totalPath)}>
         <Icon size={24} />
+        <HiOutlineChevronRight
+          size={18}
+          style={{ position: "absolute", transform: "translateX(22px)" }}
+        />
       </NavItem>
       {SubMenu?.title && openSubMenu && (
         <>
