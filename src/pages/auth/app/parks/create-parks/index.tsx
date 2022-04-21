@@ -2,11 +2,11 @@ import Router from "next/router";
 import React from "react";
 import App from "../..";
 
-const Parking = () => {
+const CreateParks = () => {
   return (
     <>
       <App />
     </>
   );
 };
-export default Parking;
+export default CreateParks;
