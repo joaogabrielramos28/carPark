@@ -1,5 +1,15 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import InputForm from "../Input/Input";
+
+const appear = keyframes`
+  from{
+    margin-left:-99vw;
+
+  }
+  to{
+    margin-left:0;
+  }
+`;
 
 export const Container = styled.div`
   width: 1200px;
@@ -15,6 +25,8 @@ export const Container = styled.div`
   border-radius: 8px;
   z-index: 1;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+
+  animation: ${appear} 0.5s ease;
 `;
 
 export const Header = styled.header`
