@@ -23,7 +23,7 @@ export const Container = styled.div`
 
   background-color: ${({ theme }) => theme.colors.shape};
   border-radius: 8px;
-  z-index: 1;
+  z-index: 99;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 
   animation: ${appear} 0.5s ease;
@@ -49,7 +49,7 @@ export const Overlay = styled.div`
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 0;
+  z-index: 9;
   top: 0;
   left: 0;
 `;

@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import admin from "../../services/firebase-admin";
+import admin from "../../../services/firebase-admin";
 
 export default async function handle(
   req: NextApiRequest,
@@ -9,6 +9,7 @@ export default async function handle(
 
   if (token) {
     const verifiedToken = await admin.auth().verifyIdToken(token);
+
     // admin.auth().setCustomUserClaims(verifiedToken.uid, {
     //   admin: true,
     // });

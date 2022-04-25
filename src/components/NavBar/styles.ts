@@ -16,7 +16,7 @@ export const Container = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  z-index: -1;
+  z-index: 2;
 `;
 
 export const ItemsWrapper = styled.div``;
