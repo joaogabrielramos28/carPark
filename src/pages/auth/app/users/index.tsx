@@ -1,6 +1,4 @@
-import { User } from "firebase/auth";
 import { GetServerSideProps } from "next";
-import Router from "next/router";
 import React from "react";
 import App from "..";
 import { api } from "../../../../services/api";
@@ -12,10 +10,12 @@ import {
   TableRow,
   Box,
   TableCell,
+  TablePagination,
 } from "@material-ui/core";
 import {
   TableContainer,
   UserImage,
+  Main,
 } from "../../../../styles/pages/users/styles";
 import {
   AiFillGithub,
@@ -23,6 +23,20 @@ import {
   AiOutlineMail,
 } from "react-icons/ai";
 const Users = ({ users }: { users: IListUser[] }) => {
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
+  const handleChangePage = (event: unknown, newPage: number) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
+
   const getProviderIcon = (type: string) => {
     switch (type) {
       case "password":
@@ -43,13 +57,7 @@ const Users = ({ users }: { users: IListUser[] }) => {
   return (
     <>
       <App />
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
+      <Main>
         <TableContainer>
           <Table size="small">
             <colgroup>
@@ -75,40 +83,51 @@ const Users = ({ users }: { users: IListUser[] }) => {
               <TableCell style={{ textAlign: "center" }}>Verificado</TableCell>
             </TableHead>
             <TableBody>
-              {users?.map((user) => (
-                <TableRow key={user.uid}>
-                  <TableCell style={{ textAlign: "center" }}>
-                    <UserImage
-                      src={user.photoURL}
-                      alt={user.displayName}
-                      width={"50px"}
-                      height={"50px"}
-                    />
-                  </TableCell>
-                  <TableCell style={{ textAlign: "center" }}>
-                    {user.email}
-                  </TableCell>
-                  <TableCell style={{ textAlign: "center" }}>
-                    {user.displayName}
-                  </TableCell>
-                  <TableCell style={{ textAlign: "center" }}>
-                    {getProviderIcon(user.providerData[0].providerId)}
-                  </TableCell>
-                  <TableCell style={{ textAlign: "center" }}>
-                    {user.metadata.lastSignInTime}
-                  </TableCell>
-                  <TableCell style={{ textAlign: "center" }}>
-                    {getCheckIcon(user.disabled)}
-                  </TableCell>
-                  <TableCell style={{ textAlign: "center" }}>
-                    {getCheckIcon(user.emailVerified)}
-                  </TableCell>
-                </TableRow>
-              ))}
+              {users
+                ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                ?.map((user) => (
+                  <TableRow key={user.uid}>
+                    <TableCell style={{ textAlign: "center" }}>
+                      <UserImage
+                        src={user.photoURL}
+                        alt={user.displayName}
+                        width={"50px"}
+                        height={"50px"}
+                      />
+                    </TableCell>
+                    <TableCell style={{ textAlign: "center" }}>
+                      {user.email}
+                    </TableCell>
+                    <TableCell style={{ textAlign: "center" }}>
+                      {user.displayName}
+                    </TableCell>
+                    <TableCell style={{ textAlign: "center" }}>
+                      {getProviderIcon(user.providerData[0].providerId)}
+                    </TableCell>
+                    <TableCell style={{ textAlign: "center" }}>
+                      {user.metadata.lastSignInTime}
+                    </TableCell>
+                    <TableCell style={{ textAlign: "center" }}>
+                      {getCheckIcon(user.disabled)}
+                    </TableCell>
+                    <TableCell style={{ textAlign: "center" }}>
+                      {getCheckIcon(user.emailVerified)}
+                    </TableCell>
+                  </TableRow>
+                ))}
             </TableBody>
           </Table>
+          <TablePagination
+            rowsPerPageOptions={[25, 50, 100]}
+            component="div"
+            count={users.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
         </TableContainer>
-      </div>{" "}
+      </Main>
     </>
   );
 };

@@ -12,3 +12,10 @@ export const UserImage = styled(Image)`
   border-radius: 50%;
   object-fit: cover;
 `;
+
+export const Main = styled.main`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+`;
