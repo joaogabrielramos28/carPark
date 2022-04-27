@@ -1,6 +1,6 @@
 import type { NextFetchEvent, NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-const BASE_URL = process.env.NEXT_BASE_URL;
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 export async function middleware(req: NextRequest, ev: NextFetchEvent) {
   const { "@carPark:token": tokenCookies } = req.cookies;
   const response = await fetch(`${BASE_URL}/api/auth`, {
