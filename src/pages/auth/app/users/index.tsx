@@ -86,32 +86,32 @@ const Users = ({ users }: { users: IListUser[] }) => {
               {users
                 ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 ?.map((user) => (
-                  <TableRow key={user.uid}>
+                  <TableRow key={user?.uid}>
                     <TableCell style={{ textAlign: "center" }}>
                       <UserImage
-                        src={user.photoURL}
-                        alt={user.displayName}
+                        src={user?.photoURL}
+                        alt={user?.displayName}
                         width={"50px"}
                         height={"50px"}
                       />
                     </TableCell>
                     <TableCell style={{ textAlign: "center" }}>
-                      {user.email}
+                      {user?.email}
                     </TableCell>
                     <TableCell style={{ textAlign: "center" }}>
-                      {user.displayName}
+                      {user?.displayName}
                     </TableCell>
                     <TableCell style={{ textAlign: "center" }}>
-                      {getProviderIcon(user.providerData[0].providerId)}
+                      {getProviderIcon(user?.providerData[0].providerId)}
                     </TableCell>
                     <TableCell style={{ textAlign: "center" }}>
-                      {user.metadata.lastSignInTime}
+                      {user?.metadata.lastSignInTime}
                     </TableCell>
                     <TableCell style={{ textAlign: "center" }}>
-                      {getCheckIcon(user.disabled)}
+                      {getCheckIcon(user?.disabled)}
                     </TableCell>
                     <TableCell style={{ textAlign: "center" }}>
-                      {getCheckIcon(user.emailVerified)}
+                      {getCheckIcon(user?.emailVerified)}
                     </TableCell>
                   </TableRow>
                 ))}
@@ -120,7 +120,7 @@ const Users = ({ users }: { users: IListUser[] }) => {
           <TablePagination
             rowsPerPageOptions={[25, 50, 100]}
             component="div"
-            count={users.length}
+            count={users?.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}
