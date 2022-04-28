@@ -1,8 +1,7 @@
 import { FormEvent } from "react";
+import { IUserRegisterValues } from "../../types/Form";
 
 export interface IRegisterContext {
-  handleSubmit: (e: FormEvent) => void;
-  email: React.RefObject<HTMLInputElement>;
-  password: React.RefObject<HTMLInputElement>;
+  handleRegister: (values: IUserRegisterValues) => Promise<void>;
   loading: boolean;
 }

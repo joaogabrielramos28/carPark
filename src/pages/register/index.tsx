@@ -15,41 +15,61 @@ import Link from "next/link";
 import { BackButton, Loading } from "../../components";
 import theme from "../../styles/theme";
 
+import { Formik } from "formik";
+import { RegisterSchema } from "../../validation";
+import { IUserRegisterValues } from "../../types/Form";
+
 const Register = () => {
-  const { email, password, handleSubmit, loading } = useRegisterContext();
+  const { handleRegister, loading } = useRegisterContext();
   return (
     <Container data-aos="fade-right">
       <ArrowBack>
         <BackButton />
       </ArrowBack>
       <FormContainer>
-        <Form onSubmit={handleSubmit}>
-          <Title>Crie sua conta</Title>
-          <InputForm
-            label="E-mail"
-            placeholder="Digite seu email"
-            inputRef={email}
-          />
-          <InputForm
-            label="Senha"
-            type={"password"}
-            placeholder="Digite sua senha"
-            inputRef={password}
-          />
+        <Formik
+          initialValues={{ email: "", password: "" }}
+          validationSchema={RegisterSchema}
+          onSubmit={(values: IUserRegisterValues) => handleRegister(values)}
+        >
+          {({ handleSubmit, errors, touched, values, handleChange }) => (
+            <Form onSubmit={handleSubmit}>
+              <Title>Crie sua conta</Title>
+              <InputForm
+                label="E-mail"
+                name="email"
+                placeholder="Digite seu email"
+                value={values.email}
+                onChange={handleChange}
+                error={errors.email && touched.email ? errors.email : ""}
+              />
+              <InputForm
+                label="Senha"
+                type={"password"}
+                name="password"
+                placeholder="Digite sua senha"
+                value={values.password}
+                onChange={handleChange}
+                error={
+                  errors.password && touched.password ? errors.password : ""
+                }
+              />
 
-          <Button type="submit">
-            {loading ? (
-              <>
-                <Loading color={theme.colors.shape} size={40} />
-              </>
-            ) : (
-              "Criar conta"
-            )}
-          </Button>
-          <Link href={"/auth/login"} passHref>
-            <HasAccount>Já tenho uma conta</HasAccount>
-          </Link>
-        </Form>
+              <Button type="submit">
+                {loading ? (
+                  <>
+                    <Loading color={theme.colors.shape} size={40} />
+                  </>
+                ) : (
+                  "Criar conta"
+                )}
+              </Button>
+              <Link href={"/auth/login"} passHref>
+                <HasAccount>Já tenho uma conta</HasAccount>
+              </Link>
+            </Form>
+          )}
+        </Formik>
       </FormContainer>
       <ImageContainer></ImageContainer>
     </Container>

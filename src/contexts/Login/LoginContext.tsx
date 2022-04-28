@@ -32,8 +32,6 @@ const LoginProvider = ({ children }: { children: React.ReactNode }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const auth = getAuth(app);
-  const email = useRef<HTMLInputElement>(null);
-  const password = useRef<HTMLInputElement>(null);
 
   async function loginWithGithub(e: FormEvent) {
     setLoadingLogin(true);
@@ -139,8 +137,6 @@ const LoginProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <LoginContext.Provider
       value={{
-        email,
-        password,
         loginWithGithub,
         loginWithGoogle,
         loginWithCredentials,

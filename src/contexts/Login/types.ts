@@ -3,8 +3,6 @@ import { FormEvent } from "react";
 import { IUserLoginValues } from "../../types/Form";
 
 export interface ILoginContext {
-  email: React.RefObject<HTMLInputElement>;
-  password: React.RefObject<HTMLInputElement>;
   loginWithGithub: (e: FormEvent) => Promise<void>;
   loginWithGoogle: (e: FormEvent) => Promise<void>;
   loginWithCredentials: (values: IUserLoginValues) => Promise<void>;

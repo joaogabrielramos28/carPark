@@ -11,32 +11,30 @@ import { useLoginContext } from "../Login";
 import { IRegisterContext } from "./types";
 import { setCookie } from "nookies";
 import Router from "next/router";
+import { IUserRegisterValues } from "../../types/Form";
 const RegisterContext = createContext({} as IRegisterContext);
 
 const RegisterProvider = ({ children }: { children: React.ReactNode }) => {
   const auth = getAuth(app);
-  const email = useRef<HTMLInputElement>(null);
-  const password = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e: FormEvent) => {
+  const handleRegister = async (values: IUserRegisterValues) => {
     setLoading(true);
-    e.preventDefault();
 
-    await createUserWithEmailAndPassword(
-      auth,
-      email?.current!.value,
-      password?.current!.value
-    );
-    setLoading(false);
-    Router.push("/");
+    const { email, password } = values;
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      setLoading(false);
+      Router.push("/");
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
   };
   return (
     <RegisterContext.Provider
       value={{
-        handleSubmit,
-        email,
-        password,
+        handleRegister,
         loading,
       }}
     >
