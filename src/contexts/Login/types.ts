@@ -1,12 +1,13 @@
 import { User } from "firebase/auth";
 import { FormEvent } from "react";
+import { IUserLoginValues } from "../../types/Form";
 
 export interface ILoginContext {
   email: React.RefObject<HTMLInputElement>;
   password: React.RefObject<HTMLInputElement>;
   loginWithGithub: (e: FormEvent) => Promise<void>;
   loginWithGoogle: (e: FormEvent) => Promise<void>;
-  loginWithCredentials: (e: FormEvent) => Promise<void>;
+  loginWithCredentials: (values: IUserLoginValues) => Promise<void>;
   setUser: React.Dispatch<IUser | null>;
   user: IUser | null;
   logout: () => Promise<void>;

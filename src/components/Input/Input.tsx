@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Container, Input, Label } from "./styles";
+import { Container, Input, Label, ErrorMessage } from "./styles";
 import { IInputFormProps } from "./types";
 const InputForm = ({
   label,
   type = "text",
   placeholder,
   inputRef,
+  error,
   ...rest
 }: IInputFormProps) => {
   const [onFocus, setOnFocus] = useState(false);
@@ -29,6 +30,7 @@ const InputForm = ({
         placeholder={placeholder}
         ref={inputRef}
       />
+      {error && <ErrorMessage>{error}</ErrorMessage>}
     </Container>
   );
 };

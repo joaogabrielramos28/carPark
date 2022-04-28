@@ -19,6 +19,7 @@ import { app } from "../../services/firebase";
 import { ILoginContext, IUser } from "./types";
 import { setCookie, parseCookies, destroyCookie } from "nookies";
 import { useRouter } from "next/router";
+import { IUserLoginValues } from "../../types/Form";
 
 const LoginContext = createContext({} as ILoginContext);
 
@@ -71,19 +72,16 @@ const LoginProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }
 
-  async function loginWithCredentials(e: FormEvent) {
-    setLoadingLogin(true);
-    e.preventDefault();
+  async function loginWithCredentials(values: IUserLoginValues) {
+    const { email, password } = values;
     try {
-      const result = await signInWithEmailAndPassword(
-        auth,
-        email.current?.value!,
-        password.current?.value!
-      );
-      setLoadingLogin(false);
+      setLoadingLogin(true);
+      const result = await signInWithEmailAndPassword(auth, email, password);
       router.push("/");
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      setLoadingLogin(false);
+      console.log(error);
+      console.log("oi");
     }
   }
 

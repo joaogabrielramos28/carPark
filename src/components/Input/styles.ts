@@ -34,3 +34,11 @@ export const Label = styled.label`
   color: ${({ theme }) => theme.colors.title};
   margin-bottom: 10px;
 `;
+
+export const ErrorMessage = styled.p`
+  color: ${({ theme }) => theme.colors.secondary};
+  font-size: 12px;
+  margin-top: 10px;
+
+  font-weight: 500;
+`;
