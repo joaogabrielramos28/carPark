@@ -14,19 +14,20 @@ import {
   signInWithEmailAndPassword,
   signOut,
   sendPasswordResetEmail,
+  createUserWithEmailAndPassword,
 } from "firebase/auth";
 import { app } from "../../services/firebase";
-import { ILoginContext, IUser } from "./types";
+import { IAuthContext, IUser } from "./types";
 import { setCookie, parseCookies, destroyCookie } from "nookies";
-import { useRouter } from "next/router";
-import { IUserLoginValues } from "../../types/Form";
+import Router, { useRouter } from "next/router";
+import { IUserLoginValues, IUserRegisterValues } from "../../types/Form";
 
-const LoginContext = createContext({} as ILoginContext);
+const AuthContext = createContext({} as IAuthContext);
 
-const LoginProvider = ({ children }: { children: React.ReactNode }) => {
+const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const [user, setUser] = useState<IUser | null>({} as IUser);
-  const [loadingLogin, setLoadingLogin] = useState(false);
+  const [loadingAuth, setLoadingAuth] = useState(false);
   const [loadingSendEmail, setLoadingSendEmail] = useState(false);
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -34,14 +35,14 @@ const LoginProvider = ({ children }: { children: React.ReactNode }) => {
   const auth = getAuth(app);
 
   async function loginWithGithub(e: FormEvent) {
-    setLoadingLogin(true);
+    setLoadingAuth(true);
     e.preventDefault();
     const provider = new GithubAuthProvider();
     try {
       const result = await signInWithPopup(auth, provider);
       const credential = GithubAuthProvider.credentialFromResult(result);
 
-      setLoadingLogin(false);
+      setLoadingAuth(false);
       router.push("/");
     } catch (error: any) {
       const errorCode = error.code;
@@ -55,7 +56,7 @@ const LoginProvider = ({ children }: { children: React.ReactNode }) => {
   }
 
   async function loginWithGoogle(e: FormEvent) {
-    setLoadingLogin(true);
+    setLoadingAuth(true);
     e.preventDefault();
     try {
       const provider = new GoogleAuthProvider();
@@ -63,7 +64,7 @@ const LoginProvider = ({ children }: { children: React.ReactNode }) => {
       await signInWithPopup(auth, provider).then((result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
       });
-      setLoadingLogin(false);
+      setLoadingAuth(false);
       router.push("/");
     } catch (error: any) {
       console.log(error);
@@ -73,11 +74,11 @@ const LoginProvider = ({ children }: { children: React.ReactNode }) => {
   async function loginWithCredentials(values: IUserLoginValues) {
     const { email, password } = values;
     try {
-      setLoadingLogin(true);
+      setLoadingAuth(true);
       const result = await signInWithEmailAndPassword(auth, email, password);
       router.push("/");
     } catch (error) {
-      setLoadingLogin(false);
+      setLoadingAuth(false);
       console.log(error);
       console.log("oi");
     }
@@ -92,6 +93,20 @@ const LoginProvider = ({ children }: { children: React.ReactNode }) => {
 
     router.push("/");
   }
+
+  const register = async (values: IUserRegisterValues) => {
+    setLoadingAuth(true);
+
+    const { email, password } = values;
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+
+      Router.push("/");
+    } catch (error) {
+      setLoadingAuth(false);
+      console.log(error);
+    }
+  };
 
   async function resetPassword(email: string) {
     setLoadingSendEmail(true);
@@ -135,28 +150,29 @@ const LoginProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   return (
-    <LoginContext.Provider
+    <AuthContext.Provider
       value={{
         loginWithGithub,
         loginWithGoogle,
         loginWithCredentials,
+        register,
         user,
         setUser,
         logout,
         resetPassword,
         modalIsOpen,
         handleToogleModal,
-        loadingLogin,
+        loadingAuth,
         loadingSendEmail,
       }}
     >
       {children}
-    </LoginContext.Provider>
+    </AuthContext.Provider>
   );
 };
 
-const useLoginContext = () => {
-  const context = useContext(LoginContext);
+const useAuthContext = () => {
+  const context = useContext(AuthContext);
 
   if (!context) {
     throw new Error("UseAuth must be used within a AuthProvider");
@@ -165,4 +181,4 @@ const useLoginContext = () => {
   return context;
 };
 
-export { useLoginContext, LoginContext, LoginProvider };
+export { useAuthContext, AuthContext, AuthProvider };

@@ -28,7 +28,7 @@ import { FiEdit2 } from "react-icons/fi";
 
 import { BackButton, Loading, Modal } from "../../../components";
 import { useMeContext } from "../../../contexts/Me";
-import { useLoginContext } from "../../../contexts/Login";
+import { useAuthContext } from "../../../contexts/Auth";
 import Image from "next/image";
 import theme from "../../../styles/theme";
 const Me = () => {
@@ -47,7 +47,7 @@ const Me = () => {
     loadingUpdateUser,
   } = useMeContext();
 
-  const { user } = useLoginContext();
+  const { user } = useAuthContext();
 
   const newPassword = useRef<HTMLInputElement>(null);
   const confirmNewPassword = useRef<HTMLInputElement>(null);

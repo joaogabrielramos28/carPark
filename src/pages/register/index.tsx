@@ -10,7 +10,6 @@ import {
   HasAccount,
 } from "../../styles/pages/register/styles";
 import InputForm from "../../components/Input/Input";
-import { useRegisterContext } from "../../contexts/Register";
 import Link from "next/link";
 import { BackButton, Loading } from "../../components";
 import theme from "../../styles/theme";
@@ -18,9 +17,10 @@ import theme from "../../styles/theme";
 import { Formik } from "formik";
 import { RegisterSchema } from "../../validation";
 import { IUserRegisterValues } from "../../types/Form";
+import { useAuthContext } from "../../contexts/Auth";
 
 const Register = () => {
-  const { handleRegister, loading } = useRegisterContext();
+  const { register, loadingAuth } = useAuthContext();
   return (
     <Container data-aos="fade-right">
       <ArrowBack>
@@ -30,7 +30,7 @@ const Register = () => {
         <Formik
           initialValues={{ email: "", password: "" }}
           validationSchema={RegisterSchema}
-          onSubmit={(values: IUserRegisterValues) => handleRegister(values)}
+          onSubmit={(values: IUserRegisterValues) => register(values)}
         >
           {({ handleSubmit, errors, touched, values, handleChange }) => (
             <Form onSubmit={handleSubmit}>
@@ -56,7 +56,7 @@ const Register = () => {
               />
 
               <Button type="submit">
-                {loading ? (
+                {loadingAuth ? (
                   <>
                     <Loading color={theme.colors.shape} size={40} />
                   </>

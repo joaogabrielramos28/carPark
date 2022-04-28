@@ -8,7 +8,7 @@ import {
 } from "firebase/auth";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import React, { createContext, useState } from "react";
-import { useLoginContext } from "../Login";
+import { useAuthContext } from "../Auth";
 import { IMeContextProps } from "./types";
 import Router from "next/router";
 
@@ -22,7 +22,7 @@ const MeProvider = ({ children }: { children: React.ReactNode }) => {
   const [loadingSendEmaiLConfirmation, setLoadingSendEmailConfirmation] =
     useState(false);
   const [loadingUpdateUser, setLoadingUpdateUser] = useState(false);
-  const { user } = useLoginContext();
+  const { user } = useAuthContext();
   const auth = getAuth();
 
   const handleToogleEditMode = () => {

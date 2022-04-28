@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { useLoginContext } from "../../contexts/Login";
+import { useAuthContext } from "../../contexts/Auth";
 
 import {
   Container,
@@ -22,7 +22,7 @@ import theme from "../../styles/theme";
 const Header = () => {
   const [imageLoading, setImageLoading] = useState(true);
   const [dropDownIsActive, setDropDownIsActive] = useState<boolean>(false);
-  const { user, logout } = useLoginContext();
+  const { user, logout } = useAuthContext();
 
   const toggleDropDown = () => {
     if (!dropDownIsActive) {

@@ -1,8 +1,8 @@
 import { User } from "firebase/auth";
 import { FormEvent } from "react";
-import { IUserLoginValues } from "../../types/Form";
+import { IUserLoginValues, IUserRegisterValues } from "../../types/Form";
 
-export interface ILoginContext {
+export interface IAuthContext {
   loginWithGithub: (e: FormEvent) => Promise<void>;
   loginWithGoogle: (e: FormEvent) => Promise<void>;
   loginWithCredentials: (values: IUserLoginValues) => Promise<void>;
@@ -12,8 +12,9 @@ export interface ILoginContext {
   resetPassword: (email: string) => Promise<void>;
   modalIsOpen: boolean;
   handleToogleModal: () => void;
-  loadingLogin: boolean;
+  loadingAuth: boolean;
   loadingSendEmail: boolean;
+  register: (values: IUserRegisterValues) => Promise<void>;
 }
 
 export interface IUser {

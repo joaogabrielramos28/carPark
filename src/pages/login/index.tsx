@@ -18,7 +18,7 @@ import {
   ButtonReset,
 } from "../../styles/pages/login/styles";
 import { BsGithub, BsGoogle } from "react-icons/bs";
-import { useLoginContext } from "../../contexts/Login";
+import { useAuthContext } from "../../contexts/Auth";
 
 import { BackButton, Loading, Modal } from "../../components";
 import theme from "../../styles/theme";
@@ -33,9 +33,9 @@ const Login = () => {
     resetPassword,
     handleToogleModal,
     modalIsOpen,
-    loadingLogin,
+    loadingAuth,
     loadingSendEmail,
-  } = useLoginContext();
+  } = useAuthContext();
 
   return (
     <Container data-aos="fade-right">
@@ -83,7 +83,7 @@ const Login = () => {
               </OauthSection>
 
               <Button type="submit">
-                {loadingLogin ? (
+                {loadingAuth ? (
                   <>
                     <Loading color={theme.colors.shape} size={40} />
                   </>
