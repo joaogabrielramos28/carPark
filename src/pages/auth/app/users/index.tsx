@@ -8,7 +8,6 @@ import {
   TableHead,
   TableBody,
   TableRow,
-  Box,
   TableCell,
   TablePagination,
 } from "@material-ui/core";
@@ -16,15 +15,34 @@ import {
   TableContainer,
   UserImage,
   Main,
+  ButtonAdmin,
+  ModalContent,
+  TitleModal,
+  DescriptionModal,
+  DecisionWrapper,
+  ButtonDecision,
 } from "../../../../styles/pages/users/styles";
 import {
   AiFillGithub,
   AiFillGoogleCircle,
   AiOutlineMail,
 } from "react-icons/ai";
+
+import { VscOrganization } from "react-icons/vsc";
+import { useTheme } from "styled-components";
+import { useDashboardContext } from "../../../../contexts/Dashboard";
+import { Modal } from "../../../../components";
+
 const Users = ({ users }: { users: IListUser[] }) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const theme = useTheme();
+
+  const {
+    handleConfirmationAdminPromote,
+    adminModalConfirmationIsOpen,
+    handleToggleAdminModalConfirmation,
+  } = useDashboardContext();
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
@@ -66,6 +84,7 @@ const Users = ({ users }: { users: IListUser[] }) => {
               <col width="15%" />
               <col width="10%" />
               <col width="10%" />
+              <col width="10%" />
               <col width="5%" />
               <col width="5%" />
             </colgroup>
@@ -81,39 +100,88 @@ const Users = ({ users }: { users: IListUser[] }) => {
                 Desabilitado
               </TableCell>
               <TableCell style={{ textAlign: "center" }}>Verificado</TableCell>
+              <TableCell style={{ textAlign: "center" }}>Promover</TableCell>
             </TableHead>
             <TableBody>
               {users
                 ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 ?.map((user) => (
-                  <TableRow key={user?.uid}>
-                    <TableCell style={{ textAlign: "center" }}>
-                      <UserImage
-                        src={user?.photoURL}
-                        alt={user?.displayName}
-                        width={"50px"}
-                        height={"50px"}
-                      />
-                    </TableCell>
-                    <TableCell style={{ textAlign: "center" }}>
-                      {user?.email}
-                    </TableCell>
-                    <TableCell style={{ textAlign: "center" }}>
-                      {user?.displayName}
-                    </TableCell>
-                    <TableCell style={{ textAlign: "center" }}>
-                      {getProviderIcon(user?.providerData[0].providerId)}
-                    </TableCell>
-                    <TableCell style={{ textAlign: "center" }}>
-                      {user?.metadata.lastSignInTime}
-                    </TableCell>
-                    <TableCell style={{ textAlign: "center" }}>
-                      {getCheckIcon(user?.disabled)}
-                    </TableCell>
-                    <TableCell style={{ textAlign: "center" }}>
-                      {getCheckIcon(user?.emailVerified)}
-                    </TableCell>
-                  </TableRow>
+                  <>
+                    <TableRow key={user?.uid}>
+                      <TableCell style={{ textAlign: "center" }}>
+                        <UserImage
+                          src={user?.photoURL}
+                          alt={user?.displayName}
+                          width={"50px"}
+                          height={"50px"}
+                        />
+                      </TableCell>
+                      <TableCell style={{ textAlign: "center" }}>
+                        {user?.email}
+                      </TableCell>
+                      <TableCell style={{ textAlign: "center" }}>
+                        {user?.displayName}
+                      </TableCell>
+                      <TableCell style={{ textAlign: "center" }}>
+                        {getProviderIcon(user?.providerData[0].providerId)}
+                      </TableCell>
+                      <TableCell style={{ textAlign: "center" }}>
+                        {user?.metadata.lastSignInTime}
+                      </TableCell>
+                      <TableCell style={{ textAlign: "center" }}>
+                        {getCheckIcon(user?.disabled)}
+                      </TableCell>
+                      <TableCell style={{ textAlign: "center" }}>
+                        {getCheckIcon(user?.emailVerified)}
+                      </TableCell>
+                      <TableCell style={{ textAlign: "center" }}>
+                        <ButtonAdmin
+                          disabled={user?.customClaims?.admin}
+                          isAdmin={user?.customClaims?.admin}
+                          onClick={handleToggleAdminModalConfirmation}
+                        >
+                          <VscOrganization
+                            color={
+                              user?.customClaims?.admin
+                                ? ""
+                                : theme.colors.success
+                            }
+                            size={24}
+                          />
+                        </ButtonAdmin>
+                      </TableCell>
+                    </TableRow>
+                    {adminModalConfirmationIsOpen && (
+                      <Modal onClose={handleToggleAdminModalConfirmation}>
+                        <ModalContent>
+                          <TitleModal>
+                            Deseja realmente promover este usuário para
+                            administrador?
+                          </TitleModal>
+                          <DescriptionModal>
+                            Ao transformar esse usuário em ADMIN, ele terá
+                            acesso a todas as funcionalidades do sistema.
+                          </DescriptionModal>
+                          <DecisionWrapper>
+                            <ButtonDecision
+                              backgroundColor={theme.colors.success}
+                              onClick={() =>
+                                handleConfirmationAdminPromote(user?.uid)
+                              }
+                            >
+                              Sim, desejo continuar
+                            </ButtonDecision>
+                            <ButtonDecision
+                              backgroundColor={theme.colors.secondary}
+                              onClick={handleToggleAdminModalConfirmation}
+                            >
+                              Não, desejo cancelar
+                            </ButtonDecision>
+                          </DecisionWrapper>
+                        </ModalContent>
+                      </Modal>
+                    )}
+                  </>
                 ))}
             </TableBody>
           </Table>

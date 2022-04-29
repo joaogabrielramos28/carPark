@@ -1,5 +1,8 @@
 export interface IListUser {
   uid: string;
+  customClaims: {
+    admin: boolean;
+  };
   email: string;
   emailVerified: boolean;
   displayName: string;
@@ -10,5 +13,6 @@ export interface IListUser {
   };
   providerData: {
     providerId: string;
+    uid: string;
   }[];
 }
