@@ -5,6 +5,8 @@ import { ThemeProvider } from "styled-components";
 import GlobalStyle from "../styles/globalStyle";
 import theme from "../styles/theme";
 import { DashboardProvider } from "./Dashboard";
+
+import { ToastContainer } from "react-toastify";
 const AppProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <AuthProvider>
@@ -14,6 +16,7 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => {
         </MeProvider>
       </ThemeProvider>
       <GlobalStyle />
+      <ToastContainer theme="colored" />
     </AuthProvider>
   );
 };

@@ -1,6 +1,10 @@
 import { User } from "firebase/auth";
 import { FormEvent } from "react";
-import { IUserLoginValues, IUserRegisterValues } from "../../types/Form";
+import {
+  IResetPassword,
+  IUserLoginValues,
+  IUserRegisterValues,
+} from "../../types/Form";
 
 export interface IAuthContext {
   loginWithGithub: (e: FormEvent) => Promise<void>;
@@ -9,7 +13,7 @@ export interface IAuthContext {
   setUser: React.Dispatch<IUser | null>;
   user: IUser | null;
   logout: () => Promise<void>;
-  resetPassword: (email: string) => Promise<void>;
+  resetPassword: (values: IResetPassword) => Promise<void>;
   modalIsOpen: boolean;
   handleToogleModal: () => void;
   loadingAuth: boolean;

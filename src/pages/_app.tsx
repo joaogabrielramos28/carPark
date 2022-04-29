@@ -18,6 +18,7 @@ Router.events.on("routeChangeError", () => {
   Nprogress.done();
 });
 
+import "react-toastify/dist/ReactToastify.css";
 function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     Aos.init({

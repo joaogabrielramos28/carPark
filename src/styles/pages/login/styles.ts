@@ -73,6 +73,11 @@ export const Button = styled.button`
     opacity: 0.7;
     transition: opacity 0.7s;
   }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 `;
 
 export const OauthSection = styled.div`
@@ -148,4 +153,9 @@ export const InputReset = styled(InputForm)`
 export const ButtonReset = styled(Button)`
   padding: 16px;
   width: 100%;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 `;

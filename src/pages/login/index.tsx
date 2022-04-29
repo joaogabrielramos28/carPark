@@ -23,8 +23,9 @@ import { useAuthContext } from "../../contexts/Auth";
 import { BackButton, Loading, Modal } from "../../components";
 import theme from "../../styles/theme";
 import { Formik } from "formik";
-import { IUserLoginValues } from "../../types/Form";
+import { IResetPassword, IUserLoginValues } from "../../types/Form";
 import { SignupSchema } from "../../validation";
+import { ResetPasswordSchema } from "../../validation/Login";
 const Login = () => {
   const {
     loginWithCredentials,
@@ -82,7 +83,10 @@ const Login = () => {
                 </ButtonOAuth>
               </OauthSection>
 
-              <Button type="submit">
+              <Button
+                type="submit"
+                disabled={errors.email && errors.password ? true : false}
+              >
                 {loadingAuth ? (
                   <>
                     <Loading color={theme.colors.shape} size={40} />
@@ -94,33 +98,53 @@ const Login = () => {
               <ForgetMyPass onClick={handleToogleModal}>
                 Esqueci minha senha
               </ForgetMyPass>
-              {modalIsOpen && (
-                <Modal onClose={handleToogleModal} overlay>
-                  <ModalContent>
-                    <TitleModal>Esqueceu sua senha?</TitleModal>
-                    <DescriptionModal>
-                      Digite seu e-mail para enviarmos um link para você
-                      redefinir sua senha.
-                    </DescriptionModal>
-
-                    <InputReset placeholder="Digite seu e-mail" />
-                    <ButtonReset onClick={() => resetPassword(values.email)}>
-                      {loadingSendEmail ? (
-                        <>
-                          <Loading color={theme.colors.shape} size={40} />
-                        </>
-                      ) : (
-                        "Enviar e-mail"
-                      )}
-                    </ButtonReset>
-                  </ModalContent>
-                </Modal>
-              )}
             </Form>
           )}
         </Formik>
       </FormContainer>
       <ImageContainer></ImageContainer>
+
+      <Formik
+        initialValues={{ email: "" }}
+        onSubmit={(values: IResetPassword) => {
+          resetPassword(values);
+        }}
+        validationSchema={ResetPasswordSchema}
+      >
+        {({ handleSubmit, values, handleChange, errors, touched }) => (
+          <Form onSubmit={handleSubmit}>
+            {modalIsOpen && (
+              <Modal onClose={handleToogleModal} overlay>
+                <ModalContent>
+                  <TitleModal>Esqueceu sua senha?</TitleModal>
+                  <DescriptionModal>
+                    Digite seu e-mail para enviarmos um link para você redefinir
+                    sua senha.
+                  </DescriptionModal>
+
+                  <InputReset
+                    placeholder="Digite seu e-mail"
+                    name="email"
+                    value={values.email}
+                    onChange={handleChange}
+                    error={errors.email ? errors.email : ""}
+                  />
+
+                  <ButtonReset disabled={errors.email ? true : false}>
+                    {loadingSendEmail ? (
+                      <>
+                        <Loading color={theme.colors.shape} size={40} />
+                      </>
+                    ) : (
+                      "Enviar e-mail"
+                    )}
+                  </ButtonReset>
+                </ModalContent>
+              </Modal>
+            )}
+          </Form>
+        )}
+      </Formik>
     </Container>
   );
 };

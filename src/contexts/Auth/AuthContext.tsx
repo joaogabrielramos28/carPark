@@ -20,7 +20,12 @@ import { app } from "../../services/firebase";
 import { IAuthContext, IUser } from "./types";
 import { setCookie, parseCookies, destroyCookie } from "nookies";
 import Router, { useRouter } from "next/router";
-import { IUserLoginValues, IUserRegisterValues } from "../../types/Form";
+import {
+  IResetPassword,
+  IUserLoginValues,
+  IUserRegisterValues,
+} from "../../types/Form";
+import { toastMessage } from "../../utils/toast";
 
 const AuthContext = createContext({} as IAuthContext);
 
@@ -76,11 +81,12 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     try {
       setLoadingAuth(true);
       const result = await signInWithEmailAndPassword(auth, email, password);
-      router.push("/");
-    } catch (error) {
       setLoadingAuth(false);
+      router.push("/");
+    } catch (error: any) {
+      setLoadingAuth(false);
+      toastMessage(error.code, "error");
       console.log(error);
-      console.log("oi");
     }
   }
 
@@ -102,17 +108,28 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       await createUserWithEmailAndPassword(auth, email, password);
 
       Router.push("/");
-    } catch (error) {
+    } catch (error: any) {
       setLoadingAuth(false);
+      toastMessage(error.code, "error");
       console.log(error);
     }
   };
 
-  async function resetPassword(email: string) {
-    setLoadingSendEmail(true);
+  async function resetPassword(values: IResetPassword) {
+    const { email } = values;
     if (email) {
-      await sendPasswordResetEmail(auth, email);
-      setLoadingSendEmail(false);
+      try {
+        setLoadingSendEmail(true);
+        console.log(email);
+
+        await sendPasswordResetEmail(auth, email);
+        setLoadingSendEmail(false);
+        toastMessage("Email enviado com sucesso");
+      } catch (error: any) {
+        console.log(error);
+        toastMessage(error.code, "error");
+        setLoadingSendEmail(false);
+      }
     }
 
     return;

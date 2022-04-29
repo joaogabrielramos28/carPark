@@ -64,7 +64,7 @@ const Register = () => {
                   "Criar conta"
                 )}
               </Button>
-              <Link href={"/auth/login"} passHref>
+              <Link href={"/login"} passHref>
                 <HasAccount>Já tenho uma conta</HasAccount>
               </Link>
             </Form>
