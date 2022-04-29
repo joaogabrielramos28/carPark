@@ -11,6 +11,7 @@ import React, { createContext, useState } from "react";
 import { useAuthContext } from "../Auth";
 import { IMeContextProps } from "./types";
 import Router from "next/router";
+import { toastMessage } from "../../utils/toast";
 
 const MeContext = createContext({} as IMeContextProps);
 
@@ -54,31 +55,42 @@ const MeProvider = ({ children }: { children: React.ReactNode }) => {
     password?: string,
     confirmPassword?: string
   ) => {
-    setLoadingUpdateUser(true);
-    const newPhotoUrl = changeImage === "" ? user?.user?.photoURL : changeImage;
-    await updateProfile(auth.currentUser!, {
-      displayName: newName,
-      photoURL: newPhotoUrl,
-    });
+    try {
+      setLoadingUpdateUser(true);
+      const newPhotoUrl =
+        changeImage === "" ? user?.user?.photoURL : changeImage;
+      await updateProfile(auth.currentUser!, {
+        displayName: newName,
+        photoURL: newPhotoUrl,
+      });
 
-    if (password && confirmPassword) {
-      if (password === confirmPassword) {
-        await updatePassword(auth.currentUser!, password);
+      if (password && confirmPassword) {
+        if (password === confirmPassword) {
+          await updatePassword(auth.currentUser!, password);
+        }
       }
-    }
 
-    reload(auth.currentUser!);
-    setLoadingUpdateUser(false);
-    Router.reload();
+      reload(auth.currentUser!);
+      setLoadingUpdateUser(false);
+      Router.reload();
+    } catch (error: any) {
+      console.log(error);
+    }
   };
 
   const handleSendEmailConfirmation = async () => {
-    setLoadingSendEmailConfirmation(true);
-    await sendEmailVerification(auth.currentUser!);
+    try {
+      setLoadingSendEmailConfirmation(true);
+      await sendEmailVerification(auth.currentUser!);
 
-    setLoadingSendEmailConfirmation(false);
+      setLoadingSendEmailConfirmation(false);
 
-    reload(auth.currentUser!);
+      toastMessage("E-mail de confirmação enviado com sucesso!");
+
+      reload(auth.currentUser!);
+    } catch (error: any) {
+      console.log(error);
+    }
   };
 
   const lastLoginTimeStamp =
