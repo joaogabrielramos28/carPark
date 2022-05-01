@@ -4,6 +4,6 @@ export interface IDashboardContextProps {
   settingsIsOpen: boolean;
   handleToggleModal: () => void;
   adminModalConfirmationIsOpen: boolean;
-  handleConfirmationAdminPromote: (uid: string) => void;
-  handleToggleAdminModalConfirmation: () => void;
+  handleConfirmationAdminPromote: () => void;
+  handleToggleAdminModalConfirmation: (uid?: string) => void;
 }

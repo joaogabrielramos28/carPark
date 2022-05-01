@@ -36,6 +36,7 @@ import { Modal } from "../../../../components";
 const Users = ({ users }: { users: IListUser[] }) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
   const theme = useTheme();
 
   const {
@@ -138,7 +139,9 @@ const Users = ({ users }: { users: IListUser[] }) => {
                         <ButtonAdmin
                           disabled={user?.customClaims?.admin}
                           isAdmin={user?.customClaims?.admin}
-                          onClick={handleToggleAdminModalConfirmation}
+                          onClick={() =>
+                            handleToggleAdminModalConfirmation(user?.uid)
+                          }
                         >
                           <VscOrganization
                             color={
@@ -165,15 +168,15 @@ const Users = ({ users }: { users: IListUser[] }) => {
                           <DecisionWrapper>
                             <ButtonDecision
                               backgroundColor={theme.colors.success}
-                              onClick={() =>
-                                handleConfirmationAdminPromote(user?.uid)
-                              }
+                              onClick={handleConfirmationAdminPromote}
                             >
                               Sim, desejo continuar
                             </ButtonDecision>
                             <ButtonDecision
                               backgroundColor={theme.colors.secondary}
-                              onClick={handleToggleAdminModalConfirmation}
+                              onClick={() =>
+                                handleToggleAdminModalConfirmation("")
+                              }
                             >
                               Não, desejo cancelar
                             </ButtonDecision>
@@ -186,7 +189,7 @@ const Users = ({ users }: { users: IListUser[] }) => {
             </TableBody>
           </Table>
           <TablePagination
-            rowsPerPageOptions={[25, 50, 100]}
+            rowsPerPageOptions={[10, 50, 100]}
             component="div"
             count={users?.length}
             rowsPerPage={rowsPerPage}

@@ -2,32 +2,38 @@ import { useRouter } from "next/router";
 import React, { createContext, useEffect, useState } from "react";
 import { api } from "../../services/api";
 import { toastMessage } from "../../utils/toast";
+import { useAuthContext } from "../Auth";
 import { IDashboardContextProps } from "./types";
 
 const DashboardContext = createContext({} as IDashboardContextProps);
 
 const DashboardProvider = ({ children }: { children: React.ReactNode }) => {
+  const { user } = useAuthContext();
   const [menuSelected, setMenuSelected] = useState("");
   const [settingsIsOpen, setSettingsIsOpen] = useState(false);
   const [adminModalConfirmationIsOpen, setAdminModalConfirmationIsOpen] =
     useState(false);
+  const [selectedUser, setSelectedUser] = React.useState<string>("");
   const router = useRouter();
 
   const handleToggleModal = () => {
     setSettingsIsOpen(!settingsIsOpen);
   };
 
-  const handleConfirmationAdminPromote = async (uid: string) => {
+  const handleConfirmationAdminPromote = async () => {
     try {
-      await api.post("/api/users/turn-admin", { uid });
+      await api.post("/api/users/turn-admin", { uid: selectedUser });
       toastMessage("Usuário promovido com sucesso!");
+      router.reload();
     } catch (err) {
       console.log(err);
       toastMessage("Erro ao promover usuário!", "error");
     }
   };
 
-  const handleToggleAdminModalConfirmation = () => {
+  const handleToggleAdminModalConfirmation = (uid?: string) => {
+    if (uid) setSelectedUser(uid);
+
     setAdminModalConfirmationIsOpen(!adminModalConfirmationIsOpen);
   };
 
