@@ -12,6 +12,7 @@ import BackButton from "./BackButton/BackButton";
 import Modal from "./Modal/Modal";
 import NavBar from "./NavBar/NavBar";
 import SelectForm from "./SelectForm/SelectForm";
+import CheckBoxTypeSpot from "./CheckBoxTypeSpot/CheckBoxTypeSpot";
 export {
   AppInfo,
   Header,
@@ -27,4 +28,5 @@ export {
   Modal,
   NavBar,
   SelectForm,
+  CheckBoxTypeSpot,
 };

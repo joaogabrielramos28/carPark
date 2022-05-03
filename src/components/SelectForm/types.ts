@@ -11,5 +11,6 @@ export interface IStatesProps {
 
 export interface ISelectFormProps {
   label: string;
-  states: IStatesProps[];
+  states?: IStatesProps[];
+  options?: String[];
 }
