@@ -8,4 +8,5 @@ export interface IParkCardProps {
   price: number;
   period: string;
   image?: string;
+  id: string;
 }

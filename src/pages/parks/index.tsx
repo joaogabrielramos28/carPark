@@ -10,8 +10,9 @@ import { collection, getDocs, query, DocumentData } from "firebase/firestore";
 import { database } from "../../services/firebase";
 import { GetServerSideProps, GetStaticProps } from "next";
 import theme from "../../styles/theme";
+import Link from "next/link";
 
-interface IParkProps extends DocumentData {
+export interface IParkProps extends DocumentData {
   id: string;
 }
 
@@ -36,7 +37,8 @@ const Parks = ({ parks }: IParkProps) => {
           price={park.price}
           rating={park.rating}
           truckSpot={park.truckSpot}
-          image={park.image}
+          image={park.main_image}
+          id={park.id}
         />
       ))}
     </Container>
