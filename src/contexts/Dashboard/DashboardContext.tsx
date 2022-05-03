@@ -3,7 +3,7 @@ import React, { createContext, useEffect, useState } from "react";
 import { api } from "../../services/api";
 import { toastMessage } from "../../utils/toast";
 import { useAuthContext } from "../Auth";
-import { IDashboardContextProps } from "./types";
+import { IDashboardContextProps, IFile } from "./types";
 
 const DashboardContext = createContext({} as IDashboardContextProps);
 
@@ -13,11 +13,17 @@ const DashboardProvider = ({ children }: { children: React.ReactNode }) => {
   const [settingsIsOpen, setSettingsIsOpen] = useState(false);
   const [adminModalConfirmationIsOpen, setAdminModalConfirmationIsOpen] =
     useState(false);
+  const [imageDropZoneModal, setImageDropZoneModal] = useState(false);
+  const [selectedImages, setSelectedImages] = useState<IFile[]>([]);
   const [selectedUser, setSelectedUser] = React.useState<string>("");
   const router = useRouter();
 
   const handleToggleModal = () => {
     setSettingsIsOpen(!settingsIsOpen);
+  };
+
+  const handleToggleImageDropZoneModal = () => {
+    setImageDropZoneModal(!imageDropZoneModal);
   };
 
   const handleConfirmationAdminPromote = async () => {
@@ -37,6 +43,10 @@ const DashboardProvider = ({ children }: { children: React.ReactNode }) => {
     setAdminModalConfirmationIsOpen(!adminModalConfirmationIsOpen);
   };
 
+  const handleDeleteSelectedImage = (name: string) => {
+    setSelectedImages(selectedImages.filter((image) => image.name !== name));
+  };
+
   useEffect(() => {
     setMenuSelected(router.pathname);
   }, [router]);
@@ -50,6 +60,11 @@ const DashboardProvider = ({ children }: { children: React.ReactNode }) => {
         adminModalConfirmationIsOpen,
         handleConfirmationAdminPromote,
         handleToggleAdminModalConfirmation,
+        imageDropZoneModal,
+        handleToggleImageDropZoneModal,
+        selectedImages,
+        setSelectedImages,
+        handleDeleteSelectedImage,
       }}
     >
       {children}
