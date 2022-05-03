@@ -11,6 +11,7 @@ import Loading from "./Loading/Loading";
 import BackButton from "./BackButton/BackButton";
 import Modal from "./Modal/Modal";
 import NavBar from "./NavBar/NavBar";
+import SelectForm from "./SelectForm/SelectForm";
 export {
   AppInfo,
   Header,
@@ -25,4 +26,5 @@ export {
   BackButton,
   Modal,
   NavBar,
+  SelectForm,
 };
