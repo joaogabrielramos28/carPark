@@ -17,4 +17,5 @@ export interface ISelectFormProps {
   onChange?: FormikHandlers["handleChange"];
   name?: string;
   value: string;
+  error?: string;
 }

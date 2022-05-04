@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Container, Label, Select } from "./styles";
+import { Container, ErrorMessage, Label, Select } from "./styles";
 import { ISelectFormProps } from "./types";
 
 const SelectForm = ({
@@ -10,6 +10,7 @@ const SelectForm = ({
   onChange,
   value,
   name,
+  error,
 }: ISelectFormProps) => {
   const [onFocus, setOnFocus] = useState(false);
 
@@ -46,6 +47,7 @@ const SelectForm = ({
           </option>
         ))}
       </Select>
+      {error && <ErrorMessage>{error}</ErrorMessage>}
     </Container>
   );
 };

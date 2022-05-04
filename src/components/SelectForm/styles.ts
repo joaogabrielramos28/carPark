@@ -20,7 +20,7 @@ export const Select = styled.select<ISelectProps>`
   border: none;
   width: 100%;
   background-color: ${({ theme }) => theme.colors.light_gray};
-  color: ${({ theme }) => theme.colors.text};
+  color: ${({ theme }) => theme.colors.title};
 
   ${({ theme, isFocus }) =>
     isFocus &&
@@ -32,4 +32,12 @@ export const Label = styled.label`
   font-size: 16px;
   color: ${({ theme }) => theme.colors.title};
   margin-bottom: 10px;
+`;
+
+export const ErrorMessage = styled.p`
+  color: ${({ theme }) => theme.colors.secondary};
+  font-size: 12px;
+  margin-top: 10px;
+
+  font-weight: 500;
 `;

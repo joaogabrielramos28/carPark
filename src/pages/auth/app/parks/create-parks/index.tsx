@@ -1,5 +1,5 @@
 import { GetServerSideProps } from "next";
-import React from "react";
+import React, { useState } from "react";
 import App from "../..";
 import { CheckBoxTypeSpot, Modal, SelectForm } from "../../../../../components";
 import { IStatesProps } from "../../../../../components/SelectForm/types";
@@ -11,7 +11,6 @@ import {
   InputGroup,
   InputFormPark,
   OpenModalImageButton,
-  OpenModalImageWrapper,
   ContainerModal,
   ColumnImages,
   DropZoneWrapper,
@@ -43,10 +42,13 @@ const CreateParks = ({ states }: ICreateParkProps) => {
   const {
     imageDropZoneModal,
     selectedImages,
+    checkedSpot,
     handleToggleImageDropZoneModal,
     handleDeleteSelectedImage,
     handleCreatePark,
   } = useDashboardContext();
+  const [formErrors, setFormErrors] = useState([]);
+
   const theme = useTheme();
   const selected_images = selectedImages.map((file, i) => (
     <ImageWrapper key={i}>
@@ -58,6 +60,15 @@ const CreateParks = ({ states }: ICreateParkProps) => {
       <Image src={file.preview} alt="" width={150} height={200} />
     </ImageWrapper>
   ));
+
+  const hasFormErrors = (): boolean => {
+    const hasOneSpot = checkedSpot.find((spot) => spot.checked);
+    if (selectedImages.length === 0 || hasOneSpot === undefined) {
+      return false;
+    }
+    return true;
+  };
+
   return (
     <>
       <App />
@@ -72,10 +83,10 @@ const CreateParks = ({ states }: ICreateParkProps) => {
             address: "",
             state: "",
             period: "",
-            price: 0,
+            price: "",
           }}
         >
-          {({ handleSubmit, values, handleChange, errors }) => (
+          {({ handleSubmit, values, handleChange, errors, touched }) => (
             <Form onSubmit={handleSubmit}>
               {console.log(errors)}
               <FormContainer>
@@ -85,6 +96,7 @@ const CreateParks = ({ states }: ICreateParkProps) => {
                   onChange={handleChange}
                   value={values.name}
                   name="name"
+                  error={errors.name && touched.name ? errors.name : ""}
                 />
               </FormContainer>
               <InputGroup>
@@ -94,6 +106,9 @@ const CreateParks = ({ states }: ICreateParkProps) => {
                   onChange={handleChange}
                   value={values.address}
                   name="address"
+                  error={
+                    errors.address && touched.address ? errors.address : ""
+                  }
                 />
 
                 <SelectForm
@@ -102,6 +117,7 @@ const CreateParks = ({ states }: ICreateParkProps) => {
                   value={values.state}
                   name="state"
                   onChange={handleChange}
+                  error={errors.state && touched.state ? errors.state : ""}
                 />
               </InputGroup>
 
@@ -112,6 +128,7 @@ const CreateParks = ({ states }: ICreateParkProps) => {
                   onChange={handleChange}
                   value={values.period}
                   name="period"
+                  error={errors.period && touched.period ? errors.period : ""}
                 />
 
                 <InputFormPark
@@ -121,6 +138,7 @@ const CreateParks = ({ states }: ICreateParkProps) => {
                   onChange={handleChange}
                   value={values.price}
                   name="price"
+                  error={errors.price && touched.price ? errors.name : ""}
                 />
               </InputGroup>
               <InputGroup>
@@ -141,7 +159,9 @@ const CreateParks = ({ states }: ICreateParkProps) => {
               </InputGroup>
 
               <SubmitWrapper>
-                <SubmitButton type="submit">Cadastrar</SubmitButton>
+                <SubmitButton type="submit" disabled={!hasFormErrors()}>
+                  Cadastrar
+                </SubmitButton>
               </SubmitWrapper>
               {imageDropZoneModal && (
                 <Modal onClose={handleToggleImageDropZoneModal} overlay>

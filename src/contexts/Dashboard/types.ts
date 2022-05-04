@@ -32,7 +32,7 @@ export interface ICreateParkValues {
   address: string;
   state: string;
   period: string;
-  price: number;
+  price: string;
   spots?: ICheckedSpot[];
   images?: IFile[];
 }

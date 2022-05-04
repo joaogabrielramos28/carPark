@@ -5,5 +5,5 @@ export const CreateParkAdmin = Yup.object().shape({
   address: Yup.string().required("Campo obrigatório"),
   state: Yup.string().required("Campo obrigatório"),
   period: Yup.string().required("Campo obrigatório"),
-  price: Yup.number().required("Campo obrigatório"),
+  price: Yup.string().required("Campo obrigatório"),
 });
