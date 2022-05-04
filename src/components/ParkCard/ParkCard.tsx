@@ -17,38 +17,39 @@ import {
 import { AiFillStar } from "react-icons/ai";
 import { FaCarSide, FaTruck } from "react-icons/fa";
 import { RiMotorbikeFill } from "react-icons/ri";
-import { IParkCardProps } from "./types";
+import { IParkCardProps, ISpotsProps } from "./types";
 import Link from "next/link";
 
 const ParkCard = ({
   locale,
   name,
-  carSpot,
-  truckSpot,
-  bikeSpot,
+  spots,
   rating,
   price,
   period,
-  image,
   id,
+  images,
+  main_image,
 }: IParkCardProps) => {
-  const checkSpot = (spot: boolean): string => {
-    return spot ? "#00C977" : "#C4C4C4";
+  const checkSpot = (spotType: String): string => {
+    const spot = spots?.find((spot: ISpotsProps) => spot.name === spotType);
+
+    return spot?.checked ? "#00C977" : "#C4C4C4";
   };
   return (
     <Link href={`/parks/${id}`} passHref>
       <Container>
         <ParkWrapper>
-          <ParkImage src={image ? image : "/placeholder.jpg"} />
+          <ParkImage src={main_image ? main_image : "/placeholder.jpg"} />
         </ParkWrapper>
 
         <ParkInfoWrapper>
           <ParkAddress>{locale}</ParkAddress>
           <ParkName>{name}</ParkName>
           <ParkType>
-            <FaCarSide color={checkSpot(carSpot)} title="Carro" />
-            <FaTruck color={checkSpot(truckSpot)} title="Caminhão" />
-            <RiMotorbikeFill color={checkSpot(bikeSpot)} title="Moto" />
+            <FaCarSide color={checkSpot("car")} title="Carro" />
+            <FaTruck color={checkSpot("truck")} title="Caminhão" />
+            <RiMotorbikeFill color={checkSpot("bike")} title="Moto" />
           </ParkType>
           <ParkWrapperPrice>
             <ParkRating>

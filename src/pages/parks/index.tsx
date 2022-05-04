@@ -30,14 +30,13 @@ const Parks = ({ parks }: IParkProps) => {
         <ParkCard
           key={park.id}
           locale={park.locale}
-          bikeSpot={park.bikeSpot}
-          carSpot={park.carSpot}
+          spots={park.spots}
           name={park.name}
           period={park.period}
           price={park.price}
           rating={park.rating}
-          truckSpot={park.truckSpot}
-          image={park.main_image}
+          main_image={park.main_image}
+          images={park.images}
           id={park.id}
         />
       ))}

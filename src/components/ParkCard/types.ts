@@ -1,12 +1,16 @@
 export interface IParkCardProps {
   locale: string;
   name: string;
-  carSpot: boolean;
-  bikeSpot: boolean;
-  truckSpot: boolean;
+  spots: ISpotsProps[];
   rating: string;
   price: number;
   period: string;
-  image?: string;
+  images?: string[];
+  main_image?: string;
   id: string;
+}
+
+export interface ISpotsProps {
+  checked: boolean;
+  name: string;
 }
