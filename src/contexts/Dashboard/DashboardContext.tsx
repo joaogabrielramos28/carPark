@@ -5,10 +5,16 @@ import { toastMessage } from "../../utils/toast";
 import { useAuthContext } from "../Auth";
 import {
   ICheckedSpot,
+  ICreateParkProps,
   ICreateParkValues,
   IDashboardContextProps,
   IFile,
 } from "./types";
+import { uuid } from "uuidv4";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import { collection, query, doc, setDoc } from "firebase/firestore";
+
+import { database } from "../../services/firebase";
 
 const DashboardContext = createContext({} as IDashboardContextProps);
 
@@ -39,8 +45,9 @@ const DashboardProvider = ({ children }: { children: React.ReactNode }) => {
   const [checkedSpot, setCheckedSpot] = useState<ICheckedSpot[]>(
     CHECKED_SPOT_INITIAL_VALUE
   );
+  const [createParkLoading, setCreateParkLoading] = useState(false);
   const router = useRouter();
-
+  const storage = getStorage();
   const handleToggleModal = () => {
     setSettingsIsOpen(!settingsIsOpen);
   };
@@ -94,15 +101,40 @@ const DashboardProvider = ({ children }: { children: React.ReactNode }) => {
   );
 
   const handleCreatePark = useCallback(
-    (values: ICreateParkValues) => {
-      const newPark = {
-        ...values,
-        images: selectedImages,
-        spots: checkedSpot,
-      };
-      console.log(newPark);
+    async (values: ICreateParkValues) => {
+      setCreateParkLoading(true);
+      let imagesUrl: string[] = [];
+      selectedImages.map(async (image: any) => {
+        const storageRef = ref(storage, `parks/${image.name}`);
+        await uploadBytes(storageRef, image);
+        await getDownloadURL(storageRef)
+          .then((url) => {
+            imagesUrl = [...imagesUrl, url];
+          })
+          .finally(async () => {
+            if (imagesUrl.length === selectedImages.length) {
+              const newPark: ICreateParkProps = {
+                ...values,
+                id: uuid(),
+                images: imagesUrl,
+                spots: checkedSpot,
+                main_image: imagesUrl[0],
+              };
+
+              try {
+                await setDoc(doc(database, "parks", newPark.id), newPark);
+                toastMessage("Parque criado com sucesso!");
+                setCreateParkLoading(false);
+                router.reload();
+              } catch (err) {
+                console.log(err);
+                toastMessage("Erro ao criar parque!", "error");
+              }
+            }
+          });
+      });
     },
-    [selectedImages, checkedSpot]
+    [selectedImages, checkedSpot, storage, router]
   );
 
   useEffect(() => {
@@ -126,6 +158,7 @@ const DashboardProvider = ({ children }: { children: React.ReactNode }) => {
         handleCreatePark,
         checkedSpot,
         handleChange,
+        createParkLoading,
       }}
     >
       {children}

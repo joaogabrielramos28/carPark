@@ -148,8 +148,12 @@ export const SubmitButton = styled(OpenModalImageButton)`
   background-color: ${({ theme }) => theme.colors.success};
   border: none;
   outline: none;
-
+  height: 42px;
   padding: 16px;
 
   margin-top: 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;

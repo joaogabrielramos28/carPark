@@ -1,7 +1,12 @@
 import { GetServerSideProps } from "next";
 import React, { useState } from "react";
 import App from "../..";
-import { CheckBoxTypeSpot, Modal, SelectForm } from "../../../../../components";
+import {
+  CheckBoxTypeSpot,
+  Loading,
+  Modal,
+  SelectForm,
+} from "../../../../../components";
 import { IStatesProps } from "../../../../../components/SelectForm/types";
 import { ibgeApi } from "../../../../../services/api";
 import {
@@ -46,6 +51,7 @@ const CreateParks = ({ states }: ICreateParkProps) => {
     handleToggleImageDropZoneModal,
     handleDeleteSelectedImage,
     handleCreatePark,
+    createParkLoading,
   } = useDashboardContext();
   const [formErrors, setFormErrors] = useState([]);
 
@@ -57,7 +63,13 @@ const CreateParks = ({ states }: ICreateParkProps) => {
         size={24}
         onClick={() => handleDeleteSelectedImage(file.name)}
       />
-      <Image src={file.preview} alt="" width={150} height={200} />
+      <Image
+        src={file.preview}
+        alt=""
+        width={250}
+        height={300}
+        objectFit={"cover"}
+      />
     </ImageWrapper>
   ));
 
@@ -88,7 +100,6 @@ const CreateParks = ({ states }: ICreateParkProps) => {
         >
           {({ handleSubmit, values, handleChange, errors, touched }) => (
             <Form onSubmit={handleSubmit}>
-              {console.log(errors)}
               <FormContainer>
                 <InputFormPark
                   label="Nome"
@@ -160,7 +171,11 @@ const CreateParks = ({ states }: ICreateParkProps) => {
 
               <SubmitWrapper>
                 <SubmitButton type="submit" disabled={!hasFormErrors()}>
-                  Cadastrar
+                  {createParkLoading ? (
+                    <Loading color={theme.colors.shape} size={40} />
+                  ) : (
+                    "Criar Park"
+                  )}
                 </SubmitButton>
               </SubmitWrapper>
               {imageDropZoneModal && (

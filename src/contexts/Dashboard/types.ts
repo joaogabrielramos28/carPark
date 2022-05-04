@@ -14,6 +14,7 @@ export interface IDashboardContextProps {
   handleCreatePark: (values: any) => void;
   checkedSpot: ICheckedSpot[];
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  createParkLoading: boolean;
 }
 
 export interface IFile {
@@ -33,6 +34,16 @@ export interface ICreateParkValues {
   state: string;
   period: string;
   price: string;
+}
+
+export interface ICreateParkProps {
+  id: string;
+  name: string;
+  address: string;
+  state: string;
+  period: string;
+  price: string;
   spots?: ICheckedSpot[];
-  images?: IFile[];
+  images?: string[];
+  main_image: string;
 }
