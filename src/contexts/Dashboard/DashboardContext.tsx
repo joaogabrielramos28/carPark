@@ -1,13 +1,33 @@
 import { useRouter } from "next/router";
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useCallback, useEffect, useState } from "react";
 import { api } from "../../services/api";
 import { toastMessage } from "../../utils/toast";
 import { useAuthContext } from "../Auth";
-import { IDashboardContextProps, IFile } from "./types";
+import {
+  ICheckedSpot,
+  ICreateParkValues,
+  IDashboardContextProps,
+  IFile,
+} from "./types";
 
 const DashboardContext = createContext({} as IDashboardContextProps);
 
 const DashboardProvider = ({ children }: { children: React.ReactNode }) => {
+  const CHECKED_SPOT_INITIAL_VALUE = [
+    {
+      name: "car",
+      checked: false,
+    },
+    {
+      name: "bike",
+      checked: false,
+    },
+    {
+      name: "truck",
+      checked: false,
+    },
+  ];
+
   const { user } = useAuthContext();
   const [menuSelected, setMenuSelected] = useState("");
   const [settingsIsOpen, setSettingsIsOpen] = useState(false);
@@ -16,6 +36,9 @@ const DashboardProvider = ({ children }: { children: React.ReactNode }) => {
   const [imageDropZoneModal, setImageDropZoneModal] = useState(false);
   const [selectedImages, setSelectedImages] = useState<IFile[]>([]);
   const [selectedUser, setSelectedUser] = React.useState<string>("");
+  const [checkedSpot, setCheckedSpot] = useState<ICheckedSpot[]>(
+    CHECKED_SPOT_INITIAL_VALUE
+  );
   const router = useRouter();
 
   const handleToggleModal = () => {
@@ -43,9 +66,44 @@ const DashboardProvider = ({ children }: { children: React.ReactNode }) => {
     setAdminModalConfirmationIsOpen(!adminModalConfirmationIsOpen);
   };
 
-  const handleDeleteSelectedImage = (name: string) => {
-    setSelectedImages(selectedImages.filter((image) => image.name !== name));
-  };
+  const handleDeleteSelectedImage = useCallback(
+    (name: string) => {
+      setSelectedImages(selectedImages.filter((image) => image.name !== name));
+    },
+    [selectedImages]
+  );
+
+  const handleChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const isChecked = event.target.checked;
+      const name = event.target.name;
+
+      const newCheckedSpotList = checkedSpot.map((spot) => {
+        if (spot.name === name) {
+          spot = {
+            ...spot,
+            checked: isChecked,
+          };
+        }
+
+        return spot;
+      });
+      setCheckedSpot([...newCheckedSpotList]);
+    },
+    [checkedSpot]
+  );
+
+  const handleCreatePark = useCallback(
+    (values: ICreateParkValues) => {
+      const newPark = {
+        ...values,
+        images: selectedImages,
+        spots: checkedSpot,
+      };
+      console.log(newPark);
+    },
+    [selectedImages, checkedSpot]
+  );
 
   useEffect(() => {
     setMenuSelected(router.pathname);
@@ -65,6 +123,9 @@ const DashboardProvider = ({ children }: { children: React.ReactNode }) => {
         selectedImages,
         setSelectedImages,
         handleDeleteSelectedImage,
+        handleCreatePark,
+        checkedSpot,
+        handleChange,
       }}
     >
       {children}

@@ -11,10 +11,28 @@ export interface IDashboardContextProps {
   selectedImages: IFile[];
   setSelectedImages: React.Dispatch<React.SetStateAction<IFile[]>>;
   handleDeleteSelectedImage: (name: string) => void;
+  handleCreatePark: (values: any) => void;
+  checkedSpot: ICheckedSpot[];
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export interface IFile {
   path: string;
   name: string;
   preview: string;
+}
+
+export interface ICheckedSpot {
+  checked: boolean;
+  name: String;
+}
+
+export interface ICreateParkValues {
+  name: string;
+  address: string;
+  state: string;
+  period: string;
+  price: number;
+  spots?: ICheckedSpot[];
+  images?: IFile[];
 }
