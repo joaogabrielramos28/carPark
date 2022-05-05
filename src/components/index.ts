@@ -13,6 +13,7 @@ import Modal from "./Modal/Modal";
 import NavBar from "./NavBar/NavBar";
 import SelectForm from "./SelectForm/SelectForm";
 import CheckBoxTypeSpot from "./CheckBoxTypeSpot/CheckBoxTypeSpot";
+import Carousel from "./Carousel/Carousel";
 export {
   AppInfo,
   Header,
@@ -29,4 +30,5 @@ export {
   NavBar,
   SelectForm,
   CheckBoxTypeSpot,
+  Carousel,
 };

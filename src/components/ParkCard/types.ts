@@ -8,6 +8,8 @@ export interface IParkCardProps {
   images?: string[];
   main_image?: string;
   id: string;
+  address: string;
+  state: string;
 }
 
 export interface ISpotsProps {
