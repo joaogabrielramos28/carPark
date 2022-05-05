@@ -43,7 +43,7 @@ const Park = ({ park }: ParkProps) => {
     <>
       <Header />
       <ParkHeader>
-        <BackButton />
+        <BackButton path="/parks" />
       </ParkHeader>
 
       <Container>
