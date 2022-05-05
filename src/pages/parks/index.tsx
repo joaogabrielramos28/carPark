@@ -11,12 +11,9 @@ import { database } from "../../services/firebase";
 import { GetServerSideProps, GetStaticProps } from "next";
 import theme from "../../styles/theme";
 import Link from "next/link";
+import { IParkCardProps } from "../../components/ParkCard/types";
 
-export interface IParkProps extends DocumentData {
-  id: string;
-}
-
-const Parks = ({ parks }: IParkProps) => {
+const Parks = ({ parks }: DocumentData) => {
   return (
     <Container>
       <Header />
@@ -26,7 +23,7 @@ const Parks = ({ parks }: IParkProps) => {
           <Loading size={100} color={theme.colors.secondary} />
         </ContainerNoParks>
       )}
-      {parks.map((park: IParkProps) => (
+      {parks.map((park: IParkCardProps) => (
         <ParkCard
           key={park.id}
           locale={park.locale}
@@ -48,10 +45,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const q = query(collection(database, "parks"));
 
   const res = await getDocs(q);
-  const parksResults: IParkProps[] = res.docs.map((doc: IParkProps) => {
-    const data = doc.data() as DocumentData;
+  const parksResults = res.docs.map((doc: DocumentData) => {
+    const data = doc.data() as IParkCardProps;
     doc = {
-      id: doc.id,
       ...data,
     };
 

@@ -1,11 +1,25 @@
-import { collection, DocumentData, getDocs, query } from "firebase/firestore";
+import {
+  collection,
+  DocumentData,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
 import { GetStaticPaths, GetStaticProps } from "next";
 import React from "react";
-import { IParkProps } from ".";
+import { IParkCardProps } from "../../components/ParkCard/types";
 import { database } from "../../services/firebase";
 
-const Park = ({ id }) => {
-  return <div>{id}</div>;
+interface ParkProps {
+  park: IParkCardProps;
+}
+
+const Park = ({ park }: ParkProps) => {
+  return (
+    <div>
+      <h1>{park.name}</h1>
+    </div>
+  );
 };
 export default Park;
 
@@ -13,15 +27,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const q = query(collection(database, "parks"));
 
   const res = await getDocs(q);
-  const parksResults: IParkProps[] = res.docs.map((doc: IParkProps) => {
-    const data = doc.data() as DocumentData;
-    doc = {
-      id: doc.id,
-      ...data,
-    };
-
-    return doc;
-  });
+  const parksResults = res.docs;
 
   const paths = parksResults.map((park) => {
     return {
@@ -37,10 +43,16 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const { id } = params;
+  const id = params?.id;
+
+  const q = query(collection(database, "parks"), where("id", "==", id));
+  const res = await getDocs(q);
+  const parkResult = res.docs[0].data() as IParkCardProps;
 
   return {
-    props: { id },
+    props: {
+      park: parkResult,
+    },
     revalidate: 60 * 30, // 30 min
   };
 };
