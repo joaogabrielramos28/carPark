@@ -26,9 +26,12 @@ import {
   ScheduleButton,
   ScheduleContainer,
   PeriodDate,
-  TotalDays,
   LabelPeriodDate,
   DateWrapper,
+  PeriodWrapper,
+  TotalWrapper,
+  TotalInfo,
+  Total,
 } from "../../styles/pages/parks/singlePark/styles";
 import { DateRange, DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
@@ -40,6 +43,7 @@ import { checkSpot } from "../../utils/checkSpot";
 import { AiFillClockCircle } from "react-icons/ai";
 import { differenceInDays } from "date-fns";
 import { BsArrowRight } from "react-icons/bs";
+import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 
 interface ParkProps {
   park: IParkCardProps;
@@ -81,28 +85,37 @@ const Park = ({ park }: ParkProps) => {
       </DateWrapper>
     );
 
-    const totalperiodDays = differenceInDays(dateRange?.to, dateRange?.from);
-
-    if (fromFormatted && toFormatted) {
+    const totalperiodDays = differenceInDays(dateRange?.to!, dateRange?.from!);
+    const totalValue =
+      totalperiodDays === 0 ? park.price : totalperiodDays * park.price;
+    if (toMonth && fromMonth) {
       return (
-        <>
+        <PeriodWrapper>
           <p>Você selecionou</p>
           <PeriodDate>
-            <br /> {fromJSX} <BsArrowRight color={theme.colors.text} /> {toJSX}
+            <br /> {fromJSX}{" "}
+            <HiOutlineArrowNarrowRight color={theme.colors.text} size={24} />{" "}
+            {toJSX}
             <br />
           </PeriodDate>
-          Total: <TotalDays>{totalperiodDays} dias</TotalDays>
-        </>
+          Total:
+          <TotalWrapper>
+            <TotalInfo>
+              <strong>{totalperiodDays}</strong> dias x R$ {park.price}
+            </TotalInfo>
+            <Total>R$ {totalValue}</Total>
+          </TotalWrapper>
+        </PeriodWrapper>
       );
     } else {
-      return "";
+      return <PeriodWrapper> Selecione um período!</PeriodWrapper>;
     }
-  }, [dateRange]);
+  }, [dateRange, theme, park.price]);
 
   const footerDayPicker = dateRange ? (
     <p>{formatData()}</p>
   ) : (
-    <p> Selecione um período!</p>
+    <PeriodWrapper> Selecione um período!</PeriodWrapper>
   );
 
   const { spots } = park;
@@ -148,13 +161,6 @@ const Park = ({ park }: ParkProps) => {
               />
             </SpotsTypes>
           </ParkDetails>
-
-          <ScheduleSpot>
-            <ScheduleButton>
-              Agendar vaga{" "}
-              <AiFillClockCircle color={theme.colors.shape} size={18} />
-            </ScheduleButton>
-          </ScheduleSpot>
         </ParkWrapper>
         <ScheduleContainer>
           <DayPicker
@@ -166,6 +172,12 @@ const Park = ({ park }: ParkProps) => {
             locale={ptBR}
             footer={footerDayPicker}
           />
+          <ScheduleSpot>
+            <ScheduleButton>
+              Agendar vaga{" "}
+              <AiFillClockCircle color={theme.colors.shape} size={18} />
+            </ScheduleButton>
+          </ScheduleSpot>
         </ScheduleContainer>
       </Container>
     </>

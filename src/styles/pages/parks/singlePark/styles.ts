@@ -117,6 +117,7 @@ export const ScheduleButton = styled.button`
 export const ScheduleContainer = styled.section`
   display: flex;
   margin-left: 20px;
+  flex-direction: column;
 
   .rdp-caption_label {
     text-transform: capitalize;
@@ -136,6 +137,9 @@ export const ScheduleContainer = styled.section`
     border: none !important;
     color: ${({ theme }) => theme.colors.shape} !important;
   }
+  .rdp-day_range_middle {
+    background-color: ${({ theme }) => theme.colors.success_light} !important;
+  }
 
   .rdp-day_today {
     color: ${({ theme }) => theme.colors.secondary};
@@ -147,14 +151,18 @@ export const ScheduleContainer = styled.section`
   }
 `;
 
-export const PeriodDate = styled.p`
-  color: ${({ theme }) => theme.colors.title};
-  display: flex;
-  align-items: center;
+export const PeriodWrapper = styled.div`
+  color: ${({ theme }) => theme.colors.text};
+  margin-top: 20px;
+  min-height: 60px;
 `;
 
-export const TotalDays = styled.span`
+export const PeriodDate = styled.p`
   color: ${({ theme }) => theme.colors.success};
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px 0;
 `;
 
 export const DateWrapper = styled.span`
@@ -165,5 +173,26 @@ export const DateWrapper = styled.span`
 
 export const LabelPeriodDate = styled.span`
   color: ${({ theme }) => theme.colors.text};
-  font-size: 0.6rem;
+  font-size: 0.7rem;
+  font-weight: 500;
+`;
+
+export const TotalWrapper = styled.span`
+  margin-top: 10px;
+  width: 100%;
+  color: ${({ theme }) => theme.colors.title};
+  display: flex;
+
+  strong {
+    color: ${({ theme }) => theme.colors.secondary};
+    margin: 0 2px;
+  }
+  justify-content: space-between;
+`;
+
+export const TotalInfo = styled.div``;
+
+export const Total = styled.span`
+  color: ${({ theme }) => theme.colors.secondary};
+  font-size: 1.2rem;
 `;
