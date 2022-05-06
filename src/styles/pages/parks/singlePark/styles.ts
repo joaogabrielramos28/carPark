@@ -8,7 +8,6 @@ export const ParkHeader = styled.div`
 export const Container = styled.main`
   width: 100%;
   display: flex;
-  align-items: center;
   justify-content: center;
 `;
 
@@ -113,4 +112,58 @@ export const ScheduleButton = styled.button`
   svg {
     margin-left: 10px;
   }
+`;
+
+export const ScheduleContainer = styled.section`
+  display: flex;
+  margin-left: 20px;
+
+  .rdp-caption_label {
+    text-transform: capitalize;
+    color: ${({ theme }) => theme.colors.title};
+  }
+
+  .rdp-head_cell {
+    color: ${({ theme }) => theme.colors.secondary};
+  }
+
+  .rdp-day_selected,
+  .rdp-day_range_start,
+  .rdp-.rdp-day_range_end,
+  .rdp-day_selected:hover,
+  .rdp-day_selected:focus {
+    background-color: ${({ theme }) => theme.colors.success} !important;
+    border: none !important;
+    color: ${({ theme }) => theme.colors.shape} !important;
+  }
+
+  .rdp-day_today {
+    color: ${({ theme }) => theme.colors.secondary};
+  }
+
+  .rdp-button:focus:not([disabled]),
+  .rdp-button:active:not([disabled]) {
+    border: none !important;
+  }
+`;
+
+export const PeriodDate = styled.p`
+  color: ${({ theme }) => theme.colors.title};
+  display: flex;
+  align-items: center;
+`;
+
+export const TotalDays = styled.span`
+  color: ${({ theme }) => theme.colors.success};
+`;
+
+export const DateWrapper = styled.span`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+`;
+
+export const LabelPeriodDate = styled.span`
+  color: ${({ theme }) => theme.colors.text};
+  font-size: 0.6rem;
 `;

@@ -6,7 +6,7 @@ import {
   where,
 } from "firebase/firestore";
 import { GetStaticPaths, GetStaticProps } from "next";
-import React from "react";
+import React, { useCallback, useState } from "react";
 import { BackButton, Carousel, Header } from "../../components";
 import { IParkCardProps } from "../../components/ParkCard/types";
 import { database } from "../../services/firebase";
@@ -24,20 +24,87 @@ import {
   SpotsTypes,
   ScheduleSpot,
   ScheduleButton,
+  ScheduleContainer,
+  PeriodDate,
+  TotalDays,
+  LabelPeriodDate,
+  DateWrapper,
 } from "../../styles/pages/parks/singlePark/styles";
-
+import { DateRange, DayPicker } from "react-day-picker";
+import "react-day-picker/dist/style.css";
+import { ptBR } from "date-fns/locale";
 import { useTheme } from "styled-components";
 import { FaCarSide, FaTruck } from "react-icons/fa";
 import { RiMotorbikeFill } from "react-icons/ri";
 import { checkSpot } from "../../utils/checkSpot";
 import { AiFillClockCircle } from "react-icons/ai";
+import { differenceInDays } from "date-fns";
+import { BsArrowRight } from "react-icons/bs";
 
 interface ParkProps {
   park: IParkCardProps;
 }
 
 const Park = ({ park }: ParkProps) => {
+  const [dateRange, setDateRange] = useState<DateRange | undefined>();
   const theme = useTheme();
+
+  const formatData = useCallback(() => {
+    const from = dateRange?.from;
+    const to = dateRange?.to;
+
+    const fromMonth = from
+      ? (from?.getMonth() + 1).toString().padStart(2, "0")
+      : "";
+    const fromDay = from?.getDate().toString().padStart(2, "0");
+    const fromYear = from?.getFullYear();
+
+    const fromFormatted = `${fromDay}/${fromMonth}/${fromYear}`;
+
+    const toMonth = to ? (to?.getMonth() + 1).toString().padStart(2, "0") : "";
+    const toDay = to?.getDate().toString().padStart(2, "0");
+    const toYear = to?.getFullYear();
+
+    const toFormatted = `${toDay}/${toMonth}/${toYear}`;
+
+    const fromJSX = (
+      <DateWrapper>
+        <LabelPeriodDate>De</LabelPeriodDate>
+        {fromFormatted}
+      </DateWrapper>
+    );
+
+    const toJSX = (
+      <DateWrapper>
+        <LabelPeriodDate>Até</LabelPeriodDate>
+        {toFormatted}
+      </DateWrapper>
+    );
+
+    const totalperiodDays = differenceInDays(dateRange?.to, dateRange?.from);
+
+    if (fromFormatted && toFormatted) {
+      return (
+        <>
+          <p>Você selecionou</p>
+          <PeriodDate>
+            <br /> {fromJSX} <BsArrowRight color={theme.colors.text} /> {toJSX}
+            <br />
+          </PeriodDate>
+          Total: <TotalDays>{totalperiodDays} dias</TotalDays>
+        </>
+      );
+    } else {
+      return "";
+    }
+  }, [dateRange]);
+
+  const footerDayPicker = dateRange ? (
+    <p>{formatData()}</p>
+  ) : (
+    <p> Selecione um período!</p>
+  );
+
   const { spots } = park;
   return (
     <>
@@ -89,6 +156,17 @@ const Park = ({ park }: ParkProps) => {
             </ScheduleButton>
           </ScheduleSpot>
         </ParkWrapper>
+        <ScheduleContainer>
+          <DayPicker
+            defaultMonth={new Date()}
+            fromDate={new Date()}
+            mode="range"
+            selected={dateRange}
+            onSelect={setDateRange}
+            locale={ptBR}
+            footer={footerDayPicker}
+          />
+        </ScheduleContainer>
       </Container>
     </>
   );
