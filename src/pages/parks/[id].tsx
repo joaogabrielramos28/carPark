@@ -46,6 +46,7 @@ import { differenceInDays } from "date-fns";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 import { useAuthContext } from "../../contexts/Auth";
 import { toastMessage } from "../../utils/toast";
+import { uuid } from "uuidv4";
 
 interface ParkProps {
   park: IParkCardProps;
@@ -133,6 +134,7 @@ const Park = ({ park }: ParkProps) => {
       );
     }
     const schedule = {
+      id: uuid(),
       park_id: park.id,
       user_id: user?.user.uid,
       from: fromDateFormatted,
@@ -142,9 +144,10 @@ const Park = ({ park }: ParkProps) => {
     };
     setLoadingScheduleSubmit(true);
     try {
-      await setDoc(doc(database, "schedules", schedule.park_id), schedule);
+      await setDoc(doc(database, "schedules", schedule.id), schedule);
       toastMessage("Agendamento feito com sucesso!!");
       setLoadingScheduleSubmit(false);
+      setDateRange(undefined);
     } catch (err) {
       console.log(err);
       toastMessage("Erro ao criar agendamento", "error");
