@@ -47,6 +47,8 @@ import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 import { useAuthContext } from "../../contexts/Auth";
 import { toastMessage } from "../../utils/toast";
 import { uuid } from "uuidv4";
+import { api } from "../../services/api";
+import { getStripeJs } from "../../services/stripe/stripeJs";
 
 interface ParkProps {
   park: IParkCardProps;
@@ -141,11 +143,25 @@ const Park = ({ park }: ParkProps) => {
       to: toDateFormatted,
       total_value: totalValue,
       total_period_days: totalperiodDays,
+      status: "unpaid",
     };
+
     setLoadingScheduleSubmit(true);
     try {
       await setDoc(doc(database, "schedules", schedule.id), schedule);
+      const response = await api.post("/api/stripe/checkout-session", {
+        price: park.price,
+        quantity: totalperiodDays,
+      });
+
+      const { sessionId } = response.data;
+      const stripe = await getStripeJs();
+
       toastMessage("Agendamento feito com sucesso!!");
+      await stripe?.redirectToCheckout({
+        sessionId,
+      });
+
       setLoadingScheduleSubmit(false);
       setDateRange(undefined);
     } catch (err) {
@@ -160,6 +176,7 @@ const Park = ({ park }: ParkProps) => {
     totalValue,
     totalperiodDays,
     user,
+    park.price,
   ]);
 
   const { spots } = park;

@@ -123,12 +123,19 @@ const DashboardProvider = ({ children }: { children: React.ReactNode }) => {
 
               try {
                 await setDoc(doc(database, "parks", newPark.id), newPark);
+                await api.post("/api/stripe/create-product", {
+                  name: newPark.name,
+                  id: newPark.id,
+                  price: newPark.price,
+                  images: newPark.main_image,
+                });
                 toastMessage("Parque criado com sucesso!");
                 setCreateParkLoading(false);
                 router.reload();
               } catch (err) {
                 console.log(err);
                 toastMessage("Erro ao criar parque!", "error");
+                setCreateParkLoading(false);
               }
             }
           });
