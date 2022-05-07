@@ -152,6 +152,7 @@ const Park = ({ park }: ParkProps) => {
       const response = await api.post("/api/stripe/checkout-session", {
         price: park.price,
         quantity: totalperiodDays,
+        schedule_id: schedule.id,
       });
 
       const { sessionId } = response.data;

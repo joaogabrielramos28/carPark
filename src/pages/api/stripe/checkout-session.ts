@@ -1,12 +1,13 @@
 import { stripe } from "../../../services/stripe/stripe";
 import { NextApiResponse, NextApiRequest } from "next";
 import admin from "../../../services/firebase-admin";
+import { FaProductHunt } from "react-icons/fa";
 
 export default async function handle(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { quantity, price } = req.body;
+  const { quantity, price, schedule_id } = req.body;
   const { "@carPark:token": token } = req.cookies;
   if (req.method === "POST" && token) {
     admin
@@ -41,6 +42,9 @@ export default async function handle(
                 amount: price * 100,
               },
             ],
+            metadata: {
+              schedule_id,
+            },
             success_url: `${req.headers.origin}/success=true`,
             cancel_url: `${req.headers.origin}/canceled=true`,
           });
