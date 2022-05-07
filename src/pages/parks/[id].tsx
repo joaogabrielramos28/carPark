@@ -56,7 +56,6 @@ const Park = ({ park }: ParkProps) => {
   const [dateRange, setDateRange] = useState<DateRange | undefined>();
   const theme = useTheme();
   const { user } = useAuthContext();
-  const router = useRouter();
 
   const totalperiodDays = useMemo(() => {
     return differenceInDays(dateRange?.to!, dateRange?.from!);
@@ -141,7 +140,6 @@ const Park = ({ park }: ParkProps) => {
       total_value: totalValue,
       total_period_days: totalperiodDays,
     };
-    console.log(user);
 
     console.log(request);
   };
@@ -201,7 +199,10 @@ const Park = ({ park }: ParkProps) => {
             footer={footerDayPicker}
           />
           <ScheduleSpot>
-            <ScheduleButton onClick={handleScheduleSpot}>
+            <ScheduleButton
+              onClick={handleScheduleSpot}
+              disabled={fromDateFormatted && toDateFormatted ? false : true}
+            >
               Agendar vaga{" "}
               <AiFillClockCircle color={theme.colors.shape} size={18} />
             </ScheduleButton>
