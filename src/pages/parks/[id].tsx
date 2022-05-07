@@ -6,7 +6,7 @@ import {
   where,
 } from "firebase/firestore";
 import { GetStaticPaths, GetStaticProps } from "next";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { BackButton, Carousel, Header } from "../../components";
 import { IParkCardProps } from "../../components/ParkCard/types";
 import { database } from "../../services/firebase";
@@ -44,6 +44,9 @@ import { AiFillClockCircle } from "react-icons/ai";
 import { differenceInDays } from "date-fns";
 import { BsArrowRight } from "react-icons/bs";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
+import { useAuthContext } from "../../contexts/Auth";
+import { useRouter } from "next/router";
+import { toastMessage } from "../../utils/toast";
 
 interface ParkProps {
   park: IParkCardProps;
@@ -52,43 +55,41 @@ interface ParkProps {
 const Park = ({ park }: ParkProps) => {
   const [dateRange, setDateRange] = useState<DateRange | undefined>();
   const theme = useTheme();
+  const { user } = useAuthContext();
+  const router = useRouter();
+
+  const totalperiodDays = useMemo(() => {
+    return differenceInDays(dateRange?.to!, dateRange?.from!);
+  }, [dateRange]);
+
+  const totalValue = useMemo(() => {
+    return totalperiodDays === 0 ? park.price : totalperiodDays * park.price;
+  }, [totalperiodDays, park.price]);
+
+  const fromDateFormatted = useMemo(() => {
+    return dateRange?.from?.toLocaleDateString("pt-BR");
+  }, [dateRange]);
+
+  const toDateFormatted = useMemo(() => {
+    return dateRange?.to?.toLocaleDateString("pt-BR");
+  }, [dateRange]);
 
   const formatData = useCallback(() => {
-    const from = dateRange?.from;
-    const to = dateRange?.to;
-
-    const fromMonth = from
-      ? (from?.getMonth() + 1).toString().padStart(2, "0")
-      : "";
-    const fromDay = from?.getDate().toString().padStart(2, "0");
-    const fromYear = from?.getFullYear();
-
-    const fromFormatted = `${fromDay}/${fromMonth}/${fromYear}`;
-
-    const toMonth = to ? (to?.getMonth() + 1).toString().padStart(2, "0") : "";
-    const toDay = to?.getDate().toString().padStart(2, "0");
-    const toYear = to?.getFullYear();
-
-    const toFormatted = `${toDay}/${toMonth}/${toYear}`;
-
     const fromJSX = (
       <DateWrapper>
         <LabelPeriodDate>De</LabelPeriodDate>
-        {fromFormatted}
+        {fromDateFormatted}
       </DateWrapper>
     );
 
     const toJSX = (
       <DateWrapper>
         <LabelPeriodDate>Até</LabelPeriodDate>
-        {toFormatted}
+        {toDateFormatted}
       </DateWrapper>
     );
 
-    const totalperiodDays = differenceInDays(dateRange?.to!, dateRange?.from!);
-    const totalValue =
-      totalperiodDays === 0 ? park.price : totalperiodDays * park.price;
-    if (toMonth && fromMonth) {
+    if (fromDateFormatted && toDateFormatted) {
       return (
         <PeriodWrapper>
           <p>Você selecionou</p>
@@ -110,13 +111,40 @@ const Park = ({ park }: ParkProps) => {
     } else {
       return <PeriodWrapper> Selecione um período!</PeriodWrapper>;
     }
-  }, [dateRange, theme, park.price]);
+  }, [
+    fromDateFormatted,
+    toDateFormatted,
+    theme.colors.text,
+    totalperiodDays,
+    park.price,
+    totalValue,
+  ]);
 
   const footerDayPicker = dateRange ? (
     <p>{formatData()}</p>
   ) : (
     <PeriodWrapper> Selecione um período!</PeriodWrapper>
   );
+
+  const handleScheduleSpot = () => {
+    if (!user) {
+      return toastMessage(
+        "Você precisa estar logado para realizar a reserva!",
+        "warning"
+      );
+    }
+    const request = {
+      park_id: park.id,
+      user_id: user?.user.uid,
+      from: fromDateFormatted,
+      to: toDateFormatted,
+      total_value: totalValue,
+      total_period_days: totalperiodDays,
+    };
+    console.log(user);
+
+    console.log(request);
+  };
 
   const { spots } = park;
   return (
@@ -173,7 +201,7 @@ const Park = ({ park }: ParkProps) => {
             footer={footerDayPicker}
           />
           <ScheduleSpot>
-            <ScheduleButton>
+            <ScheduleButton onClick={handleScheduleSpot}>
               Agendar vaga{" "}
               <AiFillClockCircle color={theme.colors.shape} size={18} />
             </ScheduleButton>
