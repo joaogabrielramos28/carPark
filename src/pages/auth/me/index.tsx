@@ -89,7 +89,7 @@ const Me = () => {
               {!user?.user?.emailVerified && (
                 <ReSendConfirmation onClick={handleSendEmailConfirmation}>
                   {loadingSendEmaiLConfirmation ? (
-                    <Loading color={theme.colors.shape} size={40} />
+                    <Loading color={theme.colors.shape} size={36} />
                   ) : (
                     "Reenviar email para confirmação"
                   )}
@@ -153,7 +153,7 @@ const Me = () => {
 
                     <UpdateUser onClick={handleUpdateUser}>
                       {loadingUpdateUser ? (
-                        <Loading color={theme.colors.shape} size={40} />
+                        <Loading color={theme.colors.shape} size={36} />
                       ) : (
                         "Atualizar perfil"
                       )}

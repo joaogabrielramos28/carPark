@@ -58,7 +58,7 @@ const Register = () => {
               <Button type="submit">
                 {loadingAuth ? (
                   <>
-                    <Loading color={theme.colors.shape} size={40} />
+                    <Loading color={theme.colors.shape} size={36} />
                   </>
                 ) : (
                   "Criar conta"

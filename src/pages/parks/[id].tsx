@@ -1,13 +1,14 @@
 import {
   collection,
-  DocumentData,
+  doc,
   getDocs,
   query,
+  setDoc,
   where,
 } from "firebase/firestore";
 import { GetStaticPaths, GetStaticProps } from "next";
 import React, { useCallback, useMemo, useState } from "react";
-import { BackButton, Carousel, Header } from "../../components";
+import { BackButton, Carousel, Header, Loading } from "../../components";
 import { IParkCardProps } from "../../components/ParkCard/types";
 import { database } from "../../services/firebase";
 import {
@@ -42,10 +43,8 @@ import { RiMotorbikeFill } from "react-icons/ri";
 import { checkSpot } from "../../utils/checkSpot";
 import { AiFillClockCircle } from "react-icons/ai";
 import { differenceInDays } from "date-fns";
-import { BsArrowRight } from "react-icons/bs";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 import { useAuthContext } from "../../contexts/Auth";
-import { useRouter } from "next/router";
 import { toastMessage } from "../../utils/toast";
 
 interface ParkProps {
@@ -56,6 +55,7 @@ const Park = ({ park }: ParkProps) => {
   const [dateRange, setDateRange] = useState<DateRange | undefined>();
   const theme = useTheme();
   const { user } = useAuthContext();
+  const [loadingScheduleSubmit, setLoadingScheduleSubmit] = useState(false);
 
   const totalperiodDays = useMemo(() => {
     return differenceInDays(dateRange?.to!, dateRange?.from!);
@@ -125,14 +125,14 @@ const Park = ({ park }: ParkProps) => {
     <PeriodWrapper> Selecione um período!</PeriodWrapper>
   );
 
-  const handleScheduleSpot = () => {
+  const handleScheduleSpot = useCallback(async () => {
     if (!user) {
       return toastMessage(
         "Você precisa estar logado para realizar a reserva!",
         "warning"
       );
     }
-    const request = {
+    const schedule = {
       park_id: park.id,
       user_id: user?.user.uid,
       from: fromDateFormatted,
@@ -140,9 +140,24 @@ const Park = ({ park }: ParkProps) => {
       total_value: totalValue,
       total_period_days: totalperiodDays,
     };
-
-    console.log(request);
-  };
+    setLoadingScheduleSubmit(true);
+    try {
+      await setDoc(doc(database, "schedules", schedule.park_id), schedule);
+      toastMessage("Agendamento feito com sucesso!!");
+      setLoadingScheduleSubmit(false);
+    } catch (err) {
+      console.log(err);
+      toastMessage("Erro ao criar agendamento", "error");
+      setLoadingScheduleSubmit(false);
+    }
+  }, [
+    fromDateFormatted,
+    park.id,
+    toDateFormatted,
+    totalValue,
+    totalperiodDays,
+    user,
+  ]);
 
   const { spots } = park;
   return (
@@ -203,8 +218,14 @@ const Park = ({ park }: ParkProps) => {
               onClick={handleScheduleSpot}
               disabled={fromDateFormatted && toDateFormatted ? false : true}
             >
-              Agendar vaga{" "}
-              <AiFillClockCircle color={theme.colors.shape} size={18} />
+              {loadingScheduleSubmit ? (
+                <Loading color="#FFFF" size={36} />
+              ) : (
+                <>
+                  Agendar vaga
+                  <AiFillClockCircle color={theme.colors.shape} size={18} />
+                </>
+              )}
             </ScheduleButton>
           </ScheduleSpot>
         </ScheduleContainer>

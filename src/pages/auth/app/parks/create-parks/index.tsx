@@ -172,7 +172,7 @@ const CreateParks = ({ states }: ICreateParkProps) => {
               <SubmitWrapper>
                 <SubmitButton type="submit" disabled={!hasFormErrors()}>
                   {createParkLoading ? (
-                    <Loading color={theme.colors.shape} size={40} />
+                    <Loading color={theme.colors.shape} size={36} />
                   ) : (
                     "Criar Park"
                   )}

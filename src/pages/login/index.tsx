@@ -89,7 +89,7 @@ const Login = () => {
               >
                 {loadingAuth ? (
                   <>
-                    <Loading color={theme.colors.shape} size={40} />
+                    <Loading color={theme.colors.shape} size={36} />
                   </>
                 ) : (
                   "Entrar"
@@ -133,7 +133,7 @@ const Login = () => {
                   <ButtonReset disabled={errors.email ? true : false}>
                     {loadingSendEmail ? (
                       <>
-                        <Loading color={theme.colors.shape} size={40} />
+                        <Loading color={theme.colors.shape} size={36} />
                       </>
                     ) : (
                       "Enviar e-mail"

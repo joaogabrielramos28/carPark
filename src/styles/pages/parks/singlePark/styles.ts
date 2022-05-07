@@ -89,7 +89,7 @@ export const ScheduleButton = styled.button`
   color: ${({ theme }) => theme.colors.shape};
   padding: 12px;
   border-radius: 8px;
-
+  height: 42px;
   display: flex;
   align-items: center;
   justify-content: center;
