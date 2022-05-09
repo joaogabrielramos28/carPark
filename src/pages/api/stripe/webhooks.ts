@@ -46,15 +46,15 @@ export default async function handle(
 
     if (relevantEvents.has(type)) {
       const { park_id, schedule_id } = event.data.object.metadata;
-      const { payment_status } = event.data.object;
+      const { payment_status, url } = event.data.object;
 
-      if (payment_status === "paid") {
-        const parksRef = admin
-          .firestore()
-          .collection("schedules")
-          .doc(schedule_id);
-        await parksRef.update({ status: payment_status });
-      }
+      console.log(event);
+
+      const parksRef = admin
+        .firestore()
+        .collection("schedules")
+        .doc(schedule_id);
+      await parksRef.update({ status: payment_status, url: url });
     }
   } else {
     res.setHeader("Allow", "POST");
