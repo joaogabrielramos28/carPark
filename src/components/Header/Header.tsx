@@ -75,7 +75,9 @@ const Header = () => {
                 <Link href={"/auth/me"} passHref>
                   <DropDownOption>Perfil</DropDownOption>
                 </Link>
-                <DropDownOption>Reservas</DropDownOption>
+                <Link href={"/auth/schedules"} passHref>
+                  <DropDownOption>Reservas</DropDownOption>
+                </Link>
                 <DropDownOption onClick={logout}>Logout</DropDownOption>
               </DropDown>
             )}
