@@ -3,6 +3,7 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 import React, { useEffect, useMemo, useState } from "react";
 import { useTheme } from "styled-components";
 import { Header, Loading } from "../../../components";
+import { IParkCardProps } from "../../../components/ParkCard/types";
 import { useAuthContext } from "../../../contexts/Auth";
 import { database } from "../../../services/firebase";
 import {
@@ -27,12 +28,28 @@ const Schedules = () => {
           where("user_id", "==", user?.user?.uid)
         );
         const res = await getDocs(q);
-        const schedules = res.docs.map((doc) => doc.data() as ISchedule);
-        setSchedules(schedules);
+        const schedules = res.docs.map(async (doc) => {
+          const q = query(
+            collection(database, "parks"),
+            where("id", "==", doc.data().park_id)
+          );
+
+          const res = await getDocs(q);
+          const parkResult = res.docs[0].data() as IParkCardProps;
+
+          doc.data() as ISchedule;
+          return { ...(doc.data() as ISchedule), park: parkResult };
+        });
+
+        const result: ISchedule[] = await Promise.all(schedules);
+        setSchedules(result);
       }
     }
+
     getShechedules();
   }, [user]);
+
+  console.log(schedules);
 
   const getTotalCost = useMemo(() => {
     const cost = schedules.reduce((acc, schedule) => {

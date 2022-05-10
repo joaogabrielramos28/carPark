@@ -9,8 +9,11 @@ export const Container = styled.main`
 
 export const SchedulesInfo = styled.section`
   width: 300px;
-  background-color: blue;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
 `;
 
 export const SchedulesContainer = styled.section`
