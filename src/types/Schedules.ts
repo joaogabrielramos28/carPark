@@ -10,4 +10,5 @@ export interface ISchedule {
   from: string;
   to: string;
   park: IParkCardProps;
+  url?: string;
 }

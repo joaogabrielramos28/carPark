@@ -1,6 +1,7 @@
 import { collection, getDocs, query, where } from "firebase/firestore";
 
 import React, { useEffect, useMemo, useState } from "react";
+import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 import { useTheme } from "styled-components";
 import { Header, Loading } from "../../../components";
 import { IParkCardProps } from "../../../components/ParkCard/types";
@@ -12,6 +13,16 @@ import {
   SchedulesContainer,
   SchedulesInfo,
   LoadingContainer,
+  ScheduleDetails,
+  ScheduleImage,
+  Name,
+  Period,
+  From,
+  To,
+  Total,
+  Status,
+  Url,
+  FooterSchedule,
 } from "../../../styles/pages/schedules/styles";
 import { ISchedule } from "../../../types/Schedules";
 
@@ -67,6 +78,15 @@ const Schedules = () => {
     return days;
   }, [schedules]);
 
+  const getScheduleStatus = (status: string) => {
+    switch (status) {
+      case "paid":
+        return <Status color={theme.colors.success}>Pago</Status>;
+      case "unpaid":
+        return <Status color={"#f1e05a"}>Aguardando pagamento</Status>;
+    }
+  };
+
   return (
     <>
       <Header />
@@ -92,7 +112,53 @@ const Schedules = () => {
             </SchedulesInfo>
 
             <SchedulesContainer>
-              <Schedule></Schedule>
+              {schedules.map((schedule) => (
+                <Schedule key={schedule.id}>
+                  <ScheduleImage
+                    src={schedule.park.main_image || "./placeholder.jpg"}
+                    width={200}
+                    height={200}
+                    objectFit="cover"
+                    alt={`Imagem do  ${schedule.park.name}`}
+                  />
+
+                  <ScheduleDetails>
+                    <Name>{schedule.park.name}</Name>
+
+                    <Period>
+                      <From>
+                        <p>De:</p>
+                        {schedule.from}
+                      </From>
+                      <HiOutlineArrowNarrowRight
+                        color={theme.colors.text}
+                        size={24}
+                      />
+                      <To>
+                        <p>Até:</p>
+                        {schedule.to}
+                      </To>
+                    </Period>
+
+                    <Total>R$ {schedule.total_value}</Total>
+                    <FooterSchedule>
+                      {getScheduleStatus(schedule.status)}
+                      {schedule.url && schedule.status !== "paid" && (
+                        <Url>
+                          Pague{" "}
+                          <a
+                            href={schedule.url}
+                            target={"_blank"}
+                            rel="noreferrer"
+                          >
+                            aqui
+                          </a>
+                        </Url>
+                      )}
+                    </FooterSchedule>
+                  </ScheduleDetails>
+                </Schedule>
+              ))}
             </SchedulesContainer>
           </>
         )}
