@@ -15,4 +15,6 @@ export interface IListUser {
     providerId: string;
     uid: string;
   }[];
+
+  totalSpent?: number;
 }

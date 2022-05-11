@@ -32,6 +32,9 @@ import { VscOrganization } from "react-icons/vsc";
 import { useTheme } from "styled-components";
 import { useDashboardContext } from "../../../../contexts/Dashboard";
 import { Modal } from "../../../../components";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { database } from "../../../../services/firebase";
+import { ISchedule } from "../../../../types/Schedules";
 
 const Users = ({ users }: { users: IListUser[] }) => {
   const [page, setPage] = React.useState(0);
@@ -86,6 +89,7 @@ const Users = ({ users }: { users: IListUser[] }) => {
               <col width="10%" />
               <col width="10%" />
               <col width="10%" />
+              <col width="10%" />
               <col width="5%" />
               <col width="5%" />
             </colgroup>
@@ -97,6 +101,7 @@ const Users = ({ users }: { users: IListUser[] }) => {
               <TableCell style={{ textAlign: "center" }}>
                 Último acesso
               </TableCell>
+              <TableCell style={{ textAlign: "center" }}>Total gasto</TableCell>
               <TableCell style={{ textAlign: "center" }}>
                 Desabilitado
               </TableCell>
@@ -128,6 +133,9 @@ const Users = ({ users }: { users: IListUser[] }) => {
                       </TableCell>
                       <TableCell style={{ textAlign: "center" }}>
                         {user?.metadata.lastSignInTime}
+                      </TableCell>
+                      <TableCell style={{ textAlign: "center" }}>
+                        R$ {user?.totalSpent}
                       </TableCell>
                       <TableCell style={{ textAlign: "center" }}>
                         {getCheckIcon(user?.disabled)}
@@ -209,7 +217,17 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const { users } = await response.data.users;
 
-  const usersFormatted = users.map((user: IListUser) => {
+  const usersFormatted: IListUser[] = users.map(async (user: IListUser) => {
+    const q = query(
+      collection(database, "schedules"),
+      where("user_id", "==", user.uid)
+    );
+    const res = (await getDocs(q)).docs.map((doc) => doc.data() as ISchedule);
+
+    const totalSpent = res.reduce((acc, schedule) => {
+      return acc + schedule.total_value;
+    }, 0);
+
     return {
       ...user,
       photoURL: user.photoURL || "/user-placeholder.png",
@@ -218,10 +236,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
           user.metadata.lastSignInTime
         ).toLocaleDateString(),
       },
+      totalSpent,
     };
   });
 
+  const usersFormattedFinal = await Promise.all(usersFormatted);
+
   return {
-    props: { users: usersFormatted },
+    props: { users: usersFormattedFinal },
   };
 };
