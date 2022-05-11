@@ -89,11 +89,12 @@ const ListParks = ({ parks }: IListParkProps) => {
           <Table size="small">
             <colgroup>
               <col width="10%" />
-              <col width="20%" />
+              <col width="15%" />
               <col width="15%" />
               <col width="5%" />
               <col width="5%" />
               <col width="15%" />
+              <col width="10%" />
               <col width="10%" />
               <col width="15%" />
               <col width="5%" />
@@ -105,10 +106,11 @@ const ListParks = ({ parks }: IListParkProps) => {
               <TableCell style={{ textAlign: "center" }}>Estado</TableCell>
               <TableCell style={{ textAlign: "center" }}>Período</TableCell>
               <TableCell style={{ textAlign: "center" }}>Vagas</TableCell>
+              <TableCell style={{ textAlign: "center" }}>Preço</TableCell>
               <TableCell style={{ textAlign: "center" }}>
                 Reservas feitas
               </TableCell>
-              <TableCell style={{ textAlign: "center" }}>Total gasto</TableCell>
+              <TableCell style={{ textAlign: "center" }}>Total ganho</TableCell>
               <TableCell style={{ textAlign: "center" }}></TableCell>
             </TableHead>
             <TableBody>
@@ -141,6 +143,9 @@ const ListParks = ({ parks }: IListParkProps) => {
                         {park.spots.map((spot: ISpotsProps) =>
                           fetchSpotIcon(spot)
                         )}
+                      </TableCell>
+                      <TableCell style={{ textAlign: "center" }}>
+                        R$ {park.price}
                       </TableCell>
                       <TableCell style={{ textAlign: "center" }}>
                         {park.schedulesCount}
