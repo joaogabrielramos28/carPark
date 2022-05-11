@@ -22,7 +22,11 @@ import { FaCarSide, FaTruck } from "react-icons/fa";
 import { RiMotorbikeFill } from "react-icons/ri";
 import { checkSpot } from "../../../../../utils/checkSpot";
 import { ISchedule } from "../../../../../types/Schedules";
-
+import IconButton from "@mui/material/IconButton";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import { FiMoreVertical } from "react-icons/fi";
+import { useTheme } from "styled-components";
 interface ParksProps extends IPark {
   totalSpent: number;
   schedulesCount: number;
@@ -35,6 +39,7 @@ interface IListParkProps {
 const ListParks = ({ parks }: IListParkProps) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const theme = useTheme();
 
   const handleChangeRowsPerPage = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -66,6 +71,16 @@ const ListParks = ({ parks }: IListParkProps) => {
     }
   };
 
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const ITEM_HEIGHT = 48;
+
   return (
     <>
       <App />
@@ -75,12 +90,13 @@ const ListParks = ({ parks }: IListParkProps) => {
             <colgroup>
               <col width="10%" />
               <col width="20%" />
-              <col width="20%" />
+              <col width="15%" />
               <col width="5%" />
               <col width="5%" />
               <col width="15%" />
               <col width="10%" />
               <col width="15%" />
+              <col width="5%" />
             </colgroup>
             <TableHead>
               <TableCell style={{ textAlign: "center" }}>Foto</TableCell>
@@ -93,6 +109,7 @@ const ListParks = ({ parks }: IListParkProps) => {
                 Reservas feitas
               </TableCell>
               <TableCell style={{ textAlign: "center" }}>Total gasto</TableCell>
+              <TableCell style={{ textAlign: "center" }}></TableCell>
             </TableHead>
             <TableBody>
               {parks
@@ -130,6 +147,48 @@ const ListParks = ({ parks }: IListParkProps) => {
                       </TableCell>
                       <TableCell style={{ textAlign: "center" }}>
                         R$ {park.totalSpent}
+                      </TableCell>
+                      <TableCell style={{ textAlign: "center" }}>
+                        <>
+                          <IconButton
+                            aria-label="more"
+                            id="long-button"
+                            aria-controls={open ? "long-menu" : undefined}
+                            aria-expanded={open ? "true" : undefined}
+                            aria-haspopup="true"
+                            onClick={handleClick}
+                          >
+                            <FiMoreVertical
+                              size={20}
+                              color={theme.colors.title}
+                            />
+                          </IconButton>
+                          <Menu
+                            id="long-menu"
+                            MenuListProps={{
+                              "aria-labelledby": "long-button",
+                            }}
+                            anchorEl={anchorEl}
+                            open={open}
+                            onClose={handleClose}
+                            PaperProps={{
+                              style: {
+                                maxHeight: ITEM_HEIGHT * 4.5,
+                                width: "20ch",
+                              },
+                            }}
+                          >
+                            <MenuItem
+                              onClick={handleClose}
+                              style={{
+                                width: "100%",
+                                padding: "4px",
+                              }}
+                            >
+                              Deletar
+                            </MenuItem>
+                          </Menu>
+                        </>
                       </TableCell>
                     </TableRow>
                   </>
