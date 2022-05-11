@@ -49,7 +49,9 @@ export const ScheduleDetails = styled.div`
   padding: 8px;
 `;
 
-export const Name = styled.h3``;
+export const Name = styled.h3`
+  color: ${({ theme }) => theme.colors.title};
+`;
 
 export const Period = styled.div`
   margin-top: 10px;
