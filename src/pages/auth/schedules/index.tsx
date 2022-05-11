@@ -25,12 +25,33 @@ import {
   FooterSchedule,
 } from "../../../styles/pages/schedules/styles";
 import { ISchedule } from "../../../types/Schedules";
-
+import InfiniteScroll from "react-infinite-scroll-component";
 const Schedules = () => {
   const { user } = useAuthContext();
   const [schedules, setSchedules] = useState<ISchedule[]>([]);
+  const [visible, setVisible] = useState({
+    prev: 0,
+    next: 10,
+  });
+  const [hasMore, setHasMore] = useState(true);
+  const [current, setCurrent] = useState<ISchedule[]>([]);
   const theme = useTheme();
+  console.log(current);
 
+  const getMoreData = () => {
+    if (current.length === schedules.length) {
+      setHasMore(false);
+    }
+
+    setCurrent(
+      current.concat(schedules.slice(visible.prev + 10, visible.next + 10))
+    );
+
+    setVisible((prevState) => ({
+      prev: prevState.prev + 10,
+      next: prevState.next + 10,
+    }));
+  };
   useEffect(() => {
     async function getShechedules() {
       if (user?.user) {
@@ -54,13 +75,13 @@ const Schedules = () => {
 
         const result: ISchedule[] = await Promise.all(schedules);
         setSchedules(result);
+        setCurrent(result.slice(visible.prev, visible.next));
       }
     }
 
     getShechedules();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
-
-  console.log(schedules);
 
   const getTotalCost = useMemo(() => {
     const cost = schedules.reduce((acc, schedule) => {
@@ -112,53 +133,60 @@ const Schedules = () => {
             </SchedulesInfo>
 
             <SchedulesContainer>
-              {schedules.map((schedule) => (
-                <Schedule key={schedule.id}>
-                  <ScheduleImage
-                    src={schedule.park.main_image || "./placeholder.jpg"}
-                    width={200}
-                    height={200}
-                    objectFit="cover"
-                    alt={`Imagem do  ${schedule.park.name}`}
-                  />
+              <InfiniteScroll
+                dataLength={current.length}
+                next={getMoreData}
+                hasMore={hasMore}
+                loader={<Loading size={40} color={theme.colors.secondary} />}
+              >
+                {current.map((schedule) => (
+                  <Schedule key={schedule.id}>
+                    <ScheduleImage
+                      src={schedule.park.main_image || "./placeholder.jpg"}
+                      width={200}
+                      height={200}
+                      objectFit="cover"
+                      alt={`Imagem do  ${schedule.park.name}`}
+                    />
 
-                  <ScheduleDetails>
-                    <Name>{schedule.park.name}</Name>
+                    <ScheduleDetails>
+                      <Name>{schedule.park.name}</Name>
 
-                    <Period>
-                      <From>
-                        <p>De:</p>
-                        {schedule.from}
-                      </From>
-                      <HiOutlineArrowNarrowRight
-                        color={theme.colors.text}
-                        size={24}
-                      />
-                      <To>
-                        <p>Até:</p>
-                        {schedule.to}
-                      </To>
-                    </Period>
+                      <Period>
+                        <From>
+                          <p>De:</p>
+                          {schedule.from}
+                        </From>
+                        <HiOutlineArrowNarrowRight
+                          color={theme.colors.text}
+                          size={24}
+                        />
+                        <To>
+                          <p>Até:</p>
+                          {schedule.to}
+                        </To>
+                      </Period>
 
-                    <Total>R$ {schedule.total_value}</Total>
-                    <FooterSchedule>
-                      {getScheduleStatus(schedule.status)}
-                      {schedule.url && schedule.status !== "paid" && (
-                        <Url>
-                          Pague{" "}
-                          <a
-                            href={schedule.url}
-                            target={"_blank"}
-                            rel="noreferrer"
-                          >
-                            aqui
-                          </a>
-                        </Url>
-                      )}
-                    </FooterSchedule>
-                  </ScheduleDetails>
-                </Schedule>
-              ))}
+                      <Total>R$ {schedule.total_value}</Total>
+                      <FooterSchedule>
+                        {getScheduleStatus(schedule.status)}
+                        {schedule.url && schedule.status !== "paid" && (
+                          <Url>
+                            Pague{" "}
+                            <a
+                              href={schedule.url}
+                              target={"_blank"}
+                              rel="noreferrer"
+                            >
+                              aqui
+                            </a>
+                          </Url>
+                        )}
+                      </FooterSchedule>
+                    </ScheduleDetails>
+                  </Schedule>
+                ))}
+              </InfiniteScroll>
             </SchedulesContainer>
           </>
         )}
