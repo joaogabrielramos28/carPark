@@ -17,4 +17,5 @@ export interface IListUser {
   }[];
 
   totalSpent?: number;
+  totalSchedules?: number;
 }

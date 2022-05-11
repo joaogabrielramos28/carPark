@@ -90,6 +90,7 @@ const Users = ({ users }: { users: IListUser[] }) => {
               <col width="10%" />
               <col width="10%" />
               <col width="10%" />
+              <col width="10%" />
               <col width="5%" />
               <col width="5%" />
             </colgroup>
@@ -100,6 +101,9 @@ const Users = ({ users }: { users: IListUser[] }) => {
               <TableCell style={{ textAlign: "center" }}>Provedor</TableCell>
               <TableCell style={{ textAlign: "center" }}>
                 Último acesso
+              </TableCell>
+              <TableCell style={{ textAlign: "center" }}>
+                Reservas feitas
               </TableCell>
               <TableCell style={{ textAlign: "center" }}>Total gasto</TableCell>
               <TableCell style={{ textAlign: "center" }}>
@@ -133,6 +137,9 @@ const Users = ({ users }: { users: IListUser[] }) => {
                       </TableCell>
                       <TableCell style={{ textAlign: "center" }}>
                         {user?.metadata.lastSignInTime}
+                      </TableCell>
+                      <TableCell style={{ textAlign: "center" }}>
+                        {user?.totalSchedules}
                       </TableCell>
                       <TableCell style={{ textAlign: "center" }}>
                         R$ {user?.totalSpent}
@@ -224,6 +231,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     );
     const res = (await getDocs(q)).docs.map((doc) => doc.data() as ISchedule);
 
+    const totalSchedules = res.length;
     const totalSpent = res.reduce((acc, schedule) => {
       return acc + schedule.total_value;
     }, 0);
@@ -237,6 +245,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         ).toLocaleDateString(),
       },
       totalSpent,
+      totalSchedules,
     };
   });
 
