@@ -1,16 +1,16 @@
 import React from "react";
-import { Header, Loading } from "../../components";
-import { ParkCard } from "../../components";
+import { Header, Loading } from "components";
+import { ParkCard } from "components";
 import {
   Container,
   NoParks,
   ContainerNoParks,
-} from "../../styles/pages/parks/styles";
+} from "styles/pages/parks/styles";
 import { collection, getDocs, query, DocumentData } from "firebase/firestore";
-import { database } from "../../services/firebase";
-import { GetServerSideProps, GetStaticProps } from "next";
-import theme from "../../styles/theme";
-import { IPark } from "../../types/Parks";
+import { database } from "services/firebase";
+import { GetServerSideProps } from "next";
+import theme from "styles/theme";
+import { IPark } from "types/Parks";
 
 const Parks = ({ parks }: DocumentData) => {
   return (

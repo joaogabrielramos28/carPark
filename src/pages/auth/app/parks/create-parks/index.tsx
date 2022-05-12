@@ -1,14 +1,9 @@
 import { GetServerSideProps } from "next";
-import React, { useState } from "react";
+import React from "react";
 import App from "../..";
-import {
-  CheckBoxTypeSpot,
-  Loading,
-  Modal,
-  SelectForm,
-} from "../../../../../components";
-import { IStatesProps } from "../../../../../components/SelectForm/types";
-import { ibgeApi } from "../../../../../services/api";
+import { CheckBoxTypeSpot, Loading, Modal, SelectForm } from "components";
+import { IStatesProps } from "components/SelectForm/types";
+import { ibgeApi } from "services/api";
 import {
   Container,
   Title,
@@ -26,19 +21,19 @@ import {
   CheckBoxGroupWrapper,
   Label,
   SaveImagesButton,
-} from "../../../../../styles/pages/parks/create-parks/styles";
+} from "styles/pages/parks/create-parks/styles";
 
 import { IoMdRemove } from "react-icons/io";
 
-import DropzoneComponent from "../../../../../components/Dropzone/Dropzone";
-import { useDashboardContext } from "../../../../../contexts/Dashboard";
+import DropzoneComponent from "components/Dropzone/Dropzone";
+import { useDashboardContext } from "contexts/Dashboard";
 import Image from "next/image";
 import { useTheme } from "styled-components";
 import { FaCarSide, FaTruck } from "react-icons/fa";
 import { RiMotorbikeFill } from "react-icons/ri";
-import { Field, Form, Formik } from "formik";
-import { CreateParkAdmin } from "../../../../../validation/Admin";
-import { ICreateParkValues } from "../../../../../contexts/Dashboard/types";
+import { Form, Formik } from "formik";
+import { CreateParkAdmin } from "validation/Admin";
+import { ICreateParkValues } from "contexts/Dashboard/types";
 interface ICreateParkProps {
   states: IStatesProps[];
 }
@@ -53,7 +48,6 @@ const CreateParks = ({ states }: ICreateParkProps) => {
     handleCreatePark,
     createParkLoading,
   } = useDashboardContext();
-  const [formErrors, setFormErrors] = useState([]);
 
   const theme = useTheme();
   const selected_images = selectedImages.map((file, i) => (

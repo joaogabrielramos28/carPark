@@ -2,8 +2,8 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 import { Readable } from "stream";
 import Stripe from "stripe";
-import admin from "../../../services/firebase-admin";
-import { stripe } from "../../../services/stripe/stripe";
+import admin from "services/firebase-admin";
+import { stripe } from "services/stripe/stripe";
 
 async function buffer(readable: Readable) {
   const chunks: Buffer[] = [];

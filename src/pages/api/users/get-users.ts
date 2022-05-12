@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import admin from "../../../services/firebase-admin";
+import admin from "services/firebase-admin";
 
 export default async function handle(
   req: NextApiRequest,

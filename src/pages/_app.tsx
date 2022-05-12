@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import Nprogress from "nprogress";
 import { Router } from "next/router";
 import "../../public/nprogress.css";
+import "react-toastify/dist/ReactToastify.css";
 import AppProvider from "../contexts";
 Router.events.on("routeChangeStart", () => {
   Nprogress.start();
@@ -18,7 +19,6 @@ Router.events.on("routeChangeError", () => {
   Nprogress.done();
 });
 
-import "react-toastify/dist/ReactToastify.css";
 function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     Aos.init({

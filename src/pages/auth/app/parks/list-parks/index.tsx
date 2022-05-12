@@ -3,7 +3,7 @@ import {
   Main,
   ParkImage,
   TableContainer,
-} from "../../../../../styles/pages/parks/list-parks/styles";
+} from "styles/pages/parks/list-parks/styles";
 import App from "../../index";
 
 import {
@@ -16,18 +16,18 @@ import {
 } from "@material-ui/core";
 import { GetServerSideProps } from "next";
 import { collection, getDocs, query, where } from "firebase/firestore";
-import { database } from "../../../../../services/firebase";
-import { IPark, ISpotsProps } from "../../../../../types/Parks";
+import { database } from "services/firebase";
+import { IPark, ISpotsProps } from "types/Parks";
 import { FaCarSide, FaTrashAlt, FaTruck } from "react-icons/fa";
 import { RiMotorbikeFill } from "react-icons/ri";
-import { checkSpot } from "../../../../../utils/checkSpot";
-import { ISchedule } from "../../../../../types/Schedules";
+import { checkSpot } from "utils/checkSpot";
+import { ISchedule } from "types/Schedules";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { FiMoreVertical } from "react-icons/fi";
 import { useTheme } from "styled-components";
-import { useDashboardContext } from "../../../../../contexts/Dashboard";
+import { useDashboardContext } from "contexts/Dashboard";
 interface ParksProps extends IPark {
   totalSpent: number;
   schedulesCount: number;
@@ -73,16 +73,6 @@ const ListParks = ({ parks }: IListParkProps) => {
         return "";
     }
   };
-
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-  const ITEM_HEIGHT = 48;
 
   return (
     <>

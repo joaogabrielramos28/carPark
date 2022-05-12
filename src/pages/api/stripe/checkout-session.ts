@@ -1,7 +1,6 @@
-import { stripe } from "../../../services/stripe/stripe";
+import { stripe } from "services/stripe/stripe";
 import { NextApiResponse, NextApiRequest } from "next";
-import admin from "../../../services/firebase-admin";
-import { FaProductHunt } from "react-icons/fa";
+import admin from "services/firebase-admin";
 
 export default async function handle(
   req: NextApiRequest,

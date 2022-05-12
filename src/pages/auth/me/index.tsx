@@ -23,14 +23,13 @@ import {
   ChangePasswordWrapper,
   UpdateUser,
   UserImageModal,
-} from "../../../styles/pages/me/styles";
+} from "styles/pages/me/styles";
 import { FiEdit2 } from "react-icons/fi";
 
-import { BackButton, Loading, Modal } from "../../../components";
-import { useMeContext } from "../../../contexts/Me";
-import { useAuthContext } from "../../../contexts/Auth";
-import Image from "next/image";
-import theme from "../../../styles/theme";
+import { BackButton, Loading, Modal } from "components";
+import { useMeContext } from "contexts/Me";
+import { useAuthContext } from "contexts/Auth";
+import theme from "styles/theme";
 const Me = () => {
   const [imageLoading, setImageLoading] = useState(true);
   const {

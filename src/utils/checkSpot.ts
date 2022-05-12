@@ -1,4 +1,4 @@
-import { ISpotsProps } from "../components/ParkCard/types";
+import { ISpotsProps } from "types/Parks";
 import theme from "../styles/theme";
 
 export const checkSpot = (

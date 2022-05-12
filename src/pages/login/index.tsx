@@ -1,5 +1,5 @@
-import React, { useRef } from "react";
-import InputForm from "../../components/Input/Input";
+import React from "react";
+import InputForm from "components/Input/Input";
 import {
   Container,
   ArrowBack,
@@ -16,16 +16,16 @@ import {
   DescriptionModal,
   InputReset,
   ButtonReset,
-} from "../../styles/pages/login/styles";
+} from "styles/pages/login/styles";
 import { BsGithub, BsGoogle } from "react-icons/bs";
-import { useAuthContext } from "../../contexts/Auth";
+import { useAuthContext } from "contexts/Auth";
 
-import { BackButton, Loading, Modal } from "../../components";
-import theme from "../../styles/theme";
+import { BackButton, Loading, Modal } from "components";
+import theme from "styles/theme";
 import { Formik } from "formik";
-import { IResetPassword, IUserLoginValues } from "../../types/Form";
-import { SignupSchema } from "../../validation";
-import { ResetPasswordSchema } from "../../validation/Login";
+import { IResetPassword, IUserLoginValues } from "types/Form";
+import { SignupSchema } from "validation";
+import { ResetPasswordSchema } from "validation/Login";
 const Login = () => {
   const {
     loginWithCredentials,

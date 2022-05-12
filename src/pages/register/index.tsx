@@ -8,16 +8,16 @@ import {
   Title,
   Button,
   HasAccount,
-} from "../../styles/pages/register/styles";
-import InputForm from "../../components/Input/Input";
+} from "styles/pages/register/styles";
+import InputForm from "components/Input/Input";
 import Link from "next/link";
-import { BackButton, Loading } from "../../components";
-import theme from "../../styles/theme";
+import { BackButton, Loading } from "components";
+import theme from "styles/theme";
 
 import { Formik } from "formik";
-import { RegisterSchema } from "../../validation";
-import { IUserRegisterValues } from "../../types/Form";
-import { useAuthContext } from "../../contexts/Auth";
+import { RegisterSchema } from "validation";
+import { IUserRegisterValues } from "types/Form";
+import { useAuthContext } from "contexts/Auth";
 
 const Register = () => {
   const { register, loadingAuth } = useAuthContext();

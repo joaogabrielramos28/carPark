@@ -1,6 +1,6 @@
 import React from "react";
-import { Header, Modal, NavBar } from "../../../components";
-import { useDashboardContext } from "../../../contexts/Dashboard";
+import { Header, Modal, NavBar } from "components";
+import { useDashboardContext } from "contexts/Dashboard";
 
 const App = () => {
   const { settingsIsOpen, handleToggleModal } = useDashboardContext();

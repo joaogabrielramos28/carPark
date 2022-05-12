@@ -8,9 +8,9 @@ import {
 } from "firebase/firestore";
 import { GetStaticPaths, GetStaticProps } from "next";
 import React, { useCallback, useMemo, useState } from "react";
-import { BackButton, Carousel, Header, Loading } from "../../components";
+import { BackButton, Carousel, Header, Loading } from "components";
 
-import { database } from "../../services/firebase";
+import { database } from "services/firebase";
 import {
   Container,
   ParkHeader,
@@ -33,23 +33,23 @@ import {
   TotalWrapper,
   TotalInfo,
   Total,
-} from "../../styles/pages/parks/singlePark/styles";
+} from "styles/pages/parks/singlePark/styles";
 import { DateRange, DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import { ptBR } from "date-fns/locale";
 import { useTheme } from "styled-components";
 import { FaCarSide, FaTruck } from "react-icons/fa";
 import { RiMotorbikeFill } from "react-icons/ri";
-import { checkSpot } from "../../utils/checkSpot";
+import { checkSpot } from "utils/checkSpot";
 import { AiFillClockCircle } from "react-icons/ai";
 import { differenceInDays } from "date-fns";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
-import { useAuthContext } from "../../contexts/Auth";
-import { toastMessage } from "../../utils/toast";
+import { useAuthContext } from "contexts/Auth";
+import { toastMessage } from "utils/toast";
 import { uuid } from "uuidv4";
-import { api } from "../../services/api";
-import { getStripeJs } from "../../services/stripe/stripeJs";
-import { IPark } from "../../types/Parks";
+import { api } from "services/api";
+import { getStripeJs } from "services/stripe/stripeJs";
+import { IPark } from "types/Parks";
 
 interface ParkProps {
   park: IPark;

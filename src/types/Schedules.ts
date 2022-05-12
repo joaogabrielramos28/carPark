@@ -1,4 +1,4 @@
-import { IParkCardProps } from "../components/ParkCard/types";
+import { IPark } from "./Parks";
 
 export interface ISchedule {
   user_id: string;
@@ -9,6 +9,6 @@ export interface ISchedule {
   total_value: number;
   from: string;
   to: string;
-  park: IParkCardProps;
+  park: IPark;
   url?: string;
 }

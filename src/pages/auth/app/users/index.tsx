@@ -1,8 +1,8 @@
 import { GetServerSideProps } from "next";
 import React from "react";
 import App from "..";
-import { api } from "../../../../services/api";
-import { IListUser } from "../../../../types/Users";
+import { api } from "services/api";
+import { IListUser } from "types/Users";
 import {
   Table,
   TableHead,
@@ -21,7 +21,7 @@ import {
   DescriptionModal,
   DecisionWrapper,
   ButtonDecision,
-} from "../../../../styles/pages/users/styles";
+} from "styles/pages/users/styles";
 import {
   AiFillGithub,
   AiFillGoogleCircle,
@@ -30,11 +30,11 @@ import {
 
 import { VscOrganization } from "react-icons/vsc";
 import { useTheme } from "styled-components";
-import { useDashboardContext } from "../../../../contexts/Dashboard";
-import { Modal } from "../../../../components";
+import { useDashboardContext } from "contexts/Dashboard";
+import { Modal } from "components";
 import { collection, getDocs, query, where } from "firebase/firestore";
-import { database } from "../../../../services/firebase";
-import { ISchedule } from "../../../../types/Schedules";
+import { database } from "services/firebase";
+import { ISchedule } from "types/Schedules";
 
 const Users = ({ users }: { users: IListUser[] }) => {
   const [page, setPage] = React.useState(0);

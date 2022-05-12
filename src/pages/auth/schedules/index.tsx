@@ -3,10 +3,10 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 import React, { useEffect, useMemo, useState } from "react";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 import { useTheme } from "styled-components";
-import { Header, Loading } from "../../../components";
-import { IParkCardProps } from "../../../components/ParkCard/types";
-import { useAuthContext } from "../../../contexts/Auth";
-import { database } from "../../../services/firebase";
+import { Header, Loading } from "components";
+
+import { useAuthContext } from "contexts/Auth";
+import { database } from "services/firebase";
 import {
   Container,
   Schedule,
@@ -23,9 +23,10 @@ import {
   Status,
   Url,
   FooterSchedule,
-} from "../../../styles/pages/schedules/styles";
-import { ISchedule } from "../../../types/Schedules";
+} from "styles/pages/schedules/styles";
+import { ISchedule } from "types/Schedules";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { IPark } from "types/Parks";
 const Schedules = () => {
   const { user } = useAuthContext();
   const [schedules, setSchedules] = useState<ISchedule[]>([]);
@@ -69,7 +70,7 @@ const Schedules = () => {
           );
 
           const res = await getDocs(q);
-          const parkResult = res?.docs[0]?.data() as IParkCardProps;
+          const parkResult = res?.docs[0]?.data() as IPark;
 
           doc.data() as ISchedule;
           return { ...(doc.data() as ISchedule), park: parkResult };
