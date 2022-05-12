@@ -1,3 +1,5 @@
+import { ISpotsProps } from "types/Parks";
+
 export interface IDashboardContextProps {
   menuSelected: string;
   setMenuSelected: React.Dispatch<React.SetStateAction<string>>;
@@ -12,7 +14,7 @@ export interface IDashboardContextProps {
   setSelectedImages: React.Dispatch<React.SetStateAction<IFile[]>>;
   handleDeleteSelectedImage: (name: string) => void;
   handleCreatePark: (values: any) => void;
-  checkedSpot: ICheckedSpot[];
+  checkedSpot: ISpotsProps[];
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   createParkLoading: boolean;
   handleDeletePark: (id: string) => Promise<void>;
@@ -24,27 +26,10 @@ export interface IFile {
   preview: string;
 }
 
-export interface ICheckedSpot {
-  checked: boolean;
-  name: String;
-}
-
 export interface ICreateParkValues {
   name: string;
   address: string;
   state: string;
   period: string;
   price: string;
-}
-
-export interface ICreateParkProps {
-  id: string;
-  name: string;
-  address: string;
-  state: string;
-  period: string;
-  price: string;
-  spots?: ICheckedSpot[];
-  images?: string[];
-  main_image: string;
 }

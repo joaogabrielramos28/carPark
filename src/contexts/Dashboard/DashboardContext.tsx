@@ -3,18 +3,13 @@ import React, { createContext, useCallback, useEffect, useState } from "react";
 import { api } from "services/api";
 import { toastMessage } from "utils/toast";
 import { useAuthContext } from "../Auth";
-import {
-  ICheckedSpot,
-  ICreateParkProps,
-  ICreateParkValues,
-  IDashboardContextProps,
-  IFile,
-} from "./types";
+import { IDashboardContextProps, IFile } from "./types";
 import { uuid } from "uuidv4";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { doc, setDoc, deleteDoc } from "firebase/firestore";
 
 import { database } from "services/firebase";
+import { IPark, ISpotsProps } from "types/Parks";
 
 const DashboardContext = createContext({} as IDashboardContextProps);
 
@@ -42,7 +37,7 @@ const DashboardProvider = ({ children }: { children: React.ReactNode }) => {
   const [imageDropZoneModal, setImageDropZoneModal] = useState(false);
   const [selectedImages, setSelectedImages] = useState<IFile[]>([]);
   const [selectedUser, setSelectedUser] = React.useState<string>("");
-  const [checkedSpot, setCheckedSpot] = useState<ICheckedSpot[]>(
+  const [checkedSpot, setCheckedSpot] = useState<ISpotsProps[]>(
     CHECKED_SPOT_INITIAL_VALUE
   );
   const [createParkLoading, setCreateParkLoading] = useState(false);
@@ -101,7 +96,7 @@ const DashboardProvider = ({ children }: { children: React.ReactNode }) => {
   );
 
   const handleCreatePark = useCallback(
-    async (values: ICreateParkValues) => {
+    async (values: IPark) => {
       setCreateParkLoading(true);
       let imagesUrl: string[] = [];
       selectedImages.map(async (image: any) => {
@@ -113,12 +108,13 @@ const DashboardProvider = ({ children }: { children: React.ReactNode }) => {
           })
           .finally(async () => {
             if (imagesUrl.length === selectedImages.length) {
-              const newPark: ICreateParkProps = {
+              const newPark: IPark = {
                 ...values,
                 id: uuid(),
                 images: imagesUrl,
                 spots: checkedSpot,
                 main_image: imagesUrl[0],
+                created_at: new Date(),
               };
 
               try {
