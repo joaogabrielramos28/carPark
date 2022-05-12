@@ -103,7 +103,7 @@ const ListParks = ({ parks }: IListParkProps) => {
               <col width="5%" />
             </colgroup>
             <TableHead>
-              <TableCell style={{ textAlign: "center" }}>Foto</TableCell>
+              <TableCell style={{ textAlign: "center" }}></TableCell>
               <TableCell style={{ textAlign: "center" }}>Nome</TableCell>
               <TableCell style={{ textAlign: "center" }}>Endereço</TableCell>
               <TableCell style={{ textAlign: "center" }}>Estado</TableCell>
