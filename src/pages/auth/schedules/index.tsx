@@ -69,7 +69,7 @@ const Schedules = () => {
           );
 
           const res = await getDocs(q);
-          const parkResult = res.docs[0].data() as IParkCardProps;
+          const parkResult = res?.docs[0]?.data() as IParkCardProps;
 
           doc.data() as ISchedule;
           return { ...(doc.data() as ISchedule), park: parkResult };
@@ -111,8 +111,6 @@ const Schedules = () => {
     }
   };
 
-  console.log(schedules.length === 0);
-
   return (
     <>
       <Header />
@@ -139,10 +137,10 @@ const Schedules = () => {
                 <strong>{schedules.length}</strong>
               </p>
               <p>
-                Gasto total <strong>R$ {getTotalCost}</strong>
+                Gasto total: <strong>R$ {getTotalCost}</strong>
               </p>
               <p>
-                Dias reservados <strong>{getTotalDays} dias</strong>
+                Dias reservados: <strong>{getTotalDays} dias</strong>
               </p>
             </SchedulesInfo>
 
@@ -156,15 +154,15 @@ const Schedules = () => {
                 {current.map((schedule) => (
                   <Schedule key={schedule.id}>
                     <ScheduleImage
-                      src={schedule.park.main_image || "./placeholder.jpg"}
+                      src={schedule.park?.main_image || "/placeholder.jpg"}
                       width={200}
                       height={200}
                       objectFit="cover"
-                      alt={`Imagem do  ${schedule.park.name}`}
+                      alt={`Imagem do  ${schedule.park?.name}`}
                     />
 
                     <ScheduleDetails>
-                      <Name>{schedule.park.name}</Name>
+                      <Name>{schedule.park?.name || "Park removido"}</Name>
 
                       <Period>
                         <From>

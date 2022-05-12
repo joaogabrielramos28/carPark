@@ -46,6 +46,7 @@ export const ScheduleImage = styled(Image)`
 `;
 
 export const ScheduleDetails = styled.div`
+  width: 300px;
   padding: 8px;
 `;
 
@@ -54,6 +55,7 @@ export const Name = styled.h3`
 `;
 
 export const Period = styled.div`
+  flex: 1;
   margin-top: 10px;
   display: flex;
   align-items: center;
