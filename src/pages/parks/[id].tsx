@@ -145,6 +145,7 @@ const Park = ({ park }: ParkProps) => {
       total_value: totalValue,
       total_period_days: totalperiodDays,
       status: "unpaid",
+      created_at: new Date().toString(),
     };
 
     setLoadingScheduleSubmit(true);

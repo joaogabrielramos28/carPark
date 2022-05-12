@@ -9,7 +9,7 @@ export interface IPark {
   spots: ISpotsProps[];
   state: string;
   rating?: string;
-  created_at?: Date;
+  created_at?: string;
 }
 
 export interface ISpotsProps {

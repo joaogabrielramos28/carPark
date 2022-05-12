@@ -114,7 +114,7 @@ const DashboardProvider = ({ children }: { children: React.ReactNode }) => {
                 images: imagesUrl,
                 spots: checkedSpot,
                 main_image: imagesUrl[0],
-                created_at: new Date(),
+                created_at: new Date().toString(),
               };
 
               try {

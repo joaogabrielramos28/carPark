@@ -11,4 +11,5 @@ export interface ISchedule {
   to: string;
   park: IPark;
   url?: string;
+  created_at?: string;
 }
