@@ -4,7 +4,7 @@ import {
   IResetPassword,
   IUserLoginValues,
   IUserRegisterValues,
-} from "../../types/Form";
+} from "types/Form";
 
 export interface IAuthContext {
   loginWithGithub: (e: FormEvent) => Promise<void>;

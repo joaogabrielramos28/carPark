@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import React, { createContext, useCallback, useEffect, useState } from "react";
-import { api } from "../../services/api";
-import { toastMessage } from "../../utils/toast";
+import { api } from "services/api";
+import { toastMessage } from "utils/toast";
 import { useAuthContext } from "../Auth";
 import {
   ICheckedSpot,
@@ -12,9 +12,9 @@ import {
 } from "./types";
 import { uuid } from "uuidv4";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
-import { collection, query, doc, setDoc, deleteDoc } from "firebase/firestore";
+import { doc, setDoc, deleteDoc } from "firebase/firestore";
 
-import { database } from "../../services/firebase";
+import { database } from "services/firebase";
 
 const DashboardContext = createContext({} as IDashboardContextProps);
 

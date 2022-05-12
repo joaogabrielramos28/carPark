@@ -11,7 +11,7 @@ import React, { createContext, useState } from "react";
 import { useAuthContext } from "../Auth";
 import { IMeContextProps } from "./types";
 import Router from "next/router";
-import { toastMessage } from "../../utils/toast";
+import { toastMessage } from "utils/toast";
 
 const MeContext = createContext({} as IMeContextProps);
 

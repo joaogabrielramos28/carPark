@@ -3,7 +3,6 @@ import React, {
   FormEvent,
   useContext,
   useEffect,
-  useRef,
   useState,
 } from "react";
 import {
@@ -16,16 +15,16 @@ import {
   sendPasswordResetEmail,
   createUserWithEmailAndPassword,
 } from "firebase/auth";
-import { app } from "../../services/firebase";
+import { app } from "services/firebase";
 import { IAuthContext, IUser } from "./types";
-import { setCookie, parseCookies, destroyCookie } from "nookies";
+import { setCookie, destroyCookie } from "nookies";
 import Router, { useRouter } from "next/router";
 import {
   IResetPassword,
   IUserLoginValues,
   IUserRegisterValues,
-} from "../../types/Form";
-import { toastMessage } from "../../utils/toast";
+} from "types/Form";
+import { toastMessage } from "utils/toast";
 
 const AuthContext = createContext({} as IAuthContext);
 
