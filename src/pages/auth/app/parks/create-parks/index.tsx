@@ -129,7 +129,7 @@ const CreateParks = ({ states }: ICreateParkProps) => {
               <InputGroup>
                 <SelectForm
                   label="Periodo"
-                  options={["Diário", "Semanal", "Mensal"]}
+                  options={["Diário"]}
                   onChange={handleChange}
                   value={values.period}
                   name="period"
