@@ -33,6 +33,7 @@ const Schedules = () => {
     prev: 0,
     next: 10,
   });
+  const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [current, setCurrent] = useState<ISchedule[]>([]);
   const theme = useTheme();
@@ -54,6 +55,7 @@ const Schedules = () => {
   };
   useEffect(() => {
     async function getShechedules() {
+      setLoading(true);
       if (user?.user) {
         const q = query(
           collection(database, "schedules"),
@@ -76,6 +78,7 @@ const Schedules = () => {
         const result: ISchedule[] = await Promise.all(schedules);
         setSchedules(result);
         setCurrent(result.slice(visible.prev, visible.next));
+        setLoading(false);
       }
     }
 
@@ -108,15 +111,26 @@ const Schedules = () => {
     }
   };
 
+  console.log(schedules.length === 0);
+
   return (
     <>
       <Header />
       <Container>
-        {schedules.length === 0 ? (
+        {!loading && schedules.length === 0 && (
+          <LoadingContainer>
+            <h2 style={{ color: theme.colors.title }}>
+              Nenhum agendamento encontrado :(
+            </h2>
+          </LoadingContainer>
+        )}
+        {loading && (
           <LoadingContainer>
             <Loading size={80} color={theme.colors.secondary} />
           </LoadingContainer>
-        ) : (
+        )}
+
+        {schedules.length > 0 && (
           <>
             <SchedulesInfo>
               <h1>Detalhes</h1>
