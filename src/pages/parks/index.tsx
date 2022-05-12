@@ -10,8 +10,7 @@ import { collection, getDocs, query, DocumentData } from "firebase/firestore";
 import { database } from "../../services/firebase";
 import { GetServerSideProps, GetStaticProps } from "next";
 import theme from "../../styles/theme";
-import Link from "next/link";
-import { IParkCardProps } from "../../components/ParkCard/types";
+import { IPark } from "../../types/Parks";
 
 const Parks = ({ parks }: DocumentData) => {
   return (
@@ -23,10 +22,10 @@ const Parks = ({ parks }: DocumentData) => {
           <Loading size={100} color={theme.colors.secondary} />
         </ContainerNoParks>
       )}
-      {parks.map((park: IParkCardProps) => (
+      {parks.map((park: IPark) => (
         <ParkCard
           key={park.id}
-          locale={park.locale}
+          state={park.state}
           spots={park.spots}
           name={park.name}
           period={park.period}
@@ -46,7 +45,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const res = await getDocs(q);
   const parksResults = res.docs.map((doc: DocumentData) => {
-    const data = doc.data() as IParkCardProps;
+    const data = doc.data() as IPark;
     doc = {
       ...data,
     };

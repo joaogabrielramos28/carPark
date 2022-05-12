@@ -1,6 +1,6 @@
 export interface IPark {
   id: string;
-  address: string;
+  address?: string;
   images: string[];
   main_image: string;
   name: string;
@@ -8,6 +8,7 @@ export interface IPark {
   price: number;
   spots: ISpotsProps[];
   state: string;
+  rating?: string;
 }
 
 export interface ISpotsProps {

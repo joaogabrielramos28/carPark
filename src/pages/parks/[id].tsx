@@ -9,7 +9,7 @@ import {
 import { GetStaticPaths, GetStaticProps } from "next";
 import React, { useCallback, useMemo, useState } from "react";
 import { BackButton, Carousel, Header, Loading } from "../../components";
-import { IParkCardProps } from "../../components/ParkCard/types";
+
 import { database } from "../../services/firebase";
 import {
   Container,
@@ -49,9 +49,10 @@ import { toastMessage } from "../../utils/toast";
 import { uuid } from "uuidv4";
 import { api } from "../../services/api";
 import { getStripeJs } from "../../services/stripe/stripeJs";
+import { IPark } from "../../types/Parks";
 
 interface ParkProps {
-  park: IParkCardProps;
+  park: IPark;
 }
 
 const Park = ({ park }: ParkProps) => {
@@ -280,7 +281,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const q = query(collection(database, "parks"), where("id", "==", id));
   const res = await getDocs(q);
-  const parkResult = res.docs[0].data() as IParkCardProps;
+  const parkResult = res.docs[0].data() as IPark;
 
   return {
     props: {

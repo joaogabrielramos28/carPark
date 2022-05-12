@@ -17,12 +17,11 @@ import {
 import { AiFillStar } from "react-icons/ai";
 import { FaCarSide, FaTruck } from "react-icons/fa";
 import { RiMotorbikeFill } from "react-icons/ri";
-import { IParkCardProps, ISpotsProps } from "./types";
 import Link from "next/link";
 import { checkSpot } from "../../utils/checkSpot";
+import { IPark } from "../../types/Parks";
 
 const ParkCard = ({
-  locale,
   name,
   spots,
   rating,
@@ -31,7 +30,8 @@ const ParkCard = ({
   id,
   images,
   main_image,
-}: IParkCardProps) => {
+  state,
+}: IPark) => {
   return (
     <Link href={`/parks/${id}`} passHref>
       <Container>
@@ -40,7 +40,7 @@ const ParkCard = ({
         </ParkWrapper>
 
         <ParkInfoWrapper>
-          <ParkAddress>{locale}</ParkAddress>
+          <ParkAddress>{state}</ParkAddress>
           <ParkName>{name}</ParkName>
           <ParkType>
             <FaCarSide color={checkSpot("car", spots)} title="Carro" />
