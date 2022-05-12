@@ -18,7 +18,7 @@ import { GetServerSideProps } from "next";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { database } from "../../../../../services/firebase";
 import { IPark, ISpotsProps } from "../../../../../types/Parks";
-import { FaCarSide, FaTruck } from "react-icons/fa";
+import { FaCarSide, FaTrashAlt, FaTruck } from "react-icons/fa";
 import { RiMotorbikeFill } from "react-icons/ri";
 import { checkSpot } from "../../../../../utils/checkSpot";
 import { ISchedule } from "../../../../../types/Schedules";
@@ -27,6 +27,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { FiMoreVertical } from "react-icons/fi";
 import { useTheme } from "styled-components";
+import { useDashboardContext } from "../../../../../contexts/Dashboard";
 interface ParksProps extends IPark {
   totalSpent: number;
   schedulesCount: number;
@@ -40,6 +41,8 @@ const ListParks = ({ parks }: IListParkProps) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const theme = useTheme();
+
+  const { handleDeletePark } = useDashboardContext();
 
   const handleChangeRowsPerPage = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -91,7 +94,7 @@ const ListParks = ({ parks }: IListParkProps) => {
               <col width="10%" />
               <col width="15%" />
               <col width="15%" />
-              <col width="5%" />
+              <col width="10%" />
               <col width="5%" />
               <col width="15%" />
               <col width="10%" />
@@ -154,46 +157,12 @@ const ListParks = ({ parks }: IListParkProps) => {
                         R$ {park.totalSpent}
                       </TableCell>
                       <TableCell style={{ textAlign: "center" }}>
-                        <>
-                          <IconButton
-                            aria-label="more"
-                            id="long-button"
-                            aria-controls={open ? "long-menu" : undefined}
-                            aria-expanded={open ? "true" : undefined}
-                            aria-haspopup="true"
-                            onClick={handleClick}
-                          >
-                            <FiMoreVertical
-                              size={20}
-                              color={theme.colors.title}
-                            />
-                          </IconButton>
-                          <Menu
-                            id="long-menu"
-                            MenuListProps={{
-                              "aria-labelledby": "long-button",
-                            }}
-                            anchorEl={anchorEl}
-                            open={open}
-                            onClose={handleClose}
-                            PaperProps={{
-                              style: {
-                                maxHeight: ITEM_HEIGHT * 4.5,
-                                width: "20ch",
-                              },
-                            }}
-                          >
-                            <MenuItem
-                              onClick={handleClose}
-                              style={{
-                                width: "100%",
-                                padding: "4px",
-                              }}
-                            >
-                              Deletar
-                            </MenuItem>
-                          </Menu>
-                        </>
+                        <FaTrashAlt
+                          onClick={() => handleDeletePark(park.id)}
+                          size={20}
+                          color={theme.colors.secondary}
+                          style={{ cursor: "pointer" }}
+                        />
                       </TableCell>
                     </TableRow>
                   </>

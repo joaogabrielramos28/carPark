@@ -12,7 +12,7 @@ import {
 } from "./types";
 import { uuid } from "uuidv4";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
-import { collection, query, doc, setDoc } from "firebase/firestore";
+import { collection, query, doc, setDoc, deleteDoc } from "firebase/firestore";
 
 import { database } from "../../services/firebase";
 
@@ -144,6 +144,19 @@ const DashboardProvider = ({ children }: { children: React.ReactNode }) => {
     [selectedImages, checkedSpot, storage, router]
   );
 
+  const handleDeletePark = async (id: string) => {
+    try {
+      const park = doc(database, "parks", id);
+      await deleteDoc(park);
+
+      toastMessage("Parque deletado com sucesso!");
+      router.reload();
+    } catch (err) {
+      console.log(err);
+      toastMessage("Erro ao deletar parque!", "error");
+    }
+  };
+
   useEffect(() => {
     setMenuSelected(router.pathname);
   }, [router]);
@@ -166,6 +179,7 @@ const DashboardProvider = ({ children }: { children: React.ReactNode }) => {
         checkedSpot,
         handleChange,
         createParkLoading,
+        handleDeletePark,
       }}
     >
       {children}

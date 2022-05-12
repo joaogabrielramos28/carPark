@@ -15,6 +15,7 @@ export interface IDashboardContextProps {
   checkedSpot: ICheckedSpot[];
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   createParkLoading: boolean;
+  handleDeletePark: (id: string) => Promise<void>;
 }
 
 export interface IFile {
